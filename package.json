@@ -13,7 +13,13 @@
     "build": "rimraf dist && tsc",
     "add-build": "git add dist",
     "start": "node --env-file=.env src/index.ts",
-    "dev": "node --env-file=.env --watch src/index.ts"
+    "dev": "node --env-file=.env --watch src/index.ts",
+    "prisma:init": "npx prisma migrate dev --name init",
+    "prisma:format": "npx prisma format && npx prisma db push",
+    "prisma:generate": "npx prisma generate",
+    "prisma:migrate": "npx prisma migrate dev",
+    "prisma:reset": "npx prisma migrate reset",
+    "prisma:seed": "npx prisma db seed"
   },
   "pre-commit": [
     "ts.check",
@@ -24,6 +30,7 @@
     "seed": "ts-node prisma/seed"
   },
   "dependencies": {
+    "@prisma/client": "^5.8.1",
     "cors": "^2.8.5",
     "express": "^4.18.2"
   },
