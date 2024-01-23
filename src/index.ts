@@ -1,17 +1,11 @@
-import express, { json, Request, Response } from 'express';
+import express, { Express, Request, Response } from 'express';
 
-const app = express();
-const port = 3000;
+import Server from './server';
 
-// enable JSON body parser
-app.use(json());
+const app: Express = express();
 
 app.get('/', (_: Request, res: Response) => {
   res.send('Hello World!');
 });
 
-app.listen(port, () =>
-  console.log('🚀 Server ready at: http://localhost:3000')
-);
-
-// export default app;
+Server.start(app);

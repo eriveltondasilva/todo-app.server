@@ -8,7 +8,18 @@
     "name": "Erivelton Silva",
     "email": "eriveltondasilva13@gmail.com"
   },
-  "scripts": {},
+  "scripts": {
+    "ts.check": "tsc --project tsconfig.json",
+    "build": "rimraf dist && tsc",
+    "add-build": "git add dist",
+    "start": "node --env-file=.env src/index.ts",
+    "dev": "node --env-file=.env --watch src/index.ts"
+  },
+  "pre-commit": [
+    "ts.check",
+    "build",
+    "add-build"
+  ],
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.18.2"
