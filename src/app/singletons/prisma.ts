@@ -1,23 +1,23 @@
-import { PrismaClient, Prisma } from '@prisma/client';
+import { Prisma, PrismaClient } from '@prisma/client'
 /**
  * @class PrismaSingleton
  * @desc Singleton class for PrismaClient instance
  */
 class PrismaSingleton {
   private static instance: PrismaClient
-  
+
   private constructor() {}
 
   public static getInstance(): PrismaClient {
     if (!PrismaSingleton?.instance) {
-      PrismaSingleton.instance = new PrismaClient();
+      PrismaSingleton.instance = new PrismaClient()
     }
 
     // => Prevent multiple instances
-    return PrismaSingleton.instance;
+    return PrismaSingleton.instance
   }
 }
 
 // ------------------------------------
-const prismaSingleton = PrismaSingleton.getInstance();
-export { Prisma, PrismaClient, prismaSingleton as default };
+const prismaSingleton = PrismaSingleton.getInstance()
+export { Prisma, PrismaClient, prismaSingleton as default }

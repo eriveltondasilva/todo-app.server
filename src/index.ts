@@ -1,11 +1,16 @@
-import express, { Express, Request, Response } from 'express';
+import type { Express, Request, Response } from 'express'
+import express from 'express'
 
-import Server from './server';
+import Server from './server'
 
-const app: Express = express();
+// ====================================
+//* Create instance of Express application
+const app: Express = express()
 
 app.get('/', (_: Request, res: Response) => {
-  res.send('Hello World!');
-});
+  res.send('Hello World!')
+})
 
-Server.start(app);
+// ------------------------------------
+//* Start the server
+Server.start(app)
