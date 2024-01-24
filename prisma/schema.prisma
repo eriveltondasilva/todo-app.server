@@ -13,10 +13,7 @@ datasource db {
 
 // ########
 // MODELS
-enum Role {
-  USER
-  ADMIN
-}
+// ########
 
 model User {
   id    Int     @id @default(autoincrement())
@@ -34,4 +31,13 @@ model Task {
   updated_at   DateTime @updatedAt
   user_id      Int      @default(1)
   user         User     @relation(fields: [user_id], references: [id])
+}
+
+// #########
+// ENUMS
+// ########
+
+enum Role {
+  USER
+  ADMIN
 }

@@ -27,7 +27,7 @@
     "add-build"
   ],
   "prisma": {
-    "seed": "ts-node prisma/seed"
+    "seed": "node prisma/seed"
   },
   "dependencies": {
     "@prisma/client": "^5.8.1",
