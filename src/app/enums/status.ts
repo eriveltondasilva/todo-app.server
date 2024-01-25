@@ -1,5 +1,5 @@
 //# ENUMS FOR HTTP RESPONSES
-export enum StatusEnum {
+export enum ResponseStatusEnum {
   OK = 200,
   CREATED = 201,
   NO_CONTENT = 204,
