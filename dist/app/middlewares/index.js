@@ -12,12 +12,9 @@ const express_1 = require("express");
 class Middlewares {
     /** @desc Adds middlewares to the Express application **/
     static use(App) {
-        App.use((0, cors_1.default)(this.corsOptions));
+        App.use((0, cors_1.default)());
         App.use((0, express_1.json)());
     }
 }
-Middlewares.corsOptions = {
-    origin: '*',
-};
 // --------------------------
 exports.default = Middlewares;
