@@ -12,6 +12,7 @@
   "scripts": {
     "prebuild": "tsc --project tsconfig.json",
     "build": "rimraf dist && tsc",
+    "preinstall": "npm run build",
     "postinstall": "prisma generate",
     "start": "node --env-file=.env src/index.ts",
     "dev": "node --env-file=.env --watch src/index.ts",
