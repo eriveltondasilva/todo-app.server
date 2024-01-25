@@ -1,4 +1,4 @@
-import { Prisma, PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 /**
  * @class PrismaSingleton
  * @desc Singleton class for PrismaClient instance
@@ -20,4 +20,4 @@ class PrismaSingleton {
 
 // ------------------------------------
 const prismaSingleton = PrismaSingleton.getInstance()
-export { Prisma, PrismaClient, prismaSingleton as default }
+export default prismaSingleton
