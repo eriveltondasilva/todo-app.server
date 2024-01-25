@@ -2,7 +2,7 @@ import type { Express } from 'express'
 
 import express from 'express'
 
-import Middlewares from '@/middlewares'
+import Middlewares from './app/middlewares'
 import Routes from './routes'
 import Server from './server'
 

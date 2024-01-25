@@ -1,6 +1,6 @@
-import ResponseService from '@/services/response'
-import prisma from '@/singletons/prisma'
-import { ResponseStatusEnum } from '@/enums/status'
+import ResponseService from '../services/response'
+import prisma from '../singletons/prisma'
+import { ResponseStatusEnum } from '../enums/status'
 
 // --------------------------------------
 class ControllerFactory {

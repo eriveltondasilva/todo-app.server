@@ -1,7 +1,7 @@
-import type { IResponse } from '@/types/response'
+import type { IResponse } from '../types/response'
 import type { Response } from 'express'
 
-import { ResponseStatusEnum } from '@/enums/status'
+import { ResponseStatusEnum } from '../enums/status'
 
 /**
  * @class Response Service Class

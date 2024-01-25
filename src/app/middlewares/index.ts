@@ -1,7 +1,7 @@
 import cors, { CorsOptions } from 'cors'
 import { Express, json } from 'express'
 
-import { APP_HOST } from '@/config/setting'
+import { APP_HOST } from '../config/setting'
 
 /**
  * @class Middlewares
