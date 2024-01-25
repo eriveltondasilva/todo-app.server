@@ -3,14 +3,14 @@ import { PrismaClient } from "@prisma/client";
 /**************************************
  * @class Seeder Abstract Class
  * @classdesc Define an abstract class called Seeder
- */
-abstract class Seeder {
-  protected items: any[] = [];
+ **/
+abstract class Seeder<T> {
+  protected abstract items: T[];
   protected modelName = this.constructor.name.replace('Seeder', '');
 
   constructor(private prisma: PrismaClient) {}
 
-  /** @desc Asynchronously seeds the database with the provided items. */
+  /** @desc Asynchronously seeds the database with the provided items. **/
   async seeding(): Promise<void> {
     console.log('----------------------------------------');
     console.log('Start seeding %s Model...\n', this.modelName);

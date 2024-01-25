@@ -1,13 +1,13 @@
-import { Prisma } from '../../../src/app/singletons/prisma'
+import { Prisma } from '@prisma/client'
 import Seeder from './@seeder'
 
 /**************************************
  * @class Task Seeder
  * @classdesc Class for seeding task data
- */
-class TaskSeeder extends Seeder {
-  /** @desc Array of task data to be seeded */
-  override items: Prisma.TaskCreateInput[] = [
+ **/
+class TaskSeeder extends Seeder<Prisma.TaskCreateInput> {
+  /** @desc Array of task data to be seeded **/
+  items = [
     { title: 'Criado por Erivelton Silva', is_completed: true },
     { title: 'Estudar Novo Framework JavaScript' },
     { title: 'Aprimorar Habilidades de Teste' },

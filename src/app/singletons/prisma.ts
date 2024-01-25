@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client'
+
 /**
  * @class PrismaSingleton
  * @desc Singleton class for PrismaClient instance
