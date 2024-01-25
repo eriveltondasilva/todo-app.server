@@ -1,7 +1,4 @@
-/**
- * @interface IModel
- * @desc Interface for Model
- **/
+/** @desc Interface for Model **/
 export interface IModel {
   findAll(data?: number[]): Promise<any[]>
   findById(id: number): Promise<any>

@@ -8,8 +8,6 @@ import Controller from './@controller'
  * @desc description
  **/
 class TaskController extends Controller {
-  //   constructor() {}
-
   //# TO-DO CONTROLLER METHODS
   // --------------------------
   //* Retrieve all task items
