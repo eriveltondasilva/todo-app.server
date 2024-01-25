@@ -12,8 +12,9 @@
   "scripts": {
     "prebuild": "tsc --project tsconfig.json",
     "build": "rimraf dist && tsc",
+    "postbuild": "git add dist",
     "clean": "rimraf dist",
-    "postinstall": "npx prisma generate && npm run build",
+    "postinstall": "npx prisma generate",
     "start": "node --env-file=.env src/index.ts",
     "dev": "node --env-file=.env --watch src/index.ts",
     "prisma:init": "npx prisma migrate dev --name init",
