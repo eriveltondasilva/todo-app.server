@@ -1,5 +1,10 @@
 import cors from 'cors'
 import { Express, json } from 'express'
+import { APP_HOST } from '../config/constants'
+
+const corsOptions = {
+  origin: APP_HOST,
+}
 
 /**
  * @class Middlewares
@@ -8,7 +13,7 @@ import { Express, json } from 'express'
 class Middlewares {
   /** @desc Adds middlewares to the Express application **/
   static use(App: Express): void {
-    App.use(cors())
+    App.use(cors(corsOptions))
     App.use(json())
   }
 }
