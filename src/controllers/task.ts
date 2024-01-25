@@ -13,7 +13,7 @@ class TaskController extends Controller {
   //# TO-DO CONTROLLER METHODS
   // --------------------------
   //* Retrieve all task items
-  async index(_: Request, res: Response) {
+  async index(_: Request, res: Response): Promise<void> {
     try {
       const tasks = await this.model.findAll()
       return this.response.ok(res, tasks)
@@ -23,7 +23,7 @@ class TaskController extends Controller {
   }
 
   //* Find a task by its ID
-  async show(req: Request, res: Response) {
+  async show(req: Request, res: Response): Promise<void> {
     const { id } = req.params
     const message = { error: 'Task not found' }
 
@@ -37,7 +37,7 @@ class TaskController extends Controller {
   }
 
   //* Create a new task item
-  async create(req: Request, res: Response) {
+  async create(req: Request, res: Response): Promise<void> {
     const body = req.body
     const message = { error: 'Task not created' }
 
@@ -51,7 +51,7 @@ class TaskController extends Controller {
   }
 
   //* Update a task item
-  async update(req: Request, res: Response) {
+  async update(req: Request, res: Response): Promise<void> {
     const { id } = req.params
     const body = req.body
     const message = { error: 'Task not updated' }
@@ -66,7 +66,7 @@ class TaskController extends Controller {
   }
 
   //* Delete a task item.
-  async destroy(req: Request, res: Response) {
+  async destroy(req: Request, res: Response): Promise<void> {
     const { id } = req.params
     const message = { error: 'Task not deleted' }
 
@@ -80,7 +80,7 @@ class TaskController extends Controller {
   }
 
   //* Delete a task item.
-  async destroyMany(req: Request, res: Response) {
+  async destroyMany(req: Request, res: Response): Promise<void> {
     const ids: number[] = req.body.ids
     const message = { error: 'Tasks not deleted' }
 
