@@ -18,11 +18,9 @@ Este é um projeto backend em Node.js para um aplicativo de TODOS, utilizando as
 
 2. **TypeScript**: Uma linguagem de programação que adiciona tipagem estática ao JavaScript.
 
-3. **tsconfig-paths**: Um plugin para o TypeScript que permite o uso de caminhos de importação mais curtos e legíveis.
+3. **ts-node**: Permite a execução direta de arquivos TypeScript sem a necessidade de compilação.
 
-4. **ts-node**: Permite a execução direta de arquivos TypeScript sem a necessidade de compilação.
-
-5. **Prettier**: Uma ferramenta de formatação de código para manter um estilo consistente.
+4. **Prettier**: Uma ferramenta de formatação de código para manter um estilo consistente.
 
 <br>
 
@@ -49,7 +47,7 @@ A estrutura do projeto é organizada da seguinte forma:
 server/
 |-- prisma/
 | |-- migrations/
-| |-- seeds/
+| |-- seed/
 | |-- dev.db
 | |-- schema.prisma
 |-- src/
@@ -62,7 +60,6 @@ server/
 | |-- routes.ts
 | |-- server.ts
 |-- .env
-|-- .gitignore
 |-- package.json
 |-- readme.md
 |-- tsconfig.json
@@ -84,11 +81,6 @@ O arquivo `tsconfig.json` é configurado da seguinte maneira:
   "compilerOptions": {
     "target": "es2016",
     "module": "commonjs",
-    "rootDirs": ["./src/*", "./src/**/*", "./prisma/**/*.ts"],
-    "baseUrl": "./",
-    "paths": {
-      "@/*": ["./src/*", "./src/app/*"]
-    },
     "outDir": "./dist/",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
@@ -122,7 +114,7 @@ O arquivo `tsconfig.json` é configurado da seguinte maneira:
     "trailingComma": "es5"
   },
   "prisma": {
-    "seed": "ts-node ./prisma/seeds/index.ts"
+    "seed": "ts-node prisma/seed"
   }
 }
 ```
@@ -133,9 +125,8 @@ O arquivo `tsconfig.json` é configurado da seguinte maneira:
 
 ```js
 # Configurações para execução de TypeScript com Node.js
-NODE_OPTIONS="-r ts-node/register -r tsconfig-paths/register --no-warnings --trace-warnings"
+NODE_OPTIONS="-r ts-node/register --no-warnings --trace-warnings"
 
 # Configurações para o aplicativo
 APP_PORT=3000
-DATABASE_URL="file:dev.db"
 ```
