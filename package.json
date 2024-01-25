@@ -12,7 +12,6 @@
   "scripts": {
     "prebuild": "tsc --project tsconfig.json",
     "build": "rimraf dist && tsc",
-    "postbuild": "git add dist",
     "postinstall": "prisma generate",
     "start": "node --env-file=.env src/index.ts",
     "dev": "node --env-file=.env --watch src/index.ts",
@@ -40,6 +39,7 @@
     "prisma": "^5.8.1",
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
     "tslib": "^2.6.2",
     "typescript": "^5.3.3"
   }

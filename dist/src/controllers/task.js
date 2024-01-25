@@ -18,7 +18,6 @@ const _controller_1 = __importDefault(require("./@controller"));
  * @desc description
  **/
 class TaskController extends _controller_1.default {
-    //   constructor() {}
     //# TO-DO CONTROLLER METHODS
     // --------------------------
     //* Retrieve all task items

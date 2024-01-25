@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+
 import TaskSeeder from './seeders/task';
 import UserSeeder from './seeders/user';
 

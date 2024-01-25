@@ -5,8 +5,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @description A service class for handling HTTP responses with standardized status codes.
  **/
 class ResponseService {
-    constructor() {
-        this.status = StatusEnum;
+    constructor(status) {
+        this.status = status;
     }
     //# RESPONSE SERVICE METHODS
     // --------------------------
@@ -33,17 +33,5 @@ class ResponseService {
         return this.sendResponse(res, this.status.SERVER_ERROR, body);
     }
 }
-//
-var StatusEnum;
-(function (StatusEnum) {
-    StatusEnum[StatusEnum["OK"] = 200] = "OK";
-    StatusEnum[StatusEnum["CREATED"] = 201] = "CREATED";
-    StatusEnum[StatusEnum["NO_CONTENT"] = 204] = "NO_CONTENT";
-    StatusEnum[StatusEnum["BAD_REQUEST"] = 400] = "BAD_REQUEST";
-    StatusEnum[StatusEnum["UNAUTHORIZED"] = 401] = "UNAUTHORIZED";
-    StatusEnum[StatusEnum["FORBIDDEN"] = 403] = "FORBIDDEN";
-    StatusEnum[StatusEnum["NOT_FOUND"] = 404] = "NOT_FOUND";
-    StatusEnum[StatusEnum["SERVER_ERROR"] = 500] = "SERVER_ERROR";
-})(StatusEnum || (StatusEnum = {}));
 // --------------------------
 exports.default = ResponseService;

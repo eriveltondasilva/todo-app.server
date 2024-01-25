@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const setting_1 = require("../src/app/config/setting");
+const setting_1 = require("@/config/setting");
 /** --------------------------
  * @class Server
  * @desc Represents a server that starts and listens for incoming connections.

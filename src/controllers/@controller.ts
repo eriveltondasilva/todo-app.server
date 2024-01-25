@@ -1,5 +1,5 @@
-import type { IModel } from '../app/@types/model'
-import type { IResponse } from '../app/@types/response'
+import type { IModel } from '@/types/model'
+import type { IResponse } from '@/types/response'
 
 /** --------------------------
  * @class BaseController
@@ -10,7 +10,7 @@ abstract class Controller {
 
   constructor(
     protected response: IResponse,
-    protected model: IModel
+    protected model: IModel,
   ) {
     this.bindMethods()
   }

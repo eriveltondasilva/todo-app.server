@@ -1,4 +1,5 @@
 import { Prisma, Role } from '@prisma/client'
+
 import Seeder from './@seeder'
 
 /**************************************

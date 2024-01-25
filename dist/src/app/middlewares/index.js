@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const cors_1 = __importDefault(require("cors"));
 const express_1 = require("express");
-const setting_1 = require("../config/setting");
+const setting_1 = require("@/config/setting");
 /**
  * @class Middlewares
  * @desc A class that contains middlewares for the server

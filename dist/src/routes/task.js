@@ -4,9 +4,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const controllerFactory_1 = __importDefault(require("../app/factories/controllerFactory"));
-const task_1 = __importDefault(require("../controllers/task"));
-const task_2 = __importDefault(require("../models/task"));
+const controllerFactory_1 = __importDefault(require("@/factories/controllerFactory"));
+const task_1 = __importDefault(require("@/controllers/task"));
+const task_2 = __importDefault(require("@/models/task"));
 // ------------------------------------
 //# Instances
 const router = (0, express_1.Router)();
