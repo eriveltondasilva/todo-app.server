@@ -12,8 +12,8 @@
   "scripts": {
     "prebuild": "tsc --project tsconfig.json",
     "build": "rimraf dist && tsc",
-    "preinstall": "npm run build",
-    "postinstall": "prisma generate",
+    "clean": "rimraf dist",
+    "vercel-build": "npm run build && npm run prisma:generate",
     "start": "node --env-file=.env src/index.ts",
     "dev": "node --env-file=.env --watch src/index.ts",
     "prisma:init": "npx prisma migrate dev --name init",
