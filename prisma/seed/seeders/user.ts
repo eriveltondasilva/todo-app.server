@@ -12,7 +12,7 @@ class UserSeeder extends Seeder<Prisma.UserCreateInput> {
     { name: 'Bobo', email: 'Bobo@prisma.io' },
     { name: 'Yewande', email: 'yewande@prisma.io' },
     { name: 'Angelique', email: 'angelique@prisma.io' },
-    { name: 'Erivelton Silva', email: 'erivelton@prisma.io', Role: Role.ADMIN },
+    { name: 'Erivelton Silva', email: 'erivelton@prisma.io', role: Role.ADMIN },
   ]
 }
 
