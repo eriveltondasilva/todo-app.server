@@ -3,8 +3,7 @@
     {
       "src": "dist/index.js",
       "use": "@vercel/node",
-      "config": { "includeFiles": ["dist/**"] },
-      "postinstall": "npm run build"
+      "config": { "includeFiles": ["dist/**"] }
     }
   ],
   "routes": [
