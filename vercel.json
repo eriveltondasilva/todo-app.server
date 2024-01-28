@@ -3,8 +3,8 @@
     {
       "src": "dist/index.js",
       "use": "@vercel/node",
-      "postinstall": "npm run build",
-      "config": { "includeFiles": ["dist/**", "prisma/dev.db"] }
+      "config": { "includeFiles": ["dist/**", "prisma/dev.db"] },
+      "postinstall": "npm run build"
     }
   ],
   "routes": [
