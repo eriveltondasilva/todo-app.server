@@ -7,10 +7,10 @@ import TaskModel from '../models/task'
 // ------------------------------------
 //# Instances
 const router = Router()
+const taskController = ControllerFactory.create(TaskController, TaskModel)
 
 // ------------------------------------
 //# Todo Controller Methods
-const taskController = ControllerFactory.create(TaskController, TaskModel)
 const { index, show, create, update, destroy, destroyMany } = taskController
 
 // ------------------------------------

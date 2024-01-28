@@ -1,5 +1,5 @@
-import type { IResponse } from '../types/response'
 import type { Response } from 'express'
+import type { IResponse } from '../types/response'
 
 import { ResponseStatusEnum } from '../enums/status'
 
@@ -17,7 +17,7 @@ class ResponseService implements IResponse {
   }
 
   // --------------------------
-  ok(res: Response, body: any) {
+  ok(res: Response, body?: any) {
     return this.sendResponse(res, this.status.OK, body)
   }
 

@@ -7,3 +7,7 @@ export interface IModel {
   deleteById(id: number): Promise<void>
   destroyManyById(data?: number[]): Promise<void>
 }
+
+export interface IUserModel extends IModel {
+  findByEmail(email: string): Promise<any>
+}
