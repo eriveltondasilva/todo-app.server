@@ -1,4 +1,4 @@
-import { Prisma, Role } from '@prisma/client'
+import { Prisma } from '@prisma/client'
 
 import Seeder from './@seeder'
 
@@ -12,7 +12,7 @@ class UserSeeder extends Seeder<Prisma.UserCreateInput> {
     { name: 'Bobo', email: 'Bobo@prisma.io' },
     { name: 'Yewande', email: 'yewande@prisma.io' },
     { name: 'Angelique', email: 'angelique@prisma.io' },
-    { name: 'Erivelton Silva', email: 'erivelton@prisma.io', role: Role.ADMIN },
+    { name: 'Erivelton Silva', email: 'erivelton@prisma.io', role: 'ADMIN' },
   ]
 }
 

@@ -1,15 +1,16 @@
 {
-    "builds": [
-      {
-        "src": "dist/index.js",
-        "use": "@vercel/node",
-        "config": { "includeFiles": ["dist/**"] }
-      }
-    ],
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "dist/index.js"
-      }
-    ]
-  }
+  "builds": [
+    {
+      "src": "dist/index.js",
+      "use": "@vercel/node",
+      "config": { "includeFiles": ["dist/**"] },
+      "postinstall": "npm run build"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "dist/index.js"
+    }
+  ]
+}

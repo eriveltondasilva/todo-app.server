@@ -6,10 +6,15 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("POSTGRES_PRISMA_URL")
-  directUrl = env("POSTGRES_URL_NON_POOLING")
+  provider = "sqlite"
+  url      = "file:./dev.db"
 }
+
+// datasource db {
+//   provider  = "postgresql"
+//   url       = env("POSTGRES_PRISMA_URL")
+//   directUrl = env("POSTGRES_URL_NON_POOLING")
+// }
 
 // ########
 // MODELS
@@ -19,7 +24,7 @@ model User {
   id    Int     @id @default(autoincrement())
   email String  @unique
   name  String?
-  role  Role    @default(USER)
+  role  String  @default("USER")
   Task  Task[]
 }
 
@@ -36,8 +41,3 @@ model Task {
 // #########
 // ENUMS
 // ########
-
-enum Role {
-  USER
-  ADMIN
-}
