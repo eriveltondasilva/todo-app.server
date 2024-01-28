@@ -1,6 +1,9 @@
 import type { Express } from 'express'
 
-import task from './task'
+import authRoutes from './auth'
+import taskRoutes from './task'
+
+const routes = [taskRoutes, authRoutes]
 
 /** --------------------------
  * @class Routes
@@ -9,8 +12,7 @@ import task from './task'
 class Routes {
   /** @desc Configures the routes for the Express app **/
   static use(app: Express): void {
-    app.use('/api', task)
-    // App.use('/api', [])
+    app.use('/api', routes)
   }
 }
 
