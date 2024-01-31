@@ -1,8 +1,11 @@
-import bcrypt from 'bcrypt'
+import type { IUserModel } from 'app/types/model'
+import type { IResponse } from 'app/types/response'
 import type { Request, Response } from 'express'
-import type { IUserModel } from '../app/types/model'
-import type { IResponse } from '../app/types/response'
 
+import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
+
+import { SECRET_JWT } from 'app/config/constants'
 import Controller from './@controller'
 
 // ------------------------------------
@@ -15,6 +18,8 @@ class AuthController extends Controller {
   }
 
   //# Auth Methods
+  // --------------------------
+  //* Signup user
   async signup(req: Request, res: Response): Promise<void> {
     const { name, email, password } = req.body
     const validationError = { error: 'Email and password are required' }
@@ -50,18 +55,39 @@ class AuthController extends Controller {
     }
   }
 
-  //
+  //* Login user
+  async login(req: Request, res: Response): Promise<void> {
+    const { email, password } = req.body
+    // Error massage
+    const validationError = { error: 'Email and password are required' }
+    const userNotFoundError = { error: 'User not found' }
+    const wrongPasswordError = { error: 'Wrong password' }
 
-  //
+    // Validate user
+    if (!email || !password) {
+      return this.response.badRequest(res, validationError)
+    }
 
-  // TODO: Implement Login
-  async login(_: Request, res: Response): Promise<void> {
-    return this.response.ok(res, { msg: 'teste' })
+    // Find user
+    const user = await this.model.findByEmail(String(email))
+    if (!user) {
+      return this.response.badRequest(res, userNotFoundError)
+    }
+
+    // Check password
+    const isPasswordCorrect = await bcrypt.compare(String(password), user.password)
+    if (!isPasswordCorrect) {
+      return this.response.badRequest(res, wrongPasswordError)
+    }
+
+    const token = jwt.sign({ id: user.id }, SECRET_JWT, { expiresIn: '1h' })
+
+    // Login user
+    return this.response.ok(res, { token: token })
   }
 
-  async logout(_: Request, res: Response): Promise<void> {
-    return this.response.ok(res)
-  }
+  // * Logout user
+  async logout(_: Request, res: Response): Promise<void> {}
 }
 
 // ------------------------------------
