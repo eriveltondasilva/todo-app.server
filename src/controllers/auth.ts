@@ -1,15 +1,25 @@
-import type { IUserModel } from 'app/types/model'
-import type { IResponse } from 'app/types/response'
-import type { Request, Response } from 'express'
+import { Request, Response } from 'express'
+import type { IUserModel } from '../app/types/model'
+import type { IResponse } from '../app/types/response'
 
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
-import { SECRET_JWT } from 'app/config/constants'
+import { SECRET_JWT } from '../app/config/constants'
 import Controller from './@controller'
 
 // ------------------------------------
 class AuthController extends Controller {
+  // Error massages
+  private readonly errors = {
+    createUser: 'Error creating user',
+    userExists: 'User already exists',
+    userNotFound: 'User not found',
+    validation: 'Email and password are required',
+    wrongPassword: 'Wrong password',
+    login: 'Login failed',
+  }
+
   constructor(
     protected response: IResponse,
     protected model: IUserModel,
@@ -22,72 +32,83 @@ class AuthController extends Controller {
   //* Signup user
   async signup(req: Request, res: Response): Promise<void> {
     const { name, email, password } = req.body
-    const validationError = { error: 'Email and password are required' }
-    const userExistsError = { error: 'User already exists' }
-    const createUserError = { error: 'User not created' }
 
-    // Validate user
+    // Validate user input
     if (!email || !password) {
-      return this.response.badRequest(res, validationError)
+      return this.response.badRequest(res, this.errors.validation)
     }
 
     // Check if user already exists
-    const user = await this.model.findByEmail(String(email))
+    const existingUser = await this.model.findByEmail(String(email))
 
-    if (user) {
-      return this.response.badRequest(res, userExistsError)
+    if (existingUser) {
+      return this.response.badRequest(res, this.errors.userExists)
     }
 
-    // Hash the password
-    const hashedPassword = await bcrypt.hash(String(password), 8)
-
-    // Create user
     try {
+      // Hash the password
+      const hashedPassword = await bcrypt.hash(String(password), 8)
+
+      // Create user
       const newUser = await this.model.create({
-        name: String(name),
+        name: String(name || ''),
         email: String(email),
         password: hashedPassword,
       })
-      return this.response.created(res, newUser)
+
+      // Create a subset of user data for response
+      const userSubset = {
+        id: newUser.id,
+        name: newUser.name,
+        email: newUser.email,
+      }
+
+      // Respond with the created user subset
+      return this.response.created(res, userSubset)
     } catch (error) {
       console.error(error)
-      return this.response.badRequest(res, createUserError)
+      return this.response.badRequest(res, this.errors.createUser)
     }
   }
 
   //* Login user
   async login(req: Request, res: Response): Promise<void> {
     const { email, password } = req.body
-    // Error massage
-    const validationError = { error: 'Email and password are required' }
-    const userNotFoundError = { error: 'User not found' }
-    const wrongPasswordError = { error: 'Wrong password' }
 
-    // Validate user
+    // Validate user input
     if (!email || !password) {
-      return this.response.badRequest(res, validationError)
+      return this.response.badRequest(res, this.errors.validation)
     }
 
-    // Find user
-    const user = await this.model.findByEmail(String(email))
-    if (!user) {
-      return this.response.badRequest(res, userNotFoundError)
+    // Find user by email
+    const foundUser = await this.model.findByEmail(String(email))
+
+    if (!foundUser) {
+      return this.response.badRequest(res, this.errors.userNotFound)
     }
 
-    // Check password
-    const isPasswordCorrect = await bcrypt.compare(String(password), user.password)
+    // Check if the password is correct
+    const isPasswordCorrect = await bcrypt.compare(String(password), foundUser.password)
+
     if (!isPasswordCorrect) {
-      return this.response.badRequest(res, wrongPasswordError)
+      return this.response.badRequest(res, this.errors.wrongPassword)
     }
 
-    const token = jwt.sign({ id: user.id }, SECRET_JWT, { expiresIn: '1h' })
+    try {
+      // Generate JWT token
+      const token = jwt.sign({ id: foundUser.id }, SECRET_JWT, { expiresIn: '1h' })
 
-    // Login user
-    return this.response.ok(res, { token: token })
+      // Login user
+      return this.response.ok(res, { token })
+    } catch (error) {
+      console.error(error)
+      return this.response.serverError(res, this.errors.login)
+    }
   }
 
   // * Logout user
-  async logout(_: Request, res: Response): Promise<void> {}
+  // TODO: Implement this method later
+  async logout(_: Request, res: Response): Promise<void> { }
 }
 
 // ------------------------------------
