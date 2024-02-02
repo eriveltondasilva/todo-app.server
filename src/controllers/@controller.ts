@@ -1,5 +1,5 @@
-import type { IModel } from '../app/types/model'
-import type { IResponse } from '../app/types/response'
+import type { IModel } from '@app/types/model'
+import type { IResponse } from '@app/types/response'
 
 /** --------------------------
  * @class BaseController

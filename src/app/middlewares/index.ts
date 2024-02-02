@@ -1,9 +1,10 @@
 import { Express, json } from 'express'
-import { APP_HOST } from '../config/constants'
 
-const corsOptions = {
-  origin: APP_HOST,
-}
+// import { APP_HOST } from '@/config/constants'
+
+// const corsOptions = {
+//   origin: APP_HOST,
+// }
 
 /**
  * @class Middlewares

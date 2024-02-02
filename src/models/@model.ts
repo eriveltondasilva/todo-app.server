@@ -1,5 +1,5 @@
-import type { IModel } from '../app/types/model'
-import type { PrismaClient } from '@prisma/client'
+import type { IModel } from '@app/types/model'
+import { PrismaClient } from '@prisma/client'
 
 /**
  * @class Model
@@ -8,7 +8,7 @@ import type { PrismaClient } from '@prisma/client'
 abstract class Model implements IModel {
   protected modelName: string = this.constructor.name.toLowerCase().replace('model', '')
 
-  constructor(protected model: PrismaClient) {}
+  constructor(protected model: PrismaClient) { }
 
   //# BASE MODEL METHODS
   // --------------------------

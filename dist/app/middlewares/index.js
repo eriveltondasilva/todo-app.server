@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const constants_1 = require("../config/constants");
-const corsOptions = {
-    origin: constants_1.APP_HOST,
-};
+// import { APP_HOST } from '@/config/constants'
+// const corsOptions = {
+//   origin: APP_HOST,
+// }
 /**
  * @class Middlewares
  * @desc A class that contains middlewares for the server

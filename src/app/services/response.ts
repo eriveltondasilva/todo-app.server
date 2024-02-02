@@ -1,4 +1,4 @@
-import type { Response } from 'express'
+import { Response } from 'express'
 import type { IResponse } from '../types/response'
 
 import { ResponseStatusEnum } from '../enums/status'
@@ -8,7 +8,7 @@ import { ResponseStatusEnum } from '../enums/status'
  * @description A service class for handling HTTP responses with standardized status codes.
  **/
 class ResponseService implements IResponse {
-  constructor(private status: typeof ResponseStatusEnum) {}
+  constructor(private status: typeof ResponseStatusEnum) { }
 
   //# RESPONSE SERVICE METHODS
   // --------------------------

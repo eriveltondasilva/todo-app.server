@@ -1,7 +1,8 @@
 import { Router } from 'express'
-import ControllerFactory from '../app/factories/controllerFactory'
-import AuthController from '../controllers/auth'
-import UserModel from '../models/user'
+
+import ControllerFactory from '@app/factories/controllerFactory'
+import AuthController from '@controllers/auth'
+import UserModel from '@models/user'
 
 // ------------------------------------
 //# Instances

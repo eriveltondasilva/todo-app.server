@@ -1,5 +1,5 @@
 import type { Prisma } from '@prisma/client'
-import type { Request, Response } from 'express'
+import { Request, Response } from 'express'
 
 import Controller from './@controller'
 

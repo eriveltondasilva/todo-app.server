@@ -1,6 +1,8 @@
+import type { IUserModel } from '@app/types/model'
 import { PrismaClient } from '@prisma/client'
-import { IUserModel } from '../app/types/model'
+
 import Model from './@model'
+
 /** --------------------------
  * @class User Model Class
  * @desc description

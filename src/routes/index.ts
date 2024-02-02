@@ -1,4 +1,4 @@
-import type { Express, Router } from 'express';
+import { Express, Router } from 'express';
 
 import authRoutes from './auth';
 import taskRoutes from './task';
