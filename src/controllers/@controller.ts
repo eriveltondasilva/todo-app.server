@@ -1,14 +1,16 @@
 import type { IModel } from '@/types/model'
 import type { IResponse } from '@/types/response'
+import { inject, injectable } from 'tsyringe'
 
 // ====================================
 /** @class Base Controller Class */
-abstract class Controller {
+@injectable()
+class Controller {
   protected methods = this.getMethods(this)
 
   constructor(
-    protected response: IResponse,
-    protected model: IModel,
+    @inject('IResponse') protected response: IResponse,
+    @inject('IModel') protected model: IModel,
   ) {
     this.bindMethods()
   }

@@ -8,7 +8,7 @@ import { ResponseStatusEnum } from '../enums/status'
  * @description A service class for handling HTTP responses with standardized status codes.
  **/
 class ResponseService implements IResponse {
-  constructor(private status: typeof ResponseStatusEnum) { }
+  protected readonly status = ResponseStatusEnum
 
   //# RESPONSE SERVICE METHODS
   // --------------------------

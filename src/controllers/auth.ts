@@ -6,10 +6,12 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 import { SECRET_JWT } from '@/config/constants'
+import { inject, injectable } from 'tsyringe'
 import Controller from './@controller'
 
 // ====================================
 /** @class Auth Controller Class */
+@injectable()
 class AuthController extends Controller {
   //* Error massages
   private readonly errors = {
@@ -22,8 +24,8 @@ class AuthController extends Controller {
   }
 
   constructor(
-    protected response: IResponse,
-    protected model: IUserModel,
+    @inject('IResponse') protected response: IResponse,
+    @inject('IUserModel') protected model: IUserModel,
   ) {
     super(response, model)
   }

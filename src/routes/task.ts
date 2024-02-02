@@ -1,17 +1,27 @@
-import { Router } from 'express'
+import { Router } from 'express';
 
-import TaskController from '@/controllers/task'
-import ControllerFactory from '@/factories/controllerFactory'
-import TaskModel from '@/models/task'
+import TaskController from '@/controllers/task';
+import TaskModel from '@/models/task';
+import ResponseService from '@/services/response';
+import prisma from '@/singletons/prisma';
 
 // ------------------------------------
 //# Instances
 const router = Router()
-const taskController = ControllerFactory.create(TaskController, TaskModel)
+const response = new ResponseService()
+const taskModel = new TaskModel(prisma)
+const taskController = new TaskController(response, taskModel)
 
 // ------------------------------------
 //# Todo Controller Methods
-const { index, show, create, update, destroy, destroyMany } = taskController
+const {
+    index,
+    show,
+    create,
+    update,
+    destroy,
+    destroyMany
+} = taskController
 
 // ------------------------------------
 //# Middlewares

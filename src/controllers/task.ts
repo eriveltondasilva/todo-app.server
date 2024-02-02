@@ -1,10 +1,12 @@
 import type { Prisma } from '@prisma/client'
 import { Request, Response } from 'express'
 
+import { injectable } from 'tsyringe'
 import Controller from './@controller'
 
 // ====================================
 /** @class Task Controller Class */
+@injectable()
 class TaskController extends Controller {
   //# TO-DO CONTROLLER METHODS
   // --------------------------
