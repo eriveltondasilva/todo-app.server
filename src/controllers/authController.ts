@@ -109,7 +109,7 @@ class AuthController extends Controller {
 
   // * Logout user
   // TODO: Implement this method later
-  async logout(_: Request, res: Response): Promise<void> { }
+  async logout(_: Request, res: Response): Promise<void> {}
 }
 
 // ------------------------------------

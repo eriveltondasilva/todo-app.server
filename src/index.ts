@@ -1,8 +1,8 @@
-import express, { Express } from 'express';
+import express, { Express } from 'express'
 
-import Middlewares from '@/middlewares';
-import Routes from './routes';
-import Server from './server';
+import Middlewares from '@/middlewares'
+import Routes from './routes'
+import Server from './server'
 
 // ====================================
 //* Create instance of Express application

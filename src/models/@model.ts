@@ -6,7 +6,7 @@ import { PrismaClient } from '@prisma/client'
 class Model implements IModel {
   protected modelName: string = this.constructor.name.toLowerCase().replace('model', '')
 
-  constructor(protected model: PrismaClient) { }
+  constructor(protected model: PrismaClient) {}
 
   //# BASE MODEL METHODS
   // --------------------------
@@ -78,7 +78,6 @@ class Model implements IModel {
       },
     })
   }
-
 }
 
 // --------------------------
