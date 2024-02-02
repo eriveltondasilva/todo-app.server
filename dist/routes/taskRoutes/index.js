@@ -4,10 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const taskController_1 = __importDefault(require("../controllers/taskController"));
-const taskModel_1 = __importDefault(require("../models/taskModel"));
-const response_1 = __importDefault(require("../app/services/response"));
-const prisma_1 = __importDefault(require("../app/singletons/prisma"));
+const taskController_1 = __importDefault(require("../../controllers/taskController"));
+const taskModel_1 = __importDefault(require("../../models/taskModel"));
+const response_1 = __importDefault(require("../../app/services/response"));
+const prisma_1 = __importDefault(require("../../app/singletons/prisma"));
 const router = (0, express_1.Router)();
 const response = new response_1.default();
 const taskModel = new taskModel_1.default(prisma_1.default);
