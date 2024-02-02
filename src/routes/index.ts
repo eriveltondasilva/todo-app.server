@@ -1,7 +1,7 @@
 import { Express, Router } from 'express';
 
-import authRoutes from './auth';
-import taskRoutes from './task';
+import authRoutes from './authRoutes';
+import taskRoutes from './taskRoutes';
 
 /** --------------------------
  * @class Routes
