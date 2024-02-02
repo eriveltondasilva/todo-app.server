@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
-import AuthController from '@/controllers/auth';
-import UserModel from '@/models/user';
+import AuthController from '@/controllers/authController';
+import UserModel from '@/models/userModel';
 import ResponseService from '@/services/response';
 import prisma from '@/singletons/prisma';
 

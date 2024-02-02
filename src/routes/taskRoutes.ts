@@ -1,13 +1,14 @@
 import { Router } from 'express';
 
-import TaskController from '@/controllers/task';
-import TaskModel from '@/models/task';
+import TaskController from '@/controllers/taskController';
+import TaskModel from '@/models/taskModel';
 import ResponseService from '@/services/response';
 import prisma from '@/singletons/prisma';
 
 // ------------------------------------
 //# Instances
 const router = Router()
+
 const response = new ResponseService()
 const taskModel = new TaskModel(prisma)
 const taskController = new TaskController(response, taskModel)

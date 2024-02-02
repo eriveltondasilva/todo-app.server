@@ -1,5 +1,5 @@
-import type { IUserModel } from '@/types/model'
-import type { IResponse } from '@/types/response'
+import { IUserModel } from '@/types/model'
+import { IResponse } from '@/types/response'
 import { Request, Response } from 'express'
 
 import bcrypt from 'bcrypt'
