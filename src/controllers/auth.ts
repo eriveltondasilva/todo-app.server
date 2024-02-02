@@ -8,9 +8,10 @@ import jwt from 'jsonwebtoken'
 import { SECRET_JWT } from '@/config/constants'
 import Controller from './@controller'
 
-// ------------------------------------
+// ====================================
+/** @class Auth Controller Class */
 class AuthController extends Controller {
-  // Error massages
+  //* Error massages
   private readonly errors = {
     createUser: 'Error creating user',
     userExists: 'User already exists',

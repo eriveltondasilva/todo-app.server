@@ -3,10 +3,8 @@ import { Request, Response } from 'express'
 
 import Controller from './@controller'
 
-/**
- * @class Todo Controller Class
- * @desc description
- **/
+// ====================================
+/** @class Task Controller Class */
 class TaskController extends Controller {
   //# TO-DO CONTROLLER METHODS
   // --------------------------

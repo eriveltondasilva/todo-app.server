@@ -1,3 +1,5 @@
+import "reflect-metadata";
+
 import express, { Express } from 'express';
 
 import Middlewares from '@/middlewares';

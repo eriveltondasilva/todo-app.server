@@ -1,10 +1,8 @@
 import type { IModel } from '@/types/model'
 import type { IResponse } from '@/types/response'
 
-/** --------------------------
- * @class BaseController
- * @desc Base Controller Class
- */
+// ====================================
+/** @class Base Controller Class */
 abstract class Controller {
   protected methods = this.getMethods(this)
 

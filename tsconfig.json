@@ -10,7 +10,6 @@
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
     "target": "es2016",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
-
     "module": "commonjs",                                /* Specify what module code is generated. */
     "rootDir": "./src",                                  /* Specify the root folder within your source files. */
     "baseUrl": ".",                                      /* Specify the base directory to resolve non-relative module names. */
@@ -19,17 +18,16 @@
       "@/controllers/*": ["./src/controllers/*"],
       "@/models/*": ["./src/models/*"],
       "@/routes/*": ["./src/routes/*"],
-      // "@app/*": ["./src/app/*"],
-      // "@models/*" : ["./src/models/*"],
-      // "@controllers/*" : ["./src/controllers/*"],
     },                                                   /* Specify a set of entries that re-map imports to additional lookup locations. */
     // "rootDirs": ["src/", "prisma/"],                  /* Allow multiple folders to be treated as one when resolving modules. */
     "removeComments": true,
-    "outDir": "./dist",                                    /* Specify an output folder for all emitted files. */
+    "outDir": "./dist",                                  /* Specify an output folder for all emitted files. */
     "esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */
     "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
     "strict": true,                                      /* Enable all strict type-checking options. */
-    "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+    "skipLibCheck": true,                                /* Skip type checking all .d.ts files. */
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": ["./src/*"],
   "exclude": ["node_modules", "./dist"]
