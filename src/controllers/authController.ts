@@ -78,26 +78,33 @@ class AuthController extends Controller {
 
     // Validate user input
     if (!email || !password) {
-      return this.response.badRequest(res, this.errors.validation)
+      return this.response.unauthorized(res, this.errors.validation)
     }
 
+    // -------------------------------------------------
     // Find user by email
     const foundUser = await this.model.findByEmail(String(email))
 
     if (!foundUser) {
-      return this.response.badRequest(res, this.errors.userNotFound)
+      return this.response.unauthorized(res, this.errors.userNotFound)
     }
 
+    // -------------------------------------------------
     // Check if the password is correct
     const isPasswordCorrect = await bcrypt.compare(String(password), foundUser.password)
 
     if (!isPasswordCorrect) {
-      return this.response.badRequest(res, this.errors.wrongPassword)
+      return this.response.unauthorized(res, this.errors.wrongPassword)
     }
 
     try {
       // Generate JWT token
-      const token = jwt.sign({ id: foundUser.id }, SECRET_JWT, { expiresIn: '1h' })
+      // prettier-ignore
+      const token = jwt.sign(
+        { id: foundUser.id, email: foundUser.email },
+        SECRET_JWT,
+        { expiresIn: '1h' },
+      )
 
       // Login user
       return this.response.ok(res, { token })

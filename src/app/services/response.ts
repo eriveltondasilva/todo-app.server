@@ -33,6 +33,10 @@ class ResponseService implements IResponse {
     return this.sendResponse(res, this.status.BAD_REQUEST, body)
   }
 
+  unauthorized(res: Response, body: any) {
+    return this.sendResponse(res, this.status.UNAUTHORIZED, body)
+  }
+
   notFound(res: Response, body: any) {
     return this.sendResponse(res, this.status.NOT_FOUND, body)
   }
