@@ -12,6 +12,7 @@
   "scripts": {
     "postinstall": "npx prisma generate",
     "prebuild": "npm run clean",
+    "postbuild": "git add dist",
     "build": "npm run compile && tsc-alias -p tsconfig.json",
     "clean": "rimraf ./dist",
     "compile": "tsc --project tsconfig.json",
