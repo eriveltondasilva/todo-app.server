@@ -1,8 +1,8 @@
 import { Router } from 'express'
 
-import ControllerFactory from '@app/factories/controllerFactory'
-import TaskController from '@controllers/task'
-import TaskModel from '@models/task'
+import ControllerFactory from '@/app/factories/controllerFactory'
+import TaskController from '@/controllers/task'
+import TaskModel from '@/models/task'
 
 // ------------------------------------
 //# Instances

@@ -1,4 +1,4 @@
-import type { IUserModel } from '@app/types/model'
+import type { IUserModel } from '@/app/types/model'
 import { PrismaClient } from '@prisma/client'
 
 import Model from './@model'
