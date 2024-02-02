@@ -1,11 +1,11 @@
-import type { IUserModel } from '@/app/types/model'
-import type { IResponse } from '@/app/types/response'
+import type { IUserModel } from '@/types/model'
+import type { IResponse } from '@/types/response'
 import { Request, Response } from 'express'
 
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
-import { SECRET_JWT } from '@/app/config/constants'
+import { SECRET_JWT } from '@/config/constants'
 import Controller from './@controller'
 
 // ------------------------------------

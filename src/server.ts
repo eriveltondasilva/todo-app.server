@@ -1,6 +1,6 @@
 import { Express } from 'express'
 
-import { APP_PORT } from '@/app/config/constants'
+import { APP_PORT } from '@/config/constants'
 
 /** --------------------------
  * @class Server

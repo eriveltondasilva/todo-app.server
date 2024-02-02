@@ -1,7 +1,7 @@
 import { Router } from 'express'
 
-import ControllerFactory from '@/app/factories/controllerFactory'
 import AuthController from '@/controllers/auth'
+import ControllerFactory from '@/factories/controllerFactory'
 import UserModel from '@/models/user'
 
 // ------------------------------------
