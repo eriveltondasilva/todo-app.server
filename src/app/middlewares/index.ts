@@ -1,6 +1,7 @@
 //# GLOBAL MIDDLEWARES
-import { Express, json } from 'express'
-import { rateLimit } from 'express-rate-limit'
+import { Express, json } from 'express';
+import { rateLimit } from 'express-rate-limit';
+import helmet from "helmet";
 
 // ====================================
 
@@ -21,10 +22,11 @@ const limit = rateLimit({
  * @desc A class that contains global middlewares
  */
 class Middlewares {
-  static use(App: Express): void {
-    App.use(json())
-    // App.use(cors(corsOptions))
-    App.use(limit)
+  static use(app: Express): void {
+    app.use(json())
+    app.use(helmet())
+    app.use(limit)
+    // app.use(cors(corsOptions))
   }
 }
 
