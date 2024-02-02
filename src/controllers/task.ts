@@ -13,7 +13,7 @@ class TaskController extends Controller {
   //* Retrieve all task items
   async index(_: Request, res: Response): Promise<void> {
     try {
-      const tasks = await this.model.findAll()
+      const tasks = await this.model?.findAll()
       return this.response.ok(res, tasks)
     } catch (error) {
       console.error(error)
@@ -26,7 +26,7 @@ class TaskController extends Controller {
     const message = { error: 'Task not found' }
 
     try {
-      const task = await this.model.findById(Number(id))
+      const task = await this.model?.findById(Number(id))
       return this.response.ok(res, task)
     } catch (error) {
       console.error(error)
@@ -40,7 +40,7 @@ class TaskController extends Controller {
     const message = { error: 'Task not created' }
 
     try {
-      const task = await this.model.create<Prisma.TaskCreateInput>(body)
+      const task = await this.model?.create<Prisma.TaskCreateInput>(body)
       return this.response.created(res, task)
     } catch (error) {
       console.error(error)
@@ -55,7 +55,7 @@ class TaskController extends Controller {
     const message = { error: 'Task not updated' }
 
     try {
-      const task = await this.model.update<Prisma.TaskUpdateInput>(Number(id), body)
+      const task = await this.model?.update<Prisma.TaskUpdateInput>(Number(id), body)
       return this.response.ok(res, task)
     } catch (error) {
       console.error(error)
@@ -69,7 +69,7 @@ class TaskController extends Controller {
     const message = { error: 'Task not deleted' }
 
     try {
-      await this.model.deleteById(Number(id))
+      await this.model?.deleteById(Number(id))
       return this.response.noContent(res)
     } catch (error) {
       console.error(error)
@@ -83,7 +83,7 @@ class TaskController extends Controller {
     const message = { error: 'Tasks not deleted' }
 
     try {
-      await this.model.destroyManyById(ids)
+      await this.model?.destroyManyById(ids)
       return this.response.noContent(res)
     } catch (error) {
       console.error(error)

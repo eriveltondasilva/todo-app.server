@@ -10,7 +10,7 @@ class Controller {
 
   constructor(
     @inject('IResponse') protected response: IResponse,
-    @inject('IModel') protected model: IModel,
+    @inject('IModel') protected model?: IModel,
   ) {
     this.bindMethods()
   }
