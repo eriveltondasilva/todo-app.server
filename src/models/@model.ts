@@ -1,17 +1,12 @@
 import type { IModel } from '@/types/model'
-
 import { PrismaClient } from '@prisma/client'
-import { inject, injectable } from 'tsyringe'
 
 // ====================================
 /** @class Base Model class */
-@injectable()
 class Model implements IModel {
   protected modelName: string = this.constructor.name.toLowerCase().replace('model', '')
 
-  constructor(
-    @inject('PrismaClient') protected model: PrismaClient
-  ) { }
+  constructor(protected model: PrismaClient) { }
 
   //# BASE MODEL METHODS
   // --------------------------
@@ -84,7 +79,6 @@ class Model implements IModel {
     })
   }
 
-  //
 }
 
 // --------------------------
