@@ -1,17 +1,24 @@
-import { Router } from 'express'
+import { Router } from 'express';
 
-import AuthController from '@/controllers/auth'
-import ControllerFactory from '@/factories/controllerFactory'
-import UserModel from '@/models/user'
+import AuthController from '@/controllers/auth';
+import UserModel from '@/models/user';
+import ResponseService from '@/services/response';
+import prisma from '@/singletons/prisma';
 
 // ------------------------------------
-//# Instances
+// //# Instances
 const router = Router()
-const authController = ControllerFactory.create(AuthController, UserModel)
+const response = new ResponseService()
+const userModel = new UserModel(prisma)
+const authController = new AuthController(response, userModel)
 
 // ------------------------------------
 //# Auth Controller Methods
-const { signup, login, logout } = authController
+const {
+    signup,
+    login,
+    logout
+} = authController
 
 // ------------------------------------
 //# Middlewares
@@ -19,9 +26,7 @@ const { signup, login, logout } = authController
 // ------------------------------------
 //# Auth Routes
 router.post('/signup', signup)
-
 router.post('/login', login)
-
 router.post('/logout', logout)
 
 // ------------------------------------
