@@ -11,3 +11,4 @@ const app = (0, express_1.default)();
 middlewares_1.default.use(app);
 routes_1.default.use(app);
 server_1.default.start(app);
+//# sourceMappingURL=index.js.map

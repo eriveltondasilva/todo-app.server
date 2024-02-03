@@ -31,3 +31,4 @@ class ResponseService {
     }
 }
 exports.default = ResponseService;
+//# sourceMappingURL=response.js.map

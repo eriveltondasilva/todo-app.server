@@ -17,3 +17,4 @@ router.post('/signup', signup);
 router.post('/login', login);
 router.post('/logout', logout);
 exports.default = router;
+//# sourceMappingURL=index.js.map

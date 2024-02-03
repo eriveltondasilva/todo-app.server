@@ -104,3 +104,4 @@ class TaskController extends _controller_1.default {
     }
 }
 exports.default = TaskController;
+//# sourceMappingURL=taskController.js.map

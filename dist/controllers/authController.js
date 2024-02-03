@@ -89,3 +89,4 @@ class AuthController extends _controller_1.default {
     }
 }
 exports.default = AuthController;
+//# sourceMappingURL=authController.js.map

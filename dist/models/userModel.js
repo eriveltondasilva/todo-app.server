@@ -25,3 +25,4 @@ class UserModel extends _model_1.default {
     }
 }
 exports.default = UserModel;
+//# sourceMappingURL=userModel.js.map

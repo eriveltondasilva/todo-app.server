@@ -12,3 +12,4 @@ class PrismaSingleton {
 }
 const prismaSingleton = PrismaSingleton.getInstance();
 exports.default = prismaSingleton;
+//# sourceMappingURL=prisma.js.map

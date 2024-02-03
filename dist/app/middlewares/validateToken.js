@@ -20,3 +20,4 @@ function validateToken(req, res, next) {
     });
 }
 exports.default = validateToken;
+//# sourceMappingURL=validateToken.js.map

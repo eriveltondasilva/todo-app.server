@@ -11,3 +11,4 @@ class Server {
 Server.message = '🚀 Server running... \n🚪 Port: %i';
 Server.port = constants_1.APP_PORT;
 exports.default = Server;
+//# sourceMappingURL=server.js.map

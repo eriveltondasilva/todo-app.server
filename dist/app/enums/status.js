@@ -12,3 +12,4 @@ var ResponseStatusEnum;
     ResponseStatusEnum[ResponseStatusEnum["NOT_FOUND"] = 404] = "NOT_FOUND";
     ResponseStatusEnum[ResponseStatusEnum["SERVER_ERROR"] = 500] = "SERVER_ERROR";
 })(ResponseStatusEnum || (exports.ResponseStatusEnum = ResponseStatusEnum = {}));
+//# sourceMappingURL=status.js.map

@@ -13,3 +13,4 @@ class Routes {
 }
 Routes.api = '/api';
 exports.default = Routes;
+//# sourceMappingURL=index.js.map

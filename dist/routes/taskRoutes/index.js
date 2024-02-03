@@ -24,3 +24,4 @@ router.route('/tasks/:id')
     .put(update)
     .delete(destroy);
 exports.default = router;
+//# sourceMappingURL=index.js.map

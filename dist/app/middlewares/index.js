@@ -20,3 +20,4 @@ class Middlewares {
     }
 }
 exports.default = Middlewares;
+//# sourceMappingURL=index.js.map

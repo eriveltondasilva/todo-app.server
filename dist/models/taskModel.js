@@ -7,3 +7,4 @@ const _model_1 = __importDefault(require("./@model"));
 class TaskModel extends _model_1.default {
 }
 exports.default = TaskModel;
+//# sourceMappingURL=taskModel.js.map
