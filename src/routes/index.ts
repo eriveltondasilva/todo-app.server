@@ -1,4 +1,4 @@
-import { Express, Router } from 'express'
+import { Express } from 'express'
 
 import authRoutes from './authRoutes'
 import taskRoutes from './taskRoutes'
@@ -8,14 +8,11 @@ import taskRoutes from './taskRoutes'
  * @desc Routes class handles the configuration of routes for the Express app.
  */
 class Routes {
-  /** @desc Initializes and returns an array of Router instances. **/
-  private static initializeRoutes(): Router[] {
-    return [taskRoutes, authRoutes]
-  }
-
+  private static readonly api = '/api'
   /** @desc Configures the routes for the Express app. **/
   static use(app: Express): void {
-    app.use('/api', Routes.initializeRoutes())
+    app.use(this.api, authRoutes)
+    app.use(this.api, taskRoutes)
   }
 }
 

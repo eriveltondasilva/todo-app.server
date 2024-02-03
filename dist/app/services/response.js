@@ -20,6 +20,9 @@ class ResponseService {
     badRequest(res, body) {
         return this.sendResponse(res, this.status.BAD_REQUEST, body);
     }
+    unauthorized(res, body) {
+        return this.sendResponse(res, this.status.UNAUTHORIZED, body);
+    }
     notFound(res, body) {
         return this.sendResponse(res, this.status.NOT_FOUND, body);
     }

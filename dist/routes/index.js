@@ -6,11 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const authRoutes_1 = __importDefault(require("./authRoutes"));
 const taskRoutes_1 = __importDefault(require("./taskRoutes"));
 class Routes {
-    static initializeRoutes() {
-        return [taskRoutes_1.default, authRoutes_1.default];
-    }
     static use(app) {
-        app.use('/api', Routes.initializeRoutes());
+        app.use(this.api, authRoutes_1.default);
+        app.use(this.api, taskRoutes_1.default);
     }
 }
+Routes.api = '/api';
 exports.default = Routes;

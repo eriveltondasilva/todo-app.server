@@ -1,9 +1,10 @@
-import { Router } from 'express';
+import { Router } from 'express'
 
-import TaskController from '@/controllers/taskController';
-import TaskModel from '@/models/taskModel';
-import ResponseService from '@/services/response';
-import prisma from '@/singletons/prisma';
+import TaskController from '@/controllers/taskController'
+import validateToken from '@/middlewares/validateToken'
+import TaskModel from '@/models/taskModel'
+import ResponseService from '@/services/response'
+import prisma from '@/singletons/prisma'
 
 // ------------------------------------
 //# Instances
@@ -15,6 +16,7 @@ const taskController = new TaskController(response, taskModel)
 
 // ------------------------------------
 //# Todo Controller Methods
+// prettier-ignore
 const {
     index,
     show,
@@ -26,7 +28,7 @@ const {
 
 // ------------------------------------
 //# Middlewares
-// router.use()
+router.use(validateToken)
 
 // ------------------------------------
 //# Todo Routes

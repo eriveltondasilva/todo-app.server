@@ -64,18 +64,18 @@ class AuthController extends _controller_1.default {
         return __awaiter(this, void 0, void 0, function* () {
             const { email, password } = req.body;
             if (!email || !password) {
-                return this.response.badRequest(res, this.errors.validation);
+                return this.response.unauthorized(res, this.errors.validation);
             }
             const foundUser = yield this.model.findByEmail(String(email));
             if (!foundUser) {
-                return this.response.badRequest(res, this.errors.userNotFound);
+                return this.response.unauthorized(res, this.errors.userNotFound);
             }
             const isPasswordCorrect = yield bcrypt_1.default.compare(String(password), foundUser.password);
             if (!isPasswordCorrect) {
-                return this.response.badRequest(res, this.errors.wrongPassword);
+                return this.response.unauthorized(res, this.errors.wrongPassword);
             }
             try {
-                const token = jsonwebtoken_1.default.sign({ id: foundUser.id }, constants_1.SECRET_JWT, { expiresIn: '1h' });
+                const token = jsonwebtoken_1.default.sign({ id: foundUser.id, email: foundUser.email }, constants_1.SECRET_JWT, { expiresIn: '1h' });
                 return this.response.ok(res, { token });
             }
             catch (error) {
