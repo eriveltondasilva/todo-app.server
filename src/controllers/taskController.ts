@@ -1,10 +1,20 @@
+import type { IModel } from '@/types/model'
+import type { IResponse } from '@/types/response'
 import type { Prisma } from '@prisma/client'
-import { Request, Response } from 'express'
+import type { Request, Response } from 'express'
+
 import Controller from './@controller'
 
 // ====================================
 /** @class Task Controller Class */
 class TaskController extends Controller {
+  constructor(
+    protected response: IResponse,
+    protected model: IModel,
+  ) {
+    super(response)
+  }
+
   //# TO-DO CONTROLLER METHODS
   // --------------------------
   //* Retrieve all task items

@@ -3,7 +3,9 @@ import type { IResponse } from '@/types/response'
 import type { Request, Response } from 'express'
 
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 
+import { JWT_SECRET } from '@/config/constants'
 import generateTokens from '@/utils/generateTokens'
 import Controller from './@controller'
 
@@ -11,20 +13,21 @@ import Controller from './@controller'
 /** @class Auth Controller Class */
 class AuthController extends Controller {
   //* Error massages
-  private readonly errors = {
+  private readonly messages = {
     createUser: 'Error creating user',
     userExists: 'User already exists',
     userNotFound: 'User not found',
     validation: 'Email and password are required',
     wrongPassword: 'Wrong password',
     login: 'Login failed',
+    refreshToken: 'Refresh token is required',
   }
 
   constructor(
     protected response: IResponse,
     protected model: IUserModel,
   ) {
-    super(response, model)
+    super(response)
   }
 
   //# Auth Methods
@@ -35,14 +38,14 @@ class AuthController extends Controller {
 
     // Validate user input
     if (!email || !password) {
-      return this.response.badRequest(res, this.errors.validation)
+      return this.response.badRequest(res, { messages: this.messages.validation })
     }
 
     // Check if user already exists
     const existingUser = await this.model.findByEmail(String(email))
 
     if (existingUser) {
-      return this.response.badRequest(res, this.errors.userExists)
+      return this.response.badRequest(res, { messages: this.messages.userExists })
     }
 
     try {
@@ -63,7 +66,7 @@ class AuthController extends Controller {
       return this.response.created(res, newUser)
     } catch (error) {
       console.error(error)
-      return this.response.badRequest(res, this.errors.createUser)
+      return this.response.badRequest(res, { messages: this.messages.createUser })
     }
   }
 
@@ -74,7 +77,7 @@ class AuthController extends Controller {
 
       // Validate user input
       if (!email || !password) {
-        return this.response.unauthorized(res, this.errors.validation)
+        this.response.unauthorized(res, { message: this.messages.validation })
       }
 
       // -------------------------------------------------
@@ -82,7 +85,7 @@ class AuthController extends Controller {
       const foundUser = await this.model.findByEmail(String(email))
 
       if (!foundUser) {
-        return this.response.unauthorized(res, this.errors.userNotFound)
+        this.response.unauthorized(res, { message: this.messages.userNotFound })
       }
 
       // -------------------------------------------------
@@ -90,7 +93,7 @@ class AuthController extends Controller {
       const isPasswordCorrect = await bcrypt.compare(String(password), foundUser.password)
 
       if (!isPasswordCorrect) {
-        return this.response.unauthorized(res, this.errors.wrongPassword)
+        return this.response.unauthorized(res, { message: this.messages.wrongPassword })
       }
 
       // Remove password from response
@@ -100,16 +103,32 @@ class AuthController extends Controller {
       const tokens = generateTokens(foundUser)
 
       // Login user
-      return this.response.ok(res, tokens)
+      this.response.ok(res, tokens)
     } catch (error) {
       console.error(error)
-      return this.response.serverError(res, this.errors.login)
+      return this.response.serverError(res, { message: this.messages.login })
     }
   }
 
-  // * Logout user
-  // TODO: Implement the method Logout later
-  // async logout(_: Request, res: Response): Promise<void> {}
+  //* Refresh token
+  async refresh(req: Request, res: Response): Promise<void> {
+    try {
+      const { refreshToken } = req.body
+
+      if (!refreshToken) {
+        return this.response.badRequest(res, { messages: this.messages.refreshToken })
+      }
+
+      const decoded: any = jwt.verify(refreshToken, JWT_SECRET)
+
+      const { accessToken } = generateTokens(decoded.user)
+
+      return this.response.ok(res, { accessToken })
+    } catch (error) {
+      console.error(error)
+      return this.response.badRequest(res, { messages: this.messages.refreshToken })
+    }
+  }
 }
 
 // ------------------------------------

@@ -14,7 +14,7 @@ const authController = new AuthController(response, userModel)
 
 // ------------------------------------
 //# Auth Controller Methods
-const { signup, login } = authController
+const { signup, login, refresh } = authController
 
 // ------------------------------------
 //# Middlewares
@@ -23,6 +23,7 @@ const { signup, login } = authController
 //# Auth Routes
 router.post('/auth/signup', signup)
 router.post('/auth/login', login)
+router.post('/auth/refresh-token', refresh)
 // router.post('/auth/logout', logout)
 
 // ------------------------------------

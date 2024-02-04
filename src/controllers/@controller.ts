@@ -1,15 +1,11 @@
-import type { IModel } from '@/types/model'
 import type { IResponse } from '@/types/response'
 
 // ====================================
 /** @class Base Controller Class */
-class Controller {
+abstract class Controller {
   protected methods = this.getMethods(this)
 
-  constructor(
-    protected response: IResponse,
-    protected model?: IModel,
-  ) {
+  constructor(protected response: IResponse) {
     this.bindMethods()
   }
 

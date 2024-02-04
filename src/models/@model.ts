@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client'
 
 // ====================================
 /** @class Base Model class */
-class Model implements IModel {
+abstract class Model implements IModel {
   protected modelName: string = this.constructor.name.toLowerCase().replace('model', '')
 
   constructor(protected model: PrismaClient) {}
