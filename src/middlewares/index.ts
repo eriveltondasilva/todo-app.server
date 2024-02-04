@@ -2,6 +2,7 @@
 import { Express, json } from 'express'
 import { rateLimit } from 'express-rate-limit'
 import helmet from 'helmet'
+import morgan from 'morgan'
 
 // ====================================
 
@@ -10,12 +11,14 @@ import helmet from 'helmet'
 //   origin: APP_HOST,
 // }
 
-const limit = rateLimit({
+const rateLimitOptions = {
   windowMs: 15 * 60 * 1000, // 15 minutes
   limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
   standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-})
+}
+
+const morganOptions = 'tiny'
 
 /**
  * @class Middlewares
@@ -25,7 +28,8 @@ class Middlewares {
   static use(app: Express): void {
     app.use(json())
     app.use(helmet())
-    app.use(limit)
+    app.use(morgan(morganOptions))
+    app.use(rateLimit(rateLimitOptions))
     // app.use(cors(corsOptions))
   }
 }
