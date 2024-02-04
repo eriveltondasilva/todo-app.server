@@ -3,9 +3,8 @@ import type { IResponse } from '@/types/response'
 import type { Request, Response } from 'express'
 
 import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
 
-import { SECRET_JWT } from '@/config/constants'
+import generateTokens from '@/utils/generateTokens'
 import Controller from './@controller'
 
 // ====================================
@@ -70,40 +69,38 @@ class AuthController extends Controller {
 
   //* Login user
   async login(req: Request, res: Response): Promise<void> {
-    const { email, password } = req.body
-
-    // Validate user input
-    if (!email || !password) {
-      return this.response.unauthorized(res, this.errors.validation)
-    }
-
-    // -------------------------------------------------
-    // Find user by email
-    const foundUser = await this.model.findByEmail(String(email))
-
-    if (!foundUser) {
-      return this.response.unauthorized(res, this.errors.userNotFound)
-    }
-
-    // -------------------------------------------------
-    // Check if the password is correct
-    const isPasswordCorrect = await bcrypt.compare(String(password), foundUser.password)
-
-    if (!isPasswordCorrect) {
-      return this.response.unauthorized(res, this.errors.wrongPassword)
-    }
-
     try {
+      const { email, password } = req.body
+
+      // Validate user input
+      if (!email || !password) {
+        return this.response.unauthorized(res, this.errors.validation)
+      }
+
+      // -------------------------------------------------
+      // Find user by email
+      const foundUser = await this.model.findByEmail(String(email))
+
+      if (!foundUser) {
+        return this.response.unauthorized(res, this.errors.userNotFound)
+      }
+
+      // -------------------------------------------------
+      // Check if the password is correct
+      const isPasswordCorrect = await bcrypt.compare(String(password), foundUser.password)
+
+      if (!isPasswordCorrect) {
+        return this.response.unauthorized(res, this.errors.wrongPassword)
+      }
+
+      // Remove password from response
+      delete foundUser.password
+
       // Generate JWT token
-      // prettier-ignore
-      const token = jwt.sign(
-        { id: foundUser.id, email: foundUser.email, role: foundUser.role },
-        SECRET_JWT,
-        { expiresIn: '1h' },
-      )
+      const tokens = generateTokens(foundUser)
 
       // Login user
-      return this.response.ok(res, { token })
+      return this.response.ok(res, tokens)
     } catch (error) {
       console.error(error)
       return this.response.serverError(res, this.errors.login)
@@ -111,7 +108,7 @@ class AuthController extends Controller {
   }
 
   // * Logout user
-  // TODO: Implement this method later
+  // TODO: Implement the method Logout later
   // async logout(_: Request, res: Response): Promise<void> {}
 }
 

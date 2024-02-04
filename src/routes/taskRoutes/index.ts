@@ -1,7 +1,7 @@
 import { Router } from 'express'
 
 import TaskController from '@/controllers/taskController'
-import validateToken from '@/middlewares/validateToken'
+import verifyToken from '@/middlewares/verifyToken'
 import TaskModel from '@/models/taskModel'
 import ResponseService from '@/services/response'
 import prisma from '@/singletons/prisma'
@@ -28,7 +28,7 @@ const {
 
 // ------------------------------------
 //# Middlewares
-router.use(validateToken)
+router.use(verifyToken)
 
 // ------------------------------------
 //# Todo Routes

@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken'
 import { SECRET_JWT } from '@/config/constants'
 
 // =====================================
-function validateToken(req: AuthRequest, res: Response, next: NextFunction) {
+function verifyToken(req: AuthRequest, res: Response, next: NextFunction) {
   const token = req.headers['authorization']?.split(' ')[1]
 
   // Check if token exists
@@ -26,4 +26,4 @@ function validateToken(req: AuthRequest, res: Response, next: NextFunction) {
 }
 
 // ------------------------------------
-export default validateToken
+export default verifyToken
