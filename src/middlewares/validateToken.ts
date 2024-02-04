@@ -1,28 +1,27 @@
-import { SECRET_JWT } from '@/config/constants'
-import { NextFunction, Request, Response } from 'express'
-import jwt, { Secret } from 'jsonwebtoken'
-import { promisify } from 'util'
+import type { AuthRequest } from '@/types/authRequest'
+import type { NextFunction, Response } from 'express'
+import jwt from 'jsonwebtoken'
 
-const jwtVerify = promisify<string, Secret>(jwt.verify)
+import { SECRET_JWT } from '@/config/constants'
 
 // =====================================
-async function validateToken(req: Request, res: Response, next: NextFunction): Promise<void> {
+function validateToken(req: AuthRequest, res: Response, next: NextFunction) {
+  const token = req.headers['authorization']?.split(' ')[1]
+
+  // Check if token exists
+  if (!token) {
+    return res.status(401).json({ message: 'Access denied' })
+  }
+
   try {
-    const token = req.headers['authorization']?.split(' ')[1]
-
-    // Check if token exists
-    if (!token || typeof token !== 'string') {
-      throw new Error('Access denied')
-    }
-
     // Verify token
-    const data = await jwtVerify(token, SECRET_JWT)
+    const decoded = jwt.verify(token, SECRET_JWT)
 
-    req.body.token = data
+    req.user = decoded
     next()
   } catch (error) {
     console.error(error)
-    res.status(401).json({ error: 'Failed to authenticate token' })
+    return res.status(401).json({ error: 'Failed to authenticate token' })
   }
 }
 

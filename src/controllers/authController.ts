@@ -1,6 +1,6 @@
-import { IUserModel } from '@/types/model'
-import { IResponse } from '@/types/response'
-import { Request, Response } from 'express'
+import type { IUserModel } from '@/types/model'
+import type { IResponse } from '@/types/response'
+import type { Request, Response } from 'express'
 
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
@@ -97,7 +97,7 @@ class AuthController extends Controller {
       // Generate JWT token
       // prettier-ignore
       const token = jwt.sign(
-        { id: foundUser.id, email: foundUser.email },
+        { id: foundUser.id, email: foundUser.email, role: foundUser.role },
         SECRET_JWT,
         { expiresIn: '1h' },
       )
@@ -112,7 +112,7 @@ class AuthController extends Controller {
 
   // * Logout user
   // TODO: Implement this method later
-  async logout(_: Request, res: Response): Promise<void> {}
+  // async logout(_: Request, res: Response): Promise<void> {}
 }
 
 // ------------------------------------

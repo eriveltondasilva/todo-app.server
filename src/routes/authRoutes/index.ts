@@ -14,7 +14,7 @@ const authController = new AuthController(response, userModel)
 
 // ------------------------------------
 //# Auth Controller Methods
-const { signup, login, logout } = authController
+const { signup, login } = authController
 
 // ------------------------------------
 //# Middlewares
@@ -23,7 +23,7 @@ const { signup, login, logout } = authController
 //# Auth Routes
 router.post('/auth/signup', signup)
 router.post('/auth/login', login)
-router.post('/auth/logout', logout)
+// router.post('/auth/logout', logout)
 
 // ------------------------------------
 export default router
