@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const taskController_1 = __importDefault(require("../../controllers/taskController"));
-const validateToken_1 = __importDefault(require("../../app/middlewares/validateToken"));
+const validateToken_1 = __importDefault(require("../../middlewares/validateToken"));
 const taskModel_1 = __importDefault(require("../../models/taskModel"));
 const response_1 = __importDefault(require("../../app/services/response"));
 const prisma_1 = __importDefault(require("../../app/singletons/prisma"));
