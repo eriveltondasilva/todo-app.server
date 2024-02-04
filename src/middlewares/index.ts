@@ -18,7 +18,7 @@ const rateLimitOptions = {
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 }
 
-const morganOptions = 'tiny'
+const morganOptions = 'dev'
 
 /**
  * @class Middlewares
