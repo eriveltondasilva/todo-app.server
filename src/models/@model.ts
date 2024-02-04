@@ -36,7 +36,7 @@ abstract class Model implements IModel {
   }
 
   //* Create a new item
-  async create<T>(data: T, authUserId: number): Promise<any> {
+  async create<T>(data: T, authUserId?: number): Promise<any> {
     return await (this.model[this.modelName as keyof PrismaClient] as any).create({
       data: {
         ...data,
