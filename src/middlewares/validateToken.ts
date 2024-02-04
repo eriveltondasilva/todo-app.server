@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
 
-import { SECRET_JWT } from '../config/constants'
+import { SECRET_JWT } from '@/config/constants'
 
 // =====================================
 export default function validateToken(req: Request, res: Response, next: NextFunction) {
