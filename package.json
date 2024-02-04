@@ -25,9 +25,6 @@
     "prisma:reset": "npx prisma migrate reset",
     "prisma:seed": "npx prisma db seed"
   },
-  "pre-commit": [
-    "build"
-  ],
   "prisma": {
     "seed": "node prisma/seed"
   },

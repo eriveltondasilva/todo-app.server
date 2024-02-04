@@ -57,15 +57,11 @@ class AuthController extends Controller {
         password: hashedPassword,
       })
 
-      // Create a subset of user data for response
-      const userSubset = {
-        id: newUser.id,
-        name: newUser.name,
-        email: newUser.email,
-      }
+      // Remove password from response
+      delete newUser.password
 
       // Respond with the created user subset
-      return this.response.created(res, userSubset)
+      return this.response.created(res, newUser)
     } catch (error) {
       console.error(error)
       return this.response.badRequest(res, this.errors.createUser)
