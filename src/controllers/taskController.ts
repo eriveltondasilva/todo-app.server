@@ -1,7 +1,8 @@
+import type { AuthRequest } from '@/types/authRequest'
 import type { IModel } from '@/types/model'
 import type { IResponse } from '@/types/response'
 import type { Prisma } from '@prisma/client'
-import type { Request, Response } from 'express'
+import type { Response } from 'express'
 
 import Controller from './@controller'
 
@@ -18,9 +19,12 @@ class TaskController extends Controller {
   //# TO-DO CONTROLLER METHODS
   // --------------------------
   //* Retrieve all task items
-  async index(_: Request, res: Response): Promise<void> {
+  async index(req: AuthRequest, res: Response): Promise<void> {
     try {
-      const tasks = await this.model?.findAll()
+      const authUserId = Number(req.user.id)
+
+      const tasks = await this.model.findAll(authUserId)
+
       return this.response.ok(res, tasks)
     } catch (error) {
       console.error(error)
@@ -28,12 +32,13 @@ class TaskController extends Controller {
   }
 
   //* Find a task by its ID
-  async show(req: Request, res: Response): Promise<void> {
-    const { id } = req.params
+  async show(req: AuthRequest, res: Response): Promise<void> {
+    const id = Number(req.params.id)
+    const authUserId = Number(req.user.id)
     const message = { error: 'Task not found' }
 
     try {
-      const task = await this.model?.findById(Number(id))
+      const task = await this.model.findById(id, authUserId)
       return this.response.ok(res, task)
     } catch (error) {
       console.error(error)
@@ -42,12 +47,13 @@ class TaskController extends Controller {
   }
 
   //* Create a new task item
-  async create(req: Request, res: Response): Promise<void> {
+  async create(req: AuthRequest, res: Response): Promise<void> {
     const body = req.body
+    const authUserId = Number(req.user.id)
     const message = { error: 'Task not created' }
 
     try {
-      const task = await this.model?.create<Prisma.TaskCreateInput>(body)
+      const task = await this.model.create<Prisma.TaskCreateInput>(body, authUserId)
       return this.response.created(res, task)
     } catch (error) {
       console.error(error)
@@ -56,13 +62,14 @@ class TaskController extends Controller {
   }
 
   //* Update a task item
-  async update(req: Request, res: Response): Promise<void> {
-    const { id } = req.params
+  async update(req: AuthRequest, res: Response): Promise<void> {
+    const id = Number(req.params.id)
+    const authUserId = Number(req.user.id)
     const body = req.body
     const message = { error: 'Task not updated' }
 
     try {
-      const task = await this.model?.update<Prisma.TaskUpdateInput>(Number(id), body)
+      const task = await this.model.update<Prisma.TaskUpdateInput>(id, body, authUserId)
       return this.response.ok(res, task)
     } catch (error) {
       console.error(error)
@@ -71,12 +78,13 @@ class TaskController extends Controller {
   }
 
   //* Delete a task item.
-  async destroy(req: Request, res: Response): Promise<void> {
-    const { id } = req.params
+  async destroy(req: AuthRequest, res: Response): Promise<void> {
+    const id = Number(req.params.id)
+    const authUserId = Number(req.user.id)
     const message = { error: 'Task not deleted' }
 
     try {
-      await this.model?.deleteById(Number(id))
+      await this.model.deleteById(id, authUserId)
       return this.response.noContent(res)
     } catch (error) {
       console.error(error)
@@ -85,12 +93,13 @@ class TaskController extends Controller {
   }
 
   //* Delete a task item.
-  async destroyMany(req: Request, res: Response): Promise<void> {
-    const ids: number[] = req.body.ids
+  async destroyMany(req: AuthRequest, res: Response): Promise<void> {
+    const taskIds: number[] = req.body.ids
+    const authUserId = Number(req.user.id)
     const message = { error: 'Tasks not deleted' }
 
     try {
-      await this.model?.destroyManyById(ids)
+      await this.model.destroyManyById(taskIds, authUserId)
       return this.response.noContent(res)
     } catch (error) {
       console.error(error)

@@ -96,8 +96,9 @@ class AuthController extends Controller {
         return this.response.unauthorized(res, { message: this.messages.wrongPassword })
       }
 
-      // Remove password from response
+      // Remove password and name from response
       delete foundUser.password
+      delete foundUser.name
 
       // Generate JWT token
       const tokens = generateTokens(foundUser)

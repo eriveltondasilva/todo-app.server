@@ -11,17 +11,22 @@ abstract class Model implements IModel {
   //# BASE MODEL METHODS
   // --------------------------
   //* Retrieves all model's items from the database.
-  async findAll(): Promise<any> {
-    return await (this.model[this.modelName as keyof PrismaClient] as any).findMany()
+  async findAll(authUserId: number): Promise<any> {
+    return await (this.model[this.modelName as keyof PrismaClient] as any).findMany({
+      where: {
+        user_id: authUserId,
+      },
+    })
   }
 
   //* Find a item by its ID
-  async findById(id: number): Promise<any> {
+  async findById(id: number, authUserId: number): Promise<any> {
     if (isNaN(id) || id <= 0) throw new Error(`Invalid ${this.modelName} ID`)
 
     const item = await (this.model[this.modelName as keyof PrismaClient] as any).findUnique({
       where: {
         id,
+        user_id: authUserId,
       },
     })
 
@@ -31,19 +36,23 @@ abstract class Model implements IModel {
   }
 
   //* Create a new item
-  async create<T>(data: T): Promise<any> {
+  async create<T>(data: T, authUserId: number): Promise<any> {
     return await (this.model[this.modelName as keyof PrismaClient] as any).create({
-      data,
+      data: {
+        ...data,
+        user_id: authUserId,
+      },
     })
   }
 
   //* Update a item
-  async update<T>(id: number, data: T): Promise<any> {
+  async update<T>(id: number, data: T, authUserId: number): Promise<any> {
     if (isNaN(id) || id <= 0) throw new Error(`Invalid ${this.modelName} ID`)
 
     const item = await (this.model[this.modelName as keyof PrismaClient] as any).update({
       where: {
         id,
+        user_id: authUserId,
       },
       data,
     })
@@ -54,27 +63,25 @@ abstract class Model implements IModel {
   }
 
   //* Delete a item
-  async deleteById(id: number): Promise<any> {
+  async deleteById(id: number, authUserId: number): Promise<any> {
     if (isNaN(id) || id <= 0) throw new Error(`Invalid ${this.modelName} ID`)
 
     return await (this.model[this.modelName as keyof PrismaClient] as any).delete({
       where: {
         id,
+        user_id: authUserId,
       },
     })
   }
 
   //* Delete all items
-  async destroyManyById(data?: number[]): Promise<any> {
-    if (!Array.isArray(data)) throw new Error('Invalid data')
-
-    if (data?.length === 0) {
-      return await (this.model[this.modelName as keyof PrismaClient] as any).deleteMany({})
-    }
+  async destroyManyById(taskIds: number[], authUserId: number): Promise<any> {
+    if (!Array.isArray(taskIds)) throw new Error('Invalid data')
 
     return await (this.model[this.modelName as keyof PrismaClient] as any).deleteMany({
       where: {
-        id: { in: data },
+        id: { in: taskIds },
+        user_id: authUserId,
       },
     })
   }

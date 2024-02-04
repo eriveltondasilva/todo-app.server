@@ -1,11 +1,11 @@
 /** @desc Interface for Model **/
 export interface IModel {
-  findAll(data?: number[]): Promise<any[]>
-  findById(id: number): Promise<any>
-  create<T>(data: T): Promise<any>
-  update<T>(id: number, data: T): Promise<any>
-  deleteById(id: number): Promise<void>
-  destroyManyById(data?: number[]): Promise<void>
+  findAll(authUserId: number): Promise<any[]>
+  findById(id: number, authUserId: number): Promise<any>
+  create<T>(data: T, authUserId: number): Promise<any>
+  update<T>(id: number, data: T, authUserId: number): Promise<any>
+  deleteById(id: number, authUserId: number): Promise<void>
+  destroyManyById(taskIds: number[], authUserId: number): Promise<void>
 }
 
 export interface IUserModel extends IModel {
