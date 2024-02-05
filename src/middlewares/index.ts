@@ -1,4 +1,5 @@
 //# GLOBAL MIDDLEWARES
+import compression from 'compression'
 import { Express, json } from 'express'
 import { rateLimit } from 'express-rate-limit'
 import helmet from 'helmet'
@@ -14,8 +15,8 @@ import morgan from 'morgan'
 const rateLimitOptions = {
   windowMs: 15 * 60 * 1000, // 15 minutes
   limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
-  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+  standardHeaders: true,
+  legacyHeaders: false,
 }
 
 const morganOptions = 'dev'
@@ -26,6 +27,7 @@ const morganOptions = 'dev'
  */
 class Middlewares {
   static use(app: Express): void {
+    app.use(compression())
     app.use(json())
     app.use(helmet())
     app.use(morgan(morganOptions))
