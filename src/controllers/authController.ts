@@ -34,21 +34,16 @@ class AuthController extends Controller {
   // --------------------------
   //* Signup user
   async signup(req: Request, res: Response): Promise<void> {
-    const { name, email, password } = req.body
-
-    // Validate user input
-    if (!email || !password) {
-      return this.response.badRequest(res, { messages: this.messages.validation })
-    }
-
-    // Check if user already exists
-    const existingUser = await this.model.findByEmail(String(email))
-
-    if (existingUser) {
-      return this.response.badRequest(res, { messages: this.messages.userExists })
-    }
-
     try {
+      const { name, email, password } = req.body
+
+      // Check if user already exists
+      const existingUser = await this.model.findByEmail(String(email))
+
+      if (existingUser) {
+        return this.response.badRequest(res, { messages: this.messages.userExists })
+      }
+
       // Hash the password
       const hashedPassword = await bcrypt.hash(String(password), 8)
 
@@ -75,12 +70,6 @@ class AuthController extends Controller {
     try {
       const { email, password } = req.body
 
-      // Validate user input
-      if (!email || !password) {
-        this.response.unauthorized(res, { message: this.messages.validation })
-      }
-
-      // -------------------------------------------------
       // Find user by email
       const foundUser = await this.model.findByEmail(String(email))
 
@@ -98,7 +87,6 @@ class AuthController extends Controller {
 
       // Remove password and name from response
       delete foundUser.password
-      delete foundUser.name
 
       // Generate JWT token
       const tokens = generateTokens(foundUser)

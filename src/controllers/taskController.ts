@@ -4,6 +4,7 @@ import type { IResponse } from '@/types/response'
 import type { Prisma } from '@prisma/client'
 import type { Response } from 'express'
 
+import { validationResult } from 'express-validator'
 import Controller from './@controller'
 
 // ====================================
@@ -21,7 +22,7 @@ class TaskController extends Controller {
   //* Retrieve all task items
   async index(req: AuthRequest, res: Response): Promise<void> {
     try {
-      const authUserId = Number(req.user.id)
+      const authUserId = Number(req.user?.id || 1)
 
       const tasks = await this.model.findAll(authUserId)
 
@@ -34,7 +35,7 @@ class TaskController extends Controller {
   //* Find a task by its ID
   async show(req: AuthRequest, res: Response): Promise<void> {
     const id = Number(req.params.id)
-    const authUserId = Number(req.user.id)
+    const authUserId = Number(req.user?.id || 1)
     const message = { error: 'Task not found' }
 
     try {
@@ -48,39 +49,48 @@ class TaskController extends Controller {
 
   //* Create a new task item
   async create(req: AuthRequest, res: Response): Promise<void> {
-    const body = req.body
-    const authUserId = Number(req.user.id)
-    const message = { error: 'Task not created' }
-
     try {
+      const body = req.body
+      const authUserId = Number(req.user?.id || 1)
+
+      const result = validationResult(req)
+
+      if (!result.isEmpty()) {
+        return this.response.badRequest(res, { message: result.array()[0].msg })
+      }
+
       const task = await this.model.create<Prisma.TaskCreateInput>(body, authUserId)
       return this.response.created(res, task)
     } catch (error) {
       console.error(error)
-      return this.response.badRequest(res, message)
+      return this.response.badRequest(res, { message: 'Task not created' })
     }
   }
 
   //* Update a task item
   async update(req: AuthRequest, res: Response): Promise<void> {
-    const id = Number(req.params.id)
-    const authUserId = Number(req.user.id)
-    const body = req.body
-    const message = { error: 'Task not updated' }
-
     try {
+      const id = Number(req.params.id)
+      const authUserId = Number(req.user?.id || 1)
+      const body = req.body
+      const result = validationResult(req)
+
+      if (!result.isEmpty()) {
+        return this.response.badRequest(res, { message: result.array()[0].msg })
+      }
+
       const task = await this.model.update<Prisma.TaskUpdateInput>(id, body, authUserId)
       return this.response.ok(res, task)
     } catch (error) {
       console.error(error)
-      return this.response.badRequest(res, message)
+      return this.response.badRequest(res, { message: 'Task not updated' })
     }
   }
 
   //* Delete a task item.
   async destroy(req: AuthRequest, res: Response): Promise<void> {
     const id = Number(req.params.id)
-    const authUserId = Number(req.user.id)
+    const authUserId = Number(req.user?.id || 1)
     const message = { error: 'Task not deleted' }
 
     try {
@@ -95,7 +105,7 @@ class TaskController extends Controller {
   //* Delete a task item.
   async destroyMany(req: AuthRequest, res: Response): Promise<void> {
     const taskIds: number[] = req.body.ids
-    const authUserId = Number(req.user.id)
+    const authUserId = Number(req.user?.id || 1)
     const message = { error: 'Tasks not deleted' }
 
     try {

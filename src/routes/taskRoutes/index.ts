@@ -1,7 +1,8 @@
 import { Router } from 'express'
 
 import TaskController from '@/controllers/taskController'
-import verifyToken from '@/middlewares/verifyToken'
+import taskValidation from '@/middlewares/validations/taskValidation'
+// import verifyToken from '@/middlewares/verifyToken'
 import TaskModel from '@/models/taskModel'
 import ResponseService from '@/services/response'
 import prisma from '@/singletons/prisma'
@@ -15,35 +16,23 @@ const taskModel = new TaskModel(prisma)
 const taskController = new TaskController(response, taskModel)
 
 // ------------------------------------
-//# Todo Controller Methods
-// prettier-ignore
-const {
-    index,
-    show,
-    create,
-    update,
-    destroy,
-    destroyMany
-} = taskController
-
-// ------------------------------------
 //# Middlewares
-router.use(verifyToken)
+// router.use(verifyToken)
 
 // ------------------------------------
 //# Todo Routes
 
-// prettier-ignore
-router.route('/tasks')
-    .get(index)
-    .post(create)
-    .delete(destroyMany)
+router
+  .route('/tasks')
+  .get(taskController.index)
+  .post(taskValidation.create, taskController.create)
+  .delete(taskValidation.destroyMany, taskController.destroyMany)
 
-// prettier-ignore
-router.route('/tasks/:id')
-    .get(show)
-    .put(update)
-    .delete(destroy)
+router
+  .route('/tasks/:id')
+  .get(taskValidation.show, taskController.show)
+  .put(taskValidation.update, taskController.update)
+  .delete(taskValidation.destroy, taskController.destroy)
 
 // ------------------------------------
 export default router
