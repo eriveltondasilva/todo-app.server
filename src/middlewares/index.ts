@@ -1,17 +1,21 @@
 //# GLOBAL MIDDLEWARES
 import compression from 'compression'
+import cors from 'cors'
 import { Express, json } from 'express'
 import { rateLimit } from 'express-rate-limit'
 import helmet from 'helmet'
 import morgan from 'morgan'
 
+import { APP_HOST } from '@/config/constants'
+
 // ====================================
 
-// import { APP_HOST } from '@/config/constants'
-// const corsOptions = {
-//   origin: APP_HOST,
-// }
+//# CORS options
+const corsOptions = {
+  origin: APP_HOST,
+}
 
+//# Rate limit options
 const rateLimitOptions = {
   windowMs: 15 * 60 * 1000, // 15 minutes
   limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
@@ -19,6 +23,7 @@ const rateLimitOptions = {
   legacyHeaders: false,
 }
 
+//# Morgan options
 const morganOptions = 'dev'
 
 /**
@@ -32,7 +37,7 @@ class Middlewares {
     app.use(helmet())
     app.use(morgan(morganOptions))
     app.use(rateLimit(rateLimitOptions))
-    // app.use(cors(corsOptions))
+    app.use(cors(corsOptions))
   }
 }
 
