@@ -1,6 +1,6 @@
+import type { IModel } from '@/models/@model'
+import type { IResponse } from '@/services/response'
 import type { AuthRequest } from '@/types/authRequest'
-import type { IModel } from '@/types/model'
-import type { IResponse } from '@/types/response'
 import type { Prisma } from '@prisma/client'
 import type { Response } from 'express'
 

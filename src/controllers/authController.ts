@@ -1,12 +1,12 @@
-import type { IUserModel } from '@/types/model'
-import type { IResponse } from '@/types/response'
+import type { IUserModel } from '@/models/userModel'
+import type { IResponse } from '@/services/response'
 import type { Request, Response } from 'express'
 
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 import { JWT_REFRESH_TOKEN_SECRET } from '@/config/constants'
-import generateTokens, { generateAccessToken } from '@/utils/generateTokens'
+import { generateAccessToken, generateTokens } from '@/utils/generateTokens'
 import Controller from './@controller'
 
 // ====================================

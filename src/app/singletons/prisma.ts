@@ -1,10 +1,10 @@
 import { PrismaClient } from '@prisma/client'
 
-/** @class Singleton class for PrismaClient instance */
+/** @class Singleton class for PrismaClient */
 class PrismaSingleton {
   private static instance: PrismaClient
 
-  /** @desc Impede a criação de instâncias diretamente */
+  /** @desc Singleton class for PrismaClient instance */
   private constructor() {}
 
   public static getInstance(): PrismaClient {

@@ -1,5 +1,9 @@
-import { IUserModel } from '@/types/model'
-import Model from './@model'
+import Model, { IModel } from './@model'
+
+// interface
+export interface IUserModel extends IModel {
+  findByEmail(userEmail: string): Promise<any>
+}
 
 // ====================================
 /** @class User Model Class */

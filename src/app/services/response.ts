@@ -1,12 +1,18 @@
-import { Response } from 'express'
-
 import { ResponseStatusEnum } from '@/enums/status'
-import { IResponse } from '@/types/response'
+import type { Response } from 'express'
 
-/**
- * @class Response Service Class
- * @description A service class for handling HTTP responses with standardized status codes.
- **/
+// interface
+export interface IResponse {
+  ok(res: Response, body?: any): void
+  created(res: Response, body: any): void
+  noContent(res: Response): void
+  badRequest(res: Response, body: any): void
+  unauthorized(res: Response, body: any): void
+  notFound(res: Response, body: any): void
+  serverError(res: Response, body: any): void
+}
+
+/** @class Response Service Class */
 class ResponseService implements IResponse {
   protected readonly status = ResponseStatusEnum
 
