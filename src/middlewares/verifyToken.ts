@@ -2,11 +2,11 @@ import type { AuthRequest } from '@/types/authRequest'
 import type { NextFunction, Response } from 'express'
 import jwt from 'jsonwebtoken'
 
-import { JWT_SECRET } from '@/config/constants'
+import { JWT_ACCESS_TOKEN_SECRET } from '@/config/constants'
 
 // =====================================
 function verifyToken(req: AuthRequest, res: Response, next: NextFunction) {
-  const token = req.headers['authorization']?.split(' ')[1]
+  const token = req.headers.authorization?.split(' ')[1]
 
   // Check if token exists
   if (!token) {
@@ -15,7 +15,7 @@ function verifyToken(req: AuthRequest, res: Response, next: NextFunction) {
 
   try {
     // Verify token
-    const decoded = jwt.verify(token, JWT_SECRET)
+    const decoded = jwt.verify(token, JWT_ACCESS_TOKEN_SECRET)
 
     req.user = decoded
     next()

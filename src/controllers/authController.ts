@@ -5,8 +5,8 @@ import type { Request, Response } from 'express'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
-import { JWT_SECRET } from '@/config/constants'
-import generateTokens from '@/utils/generateTokens'
+import { JWT_REFRESH_TOKEN_SECRET } from '@/config/constants'
+import generateTokens, { generateAccessToken } from '@/utils/generateTokens'
 import Controller from './@controller'
 
 // ====================================
@@ -20,7 +20,6 @@ class AuthController extends Controller {
     validation: 'Email and password are required',
     wrongPassword: 'Wrong password',
     login: 'Login failed',
-    refreshToken: 'Refresh token is required',
   }
 
   constructor(
@@ -34,9 +33,9 @@ class AuthController extends Controller {
   // --------------------------
   //* Signup user
   async signup(req: Request, res: Response): Promise<void> {
-    try {
-      const { name, email, password } = req.body
+    const { name, email, password } = req.body
 
+    try {
       // Check if user already exists
       const existingUser = await this.model.findByEmail(String(email))
 
@@ -65,11 +64,11 @@ class AuthController extends Controller {
     }
   }
 
-  //* Login user
+  //* Login user ---------------------------------------------------------
   async login(req: Request, res: Response): Promise<void> {
-    try {
-      const { email, password } = req.body
+    const { email, password } = req.body
 
+    try {
       // Find user by email
       const foundUser = await this.model.findByEmail(String(email))
 
@@ -99,23 +98,23 @@ class AuthController extends Controller {
     }
   }
 
-  //* Refresh token
+  //* Refresh token ------------------------------------------------------
   async refresh(req: Request, res: Response): Promise<void> {
+    const { refreshToken } = req.body
+
+    if (!refreshToken) {
+      return this.response.badRequest(res, { messages: 'Refresh token is required' })
+    }
+
     try {
-      const { refreshToken } = req.body
+      const decoded: any = jwt.verify(refreshToken, JWT_REFRESH_TOKEN_SECRET)
 
-      if (!refreshToken) {
-        return this.response.badRequest(res, { messages: this.messages.refreshToken })
-      }
-
-      const decoded: any = jwt.verify(refreshToken, JWT_SECRET)
-
-      const { accessToken } = generateTokens(decoded.user)
+      const accessToken = generateAccessToken(decoded)
 
       return this.response.ok(res, { accessToken })
     } catch (error) {
       console.error(error)
-      return this.response.badRequest(res, { messages: this.messages.refreshToken })
+      return this.response.badRequest(res, { messages: 'Error refreshing access token' })
     }
   }
 }
