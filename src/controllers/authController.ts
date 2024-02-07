@@ -12,16 +12,6 @@ import Controller from './@controller'
 // ====================================
 /** @class Auth Controller Class */
 class AuthController extends Controller {
-  //* Error massages
-  private readonly messages = {
-    createUser: 'Error creating user',
-    userExists: 'User already exists',
-    userNotFound: 'User not found',
-    validation: 'Email and password are required',
-    wrongPassword: 'Wrong password',
-    login: 'Login failed',
-  }
-
   constructor(
     protected response: IResponse,
     protected model: IUserModel,
@@ -40,7 +30,7 @@ class AuthController extends Controller {
       const existingUser = await this.model.findByEmail(String(email))
 
       if (existingUser) {
-        return this.response.badRequest(res, { messages: this.messages.userExists })
+        return this.response.badRequest(res, { messages: 'user already exists' })
       }
 
       // Hash the password
@@ -60,7 +50,7 @@ class AuthController extends Controller {
       return this.response.created(res, newUser)
     } catch (error) {
       console.error(error)
-      return this.response.badRequest(res, { messages: this.messages.createUser })
+      return this.response.badRequest(res, { messages: 'error creating user' })
     }
   }
 
@@ -73,7 +63,7 @@ class AuthController extends Controller {
       const foundUser = await this.model.findByEmail(String(email))
 
       if (!foundUser) {
-        this.response.unauthorized(res, { message: this.messages.userNotFound })
+        this.response.unauthorized(res, { message: 'user not found' })
       }
 
       // -------------------------------------------------
@@ -81,7 +71,7 @@ class AuthController extends Controller {
       const isPasswordCorrect = await bcrypt.compare(String(password), foundUser.password)
 
       if (!isPasswordCorrect) {
-        return this.response.unauthorized(res, { message: this.messages.wrongPassword })
+        return this.response.unauthorized(res, { message: 'wrong password' })
       }
 
       // Remove password and name from response
@@ -105,7 +95,7 @@ class AuthController extends Controller {
       // .json(foundUser)
     } catch (error) {
       console.error(error)
-      return this.response.serverError(res, { message: this.messages.login })
+      return this.response.serverError(res, { message: 'login failed' })
     }
   }
 
@@ -118,10 +108,10 @@ class AuthController extends Controller {
 
   //* REFRESH TOKEN ------------------------------------------------------
   async refresh(req: Request, res: Response): Promise<void> {
-    const refreshToken = req.cookies?.refreshToken
+    const refreshToken = req.cookies.refresh_token
 
     if (!refreshToken) {
-      return this.response.badRequest(res, { messages: 'Refresh token is required' })
+      return this.response.badRequest(res, { messages: 'refresh token is required' })
     }
 
     try {
@@ -129,10 +119,16 @@ class AuthController extends Controller {
 
       const accessToken = generateAccessToken(decoded.user)
 
-      res.header('Authorization', `Bearer ${accessToken}`).json(decoded.user)
+      // Set cookies with access token
+      res.cookie('access_token', accessToken, {
+        httpOnly: true,
+        secure: false,
+      })
+
+      res.status(200).json({ message: 'access token refreshed successfully!' })
     } catch (error) {
       console.error(error)
-      return this.response.badRequest(res, { messages: 'Error refreshing access token' })
+      return this.response.badRequest(res, { messages: 'error refreshing access token' })
     }
   }
 }

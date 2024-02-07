@@ -23,8 +23,8 @@ const authController = new AuthController(response, userModel)
 //# Auth Routes
 router.post('/auth/signup', authValidation.signup, authController.signup)
 router.post('/auth/login', authValidation.login, authController.login)
-router.post('/auth/refresh-token', authController.refresh)
 router.post('/auth/logout', isAuthenticated, authController.logout)
+router.post('/auth/refresh-token', authController.refresh)
 //
 router.get('/auth/teste', (_, res) => {
   res.send('teste de rota auth!')
