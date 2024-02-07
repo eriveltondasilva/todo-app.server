@@ -31,7 +31,7 @@ class AuthController extends Controller {
 
   //# Auth Methods
   // --------------------------
-  //* Signup user
+  //* SIGNUP USER
   async signup(req: Request, res: Response): Promise<void> {
     const { name, email, password } = req.body
 
@@ -64,7 +64,7 @@ class AuthController extends Controller {
     }
   }
 
-  //* Login user ---------------------------------------------------------
+  //* LOGIN USER ---------------------------------------------------------
   async login(req: Request, res: Response): Promise<void> {
     const { email, password } = req.body
 
@@ -88,19 +88,30 @@ class AuthController extends Controller {
       delete foundUser.password
 
       // Generate JWT token
-      const tokens = generateTokens(foundUser)
+      const { accessToken, refreshToken } = generateTokens(foundUser)
 
-      // Login user
-      this.response.ok(res, tokens)
+      // Set cookies with access and refresh tokens
+      res.cookie('access_token', accessToken, {
+        httpOnly: true,
+        secure: false,
+      })
+      res.cookie('refresh_token', refreshToken, {
+        httpOnly: true,
+        secure: false,
+      })
+
+      res.status(200).json({ user: foundUser })
+      // .header('authorization', `Bearer ${accessToken}`)
+      // .json(foundUser)
     } catch (error) {
       console.error(error)
       return this.response.serverError(res, { message: this.messages.login })
     }
   }
 
-  //* Refresh token ------------------------------------------------------
+  //* REFRESH TOKEN ------------------------------------------------------
   async refresh(req: Request, res: Response): Promise<void> {
-    const { refreshToken } = req.body
+    const refreshToken = req.cookies?.refreshToken
 
     if (!refreshToken) {
       return this.response.badRequest(res, { messages: 'Refresh token is required' })
@@ -109,9 +120,9 @@ class AuthController extends Controller {
     try {
       const decoded: any = jwt.verify(refreshToken, JWT_REFRESH_TOKEN_SECRET)
 
-      const accessToken = generateAccessToken(decoded)
+      const accessToken = generateAccessToken(decoded.user)
 
-      return this.response.ok(res, { accessToken })
+      res.header('Authorization', `Bearer ${accessToken}`).json(decoded.user)
     } catch (error) {
       console.error(error)
       return this.response.badRequest(res, { messages: 'Error refreshing access token' })

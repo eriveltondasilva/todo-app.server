@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,23 +7,15 @@ datasource db {
   url      = "file:./dev.db"
 }
 
-// datasource db {
-//   provider  = "postgresql"
-//   url       = env("POSTGRES_PRISMA_URL")
-//   directUrl = env("POSTGRES_URL_NON_POOLING")
-// }
-
-// ########
-// MODELS
-// ########
-
 model User {
   id       Int     @id @default(autoincrement())
   email    String  @unique
   password String
   name     String?
-  role     String  @default("USER")
+  is_admin Boolean @default(false)
   Task     Task[]
+
+  @@map("users")
 }
 
 model Task {
@@ -37,8 +26,6 @@ model Task {
   updated_at   DateTime @updatedAt
   user_id      Int      @default(1)
   user         User     @relation(fields: [user_id], references: [id])
-}
 
-// #########
-// ENUMS
-// ########
+  @@map("tasks")
+}

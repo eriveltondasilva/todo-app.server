@@ -21,9 +21,9 @@ class TaskController extends Controller {
   // --------------------------
   //* Retrieve all task items
   async index(req: AuthRequest, res: Response): Promise<void> {
+    const authUserId = Number(req.user?.id || 1)
+    console.log(req.user)
     try {
-      const authUserId = Number(req.user?.id || 1)
-
       const tasks = await this.model.findAll(authUserId)
 
       return this.response.ok(res, tasks)

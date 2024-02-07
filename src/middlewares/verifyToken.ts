@@ -1,8 +1,8 @@
-import type { AuthRequest } from '@/types/authRequest'
 import type { NextFunction, Response } from 'express'
-import jwt from 'jsonwebtoken'
+import jwt, { JwtPayload } from 'jsonwebtoken'
+import type { AuthRequest } from '../app/types/authRequest'
 
-import { JWT_ACCESS_TOKEN_SECRET } from '@/config/constants'
+import { JWT_ACCESS_TOKEN_SECRET } from '../app/config/constants'
 
 // =====================================
 function verifyToken(req: AuthRequest, res: Response, next: NextFunction) {
@@ -17,7 +17,7 @@ function verifyToken(req: AuthRequest, res: Response, next: NextFunction) {
     // Verify token
     const decoded = jwt.verify(token, JWT_ACCESS_TOKEN_SECRET)
 
-    req.user = decoded
+    req.user = (decoded as JwtPayload).user
     next()
   } catch (error) {
     console.error(error)
