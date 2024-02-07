@@ -7,6 +7,7 @@ import jwt from 'jsonwebtoken'
 
 import { JWT_REFRESH_TOKEN_SECRET } from '@/config/constants'
 import { generateAccessToken, generateTokens } from '@/utils/generateTokens'
+import { setAccessTokenCookie, setRefreshTokenCookie } from '@/utils/setSignedCookies'
 import Controller from './@controller'
 
 // ====================================
@@ -81,18 +82,10 @@ class AuthController extends Controller {
       const { accessToken, refreshToken } = generateTokens(foundUser)
 
       // Set cookies with access and refresh tokens
-      res.cookie('access_token', accessToken, {
-        httpOnly: true,
-        secure: false,
-      })
-      res.cookie('refresh_token', refreshToken, {
-        httpOnly: true,
-        secure: false,
-      })
+      setAccessTokenCookie(res, accessToken)
+      setRefreshTokenCookie(res, refreshToken)
 
-      res.status(200).json({ message: 'Logged in successfully!', user: foundUser })
-      // .header('authorization', `Bearer ${accessToken}`)
-      // .json(foundUser)
+      res.status(200).json({ message: 'logged in successfully!', user: foundUser })
     } catch (error) {
       console.error(error)
       return this.response.serverError(res, { message: 'login failed' })
@@ -101,14 +94,21 @@ class AuthController extends Controller {
 
   //* LOGOUT USER --------------------------------------------------------
   async logout(req: Request, res: Response): Promise<void> {
+    const accessToken = req.signedCookies.access_token
+
+    if (!accessToken) {
+      return this.response.unauthorized(res, { message: 'access denied' })
+    }
+
+    // Clear cookies
     res.clearCookie('access_token')
     res.clearCookie('refresh_token')
-    res.status(200).json({ message: 'Logged out successfully!' })
+    res.status(200).json({ message: 'logged out successfully!' })
   }
 
   //* REFRESH TOKEN ------------------------------------------------------
   async refresh(req: Request, res: Response): Promise<void> {
-    const refreshToken = req.cookies.refresh_token
+    const refreshToken = req.signedCookies.refresh_token
 
     if (!refreshToken) {
       return this.response.badRequest(res, { messages: 'refresh token is required' })
@@ -120,10 +120,7 @@ class AuthController extends Controller {
       const accessToken = generateAccessToken(decoded.user)
 
       // Set cookies with access token
-      res.cookie('access_token', accessToken, {
-        httpOnly: true,
-        secure: false,
-      })
+      setAccessTokenCookie(res, accessToken)
 
       res.status(200).json({ message: 'access token refreshed successfully!' })
     } catch (error) {

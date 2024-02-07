@@ -6,11 +6,11 @@ import { JWT_ACCESS_TOKEN_SECRET } from '../app/config/constants'
 
 // =====================================
 function isAuthenticated(req: AuthRequest, res: Response, next: NextFunction) {
-  const accessToken = req.cookies.access_token
+  const accessToken = req.signedCookies.access_token
 
   // Check if token exists
   if (!accessToken) {
-    return res.status(401).json({ message: 'No token provided' })
+    return res.status(401).json({ message: 'access denied' })
   }
 
   try {
@@ -18,8 +18,6 @@ function isAuthenticated(req: AuthRequest, res: Response, next: NextFunction) {
     const decoded = jwt.verify(accessToken, JWT_ACCESS_TOKEN_SECRET)
 
     req.user = (decoded as JwtPayload).user
-    // TODO: remover!
-    console.log('decoded', req.user)
     next()
   } catch (error) {
     console.error(error)
