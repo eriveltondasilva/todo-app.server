@@ -6,22 +6,24 @@ import { JWT_ACCESS_TOKEN_SECRET } from '../app/config/constants'
 
 // =====================================
 function isAuthenticated(req: AuthRequest, res: Response, next: NextFunction) {
-  const token = req.headers.authorization?.split(' ')[1]
+  const accessToken = req.cookies.access_token
 
   // Check if token exists
-  if (!token) {
-    return res.status(401).json({ message: 'Access denied' })
+  if (!accessToken) {
+    return res.status(401).json({ message: 'No token provided' })
   }
 
   try {
     // Verify token
-    const decoded = jwt.verify(token, JWT_ACCESS_TOKEN_SECRET)
+    const decoded = jwt.verify(accessToken, JWT_ACCESS_TOKEN_SECRET)
 
     req.user = (decoded as JwtPayload).user
+    // TODO: remover!
+    console.log('decoded', req.user)
     next()
   } catch (error) {
     console.error(error)
-    return res.status(401).json({ error: 'Failed to authenticate token' })
+    return res.status(401).json({ message: 'Failed to authenticate token' })
   }
 }
 
