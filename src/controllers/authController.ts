@@ -100,7 +100,7 @@ class AuthController extends Controller {
         secure: false,
       })
 
-      res.status(200).json({ user: foundUser })
+      res.status(200).json({ message: 'Logged in successfully!', user: foundUser })
       // .header('authorization', `Bearer ${accessToken}`)
       // .json(foundUser)
     } catch (error) {
