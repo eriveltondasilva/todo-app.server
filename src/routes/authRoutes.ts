@@ -1,6 +1,7 @@
 import { Router } from 'express'
 
 import AuthController from '@/controllers/authController'
+import isAuthenticated from '@/middlewares/isAuthenticated'
 import authValidation from '@/middlewares/validations/authValidation'
 import UserModel from '@/models/userModel'
 import ResponseService from '@/services/response'
@@ -23,7 +24,7 @@ const authController = new AuthController(response, userModel)
 router.post('/auth/signup', authValidation.signup, authController.signup)
 router.post('/auth/login', authValidation.login, authController.login)
 router.post('/auth/refresh-token', authController.refresh)
-
+router.post('/auth/logout', isAuthenticated, authController.logout)
 //
 router.get('/auth/teste', (_, res) => {
   res.send('teste de rota auth!')

@@ -5,7 +5,7 @@ import type { AuthRequest } from '../app/types/authRequest'
 import { JWT_ACCESS_TOKEN_SECRET } from '../app/config/constants'
 
 // =====================================
-function verifyToken(req: AuthRequest, res: Response, next: NextFunction) {
+function isAuthenticated(req: AuthRequest, res: Response, next: NextFunction) {
   const token = req.headers.authorization?.split(' ')[1]
 
   // Check if token exists
@@ -26,4 +26,4 @@ function verifyToken(req: AuthRequest, res: Response, next: NextFunction) {
 }
 
 // ------------------------------------
-export default verifyToken
+export default isAuthenticated
