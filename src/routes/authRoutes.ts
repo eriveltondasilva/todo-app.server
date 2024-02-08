@@ -20,7 +20,7 @@ const authController = new AuthController(response, userModel)
 
 // ------------------------------------
 //# Auth Routes
-router.post('/auth/signup', authValidation.signup, authController.signup)
+router.post('/auth/register', authValidation.register, authController.register)
 router.post('/auth/login', authValidation.login, authController.login)
 router.post('/auth/logout', authController.logout)
 router.post('/auth/refresh-token', authController.refresh)

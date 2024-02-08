@@ -23,7 +23,7 @@ class AuthController extends Controller {
   //# Auth Methods
   // --------------------------
   //* SIGNUP USER
-  async signup(req: Request, res: Response): Promise<void> {
+  async register(req: Request, res: Response): Promise<void> {
     const { name, email, password } = req.body
 
     try {

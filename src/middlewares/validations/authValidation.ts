@@ -29,7 +29,7 @@ const loginValidation = [
 ]
 
 // prettier-ignore
-const signupValidation = [
+const registerValidation = [
   body('name')
     .optional()
     .trim()
@@ -47,4 +47,4 @@ const signupValidation = [
 ]
 
 // ------------------------------------
-export default { login: loginValidation, signup: signupValidation }
+export default { login: loginValidation, register: registerValidation }
