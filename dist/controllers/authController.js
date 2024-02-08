@@ -24,7 +24,7 @@ class AuthController extends _controller_1.default {
         this.response = response;
         this.model = model;
     }
-    signup(req, res) {
+    register(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { name, email, password } = req.body;
             try {

@@ -26,7 +26,7 @@ const loginValidation = [
     ...commonValidation,
     getValidationErrors_1.default
 ];
-const signupValidation = [
+const registerValidation = [
     (0, express_validator_1.body)('name')
         .optional()
         .trim()
@@ -40,5 +40,5 @@ const signupValidation = [
     ...commonValidation,
     getValidationErrors_1.default,
 ];
-exports.default = { login: loginValidation, signup: signupValidation };
+exports.default = { login: loginValidation, register: registerValidation };
 //# sourceMappingURL=authValidation.js.map

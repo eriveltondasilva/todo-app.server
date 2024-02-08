@@ -13,7 +13,7 @@ const router = (0, express_1.Router)();
 const response = new response_1.default();
 const userModel = new userModel_1.default(prisma_1.default);
 const authController = new authController_1.default(response, userModel);
-router.post('/auth/signup', authValidation_1.default.signup, authController.signup);
+router.post('/auth/register', authValidation_1.default.register, authController.register);
 router.post('/auth/login', authValidation_1.default.login, authController.login);
 router.post('/auth/logout', authController.logout);
 router.post('/auth/refresh-token', authController.refresh);
