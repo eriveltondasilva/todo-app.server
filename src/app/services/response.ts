@@ -1,4 +1,4 @@
-import { ResponseStatusEnum } from '@/enums/status'
+import ResponseStatus from '@/enums/responseStatus'
 import type { Response } from 'express'
 
 // interface
@@ -14,7 +14,7 @@ export interface IResponse {
 
 /** @class Response Service Class */
 class ResponseService implements IResponse {
-  protected readonly status = ResponseStatusEnum
+  protected readonly status = ResponseStatus
 
   //# RESPONSE SERVICE METHODS
   // --------------------------

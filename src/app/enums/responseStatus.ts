@@ -1,6 +1,6 @@
 //# ENUMS FOR HTTP RESPONSES
 // prettier-ignore
-export enum ResponseStatusEnum {
+enum ResponseStatus {
   OK           = 200,
   CREATED      = 201,
   NO_CONTENT   = 204,
@@ -10,3 +10,6 @@ export enum ResponseStatusEnum {
   NOT_FOUND    = 404,
   SERVER_ERROR = 500,
 }
+
+// --------------------------------
+export default ResponseStatus

@@ -11,9 +11,13 @@ class Server {
 
   /** @desc Starts the server and listens on the specified port 3000 **/
   static start(app: Express): void {
-    app.listen(this.port, () => {
-      console.log(this.message, this.port)
-    })
+    try {
+      app.listen(this.port, () => {
+        console.log(this.message, this.port)
+      })
+    } catch (error: any) {
+      console.error(error.message)
+    }
   }
 }
 
