@@ -17,7 +17,7 @@ const taskController = new TaskController(response, taskModel)
 
 // ------------------------------------
 //# Middlewares
-router.use(isAuthenticated)
+router.use('*', isAuthenticated)
 
 // ------------------------------------
 //# Todo Routes
