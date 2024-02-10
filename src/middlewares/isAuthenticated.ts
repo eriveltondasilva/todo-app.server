@@ -12,7 +12,7 @@ function isAuthenticated(req: AuthRequest, _: Response, next: NextFunction) {
   try {
     // Check if tokens exist
     if (!accessToken || !refreshToken) {
-      throw new UnauthorizedError('Failed to authenticate token')
+      throw new UnauthorizedError('access denied')
     }
 
     // Verify token
