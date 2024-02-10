@@ -22,6 +22,7 @@ const corsOptions = {
 const rateLimitOptions = {
   windowMs: 15 * 60 * 1000, // 15 minutes
   limit: 100,
+  message: 'You have exceeded the 100 requests in 15 min limit!',
   standardHeaders: true,
   legacyHeaders: false,
 }
