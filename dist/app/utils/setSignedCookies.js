@@ -10,11 +10,11 @@ function setCookie(res, name, value) {
     });
 }
 function setAccessTokenCookie(res, token) {
-    return setCookie(res, 'access_token', token);
+    return setCookie(res, 'accessToken', token);
 }
 exports.setAccessTokenCookie = setAccessTokenCookie;
 function setRefreshTokenCookie(res, token) {
-    return setCookie(res, 'refresh_token', token);
+    return setCookie(res, 'refreshToken', token);
 }
 exports.setRefreshTokenCookie = setRefreshTokenCookie;
 //# sourceMappingURL=setSignedCookies.js.map

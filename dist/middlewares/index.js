@@ -26,9 +26,9 @@ const morganOptions = 'dev';
 class Middlewares {
     static use(app) {
         app.use((0, compression_1.default)());
-        app.use((0, cors_1.default)());
         app.use((0, express_1.json)());
         app.use((0, helmet_1.default)());
+        app.use((0, cors_1.default)(corsOptions));
         app.use((0, cookie_parser_1.default)(constants_1.COOKIE_PARSER_SECRET));
         app.use((0, morgan_1.default)(morganOptions));
         app.use((0, express_rate_limit_1.rateLimit)(rateLimitOptions));

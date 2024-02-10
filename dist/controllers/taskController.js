@@ -12,7 +12,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_validator_1 = require("express-validator");
 const _controller_1 = __importDefault(require("./@controller"));
 class TaskController extends _controller_1.default {
     constructor(response, model) {
@@ -20,104 +19,86 @@ class TaskController extends _controller_1.default {
         this.response = response;
         this.model = model;
     }
-    index(req, res) {
-        var _a;
+    index(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            const authUserId = Number(((_a = req.user) === null || _a === void 0 ? void 0 : _a.id) || 1);
-            console.log(req.user);
+            const authUserId = Number(req.user.id);
             try {
                 const tasks = yield this.model.findAll(authUserId);
                 return this.response.ok(res, tasks);
             }
             catch (error) {
-                console.error(error);
+                next(error);
             }
         });
     }
-    show(req, res) {
-        var _a;
+    show(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             const id = Number(req.params.id);
-            const authUserId = Number(((_a = req.user) === null || _a === void 0 ? void 0 : _a.id) || 1);
-            const message = { error: 'Task not found' };
+            const authUserId = Number(req.user.id);
             try {
                 const task = yield this.model.findById(id, authUserId);
                 return this.response.ok(res, task);
             }
             catch (error) {
-                console.error(error);
-                return this.response.notFound(res, message);
+                next(error);
             }
         });
     }
-    create(req, res) {
-        var _a;
+    create(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
+            const body = req.body;
+            const authUserId = Number(req.user.id);
             try {
-                const body = req.body;
-                const authUserId = Number(((_a = req.user) === null || _a === void 0 ? void 0 : _a.id) || 1);
-                const result = (0, express_validator_1.validationResult)(req);
-                if (!result.isEmpty()) {
-                    return this.response.badRequest(res, { message: result.array()[0].msg });
-                }
                 const task = yield this.model.create(body, authUserId);
                 return this.response.created(res, task);
             }
             catch (error) {
-                console.error(error);
-                return this.response.badRequest(res, { message: 'Task not created' });
+                next(error);
             }
         });
     }
-    update(req, res) {
-        var _a;
+    update(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
+            const id = Number(req.params.id);
+            const authUserId = Number(req.user.id);
+            const body = req.body;
             try {
-                const id = Number(req.params.id);
-                const authUserId = Number(((_a = req.user) === null || _a === void 0 ? void 0 : _a.id) || 1);
-                const body = req.body;
-                const result = (0, express_validator_1.validationResult)(req);
-                if (!result.isEmpty()) {
-                    return this.response.badRequest(res, { message: result.array()[0].msg });
-                }
                 const task = yield this.model.update(id, body, authUserId);
                 return this.response.ok(res, task);
             }
             catch (error) {
-                console.error(error);
-                return this.response.badRequest(res, { message: 'Task not updated' });
+                next(error);
             }
         });
     }
-    destroy(req, res) {
-        var _a;
+    destroy(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             const id = Number(req.params.id);
-            const authUserId = Number(((_a = req.user) === null || _a === void 0 ? void 0 : _a.id) || 1);
-            const message = { error: 'Task not deleted' };
+            const authUserId = Number(req.user.id);
             try {
                 yield this.model.deleteById(id, authUserId);
                 return this.response.noContent(res);
             }
             catch (error) {
-                console.error(error);
-                return this.response.badRequest(res, message);
+                next(error);
             }
         });
     }
-    destroyMany(req, res) {
-        var _a;
+    destroyMany(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            const taskIds = req.body.ids;
-            const authUserId = Number(((_a = req.user) === null || _a === void 0 ? void 0 : _a.id) || 1);
-            const message = { error: 'Tasks not deleted' };
             try {
+                const authUserId = Number(req.user.id);
+                const taskIds = req.body.ids.map((id) => {
+                    const taskId = Number(id);
+                    if (isNaN(taskId) || taskId <= 0)
+                        throw new Error('Invalid task ID');
+                    return taskId;
+                });
                 yield this.model.destroyManyById(taskIds, authUserId);
                 return this.response.noContent(res);
             }
             catch (error) {
-                console.error(error);
-                return this.response.badRequest(res, message);
+                next(error);
             }
         });
     }

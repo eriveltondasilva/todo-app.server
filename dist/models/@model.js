@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const apiError_1 = require("../app/services/apiError");
 class Model {
     constructor(model) {
         this.model = model;
@@ -32,15 +33,18 @@ class Model {
                 },
             });
             if (!item)
-                throw new Error(`${this.modelName} not found`);
+                throw new apiError_1.NotFoundError(`${this.modelName} not found`);
             return item;
         });
     }
     create(body, authUserId) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.model[this.modelName].create({
+            const item = yield this.model[this.modelName].create({
                 data: Object.assign(Object.assign({}, body), { user_id: authUserId }),
             });
+            if (!item)
+                throw new Error(`${this.modelName} not created`);
+            return item;
         });
     }
     update(itemId, body, authUserId) {
@@ -53,28 +57,37 @@ class Model {
                 data: body,
             });
             if (!item)
-                throw new Error(`${this.modelName} not found`);
+                throw new Error(`${this.modelName} not update`);
             return item;
         });
     }
     deleteById(itemId, authUserId) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.model[this.modelName].delete({
+            const item = yield this.model[this.modelName].delete({
                 where: {
                     id: itemId,
                     user_id: authUserId,
                 },
             });
+            console.log(item);
+            if (!item)
+                throw new Error(`${this.modelName} not deleted`);
+            return item;
         });
     }
     destroyManyById(itemIds, authUserId) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.model[this.modelName].deleteMany({
+            const items = yield this.model[this.modelName].deleteMany({
                 where: {
-                    id: { in: itemIds },
+                    id: {
+                        in: itemIds,
+                    },
                     user_id: authUserId,
                 },
             });
+            if (!items.count)
+                throw new Error(`${this.modelName}s not deleted`);
+            return items;
         });
     }
 }
