@@ -10,7 +10,7 @@ function isAuthenticated(req, _, next) {
     const { accessToken, refreshToken } = req.signedCookies;
     try {
         if (!accessToken || !refreshToken) {
-            throw new apiError_1.UnauthorizedError('Failed to authenticate token');
+            throw new apiError_1.UnauthorizedError('access denied');
         }
         const decoded = jsonwebtoken_1.default.verify(accessToken, constants_1.JWT_ACCESS_TOKEN_SECRET);
         req.user = decoded.user;

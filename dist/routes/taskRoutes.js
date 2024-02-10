@@ -14,7 +14,7 @@ const router = (0, express_1.Router)();
 const response = new response_1.default();
 const taskModel = new taskModel_1.default(prisma_1.default);
 const taskController = new taskController_1.default(response, taskModel);
-router.use(isAuthenticated_1.default);
+router.use('*', isAuthenticated_1.default);
 router
     .route('/tasks')
     .get(taskController.index)
