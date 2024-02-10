@@ -1,3 +1,4 @@
+import { NotFoundError } from '@/services/apiError'
 import { PrismaClient } from '@prisma/client'
 
 // interface
@@ -11,7 +12,7 @@ export interface IModel {
 }
 
 // ====================================
-/** @class Base Model class */
+/** @desc Base Model class */
 abstract class Model implements IModel {
   protected modelName: string = this.constructor.name.toLowerCase().replace('model', '')
 
@@ -37,19 +38,23 @@ abstract class Model implements IModel {
       },
     })
 
-    if (!item) throw new Error(`${this.modelName} not found`)
+    if (!item) throw new NotFoundError(`${this.modelName} not found`)
 
     return item
   }
 
   //* Create a new item
   async create<T>(body: T, authUserId?: number): Promise<any> {
-    return await (this.model[this.modelName as keyof PrismaClient] as any).create({
+    const item = await (this.model[this.modelName as keyof PrismaClient] as any).create({
       data: {
         ...body,
         user_id: authUserId,
       },
     })
+
+    if (!item) throw new Error(`${this.modelName} not created`)
+
+    return item
   }
 
   //* Update a item
@@ -62,29 +67,41 @@ abstract class Model implements IModel {
       data: body,
     })
 
-    if (!item) throw new Error(`${this.modelName} not found`)
+    if (!item) throw new Error(`${this.modelName} not update`)
 
     return item
   }
 
   //* Delete a item
   async deleteById(itemId: number, authUserId: number): Promise<any> {
-    return await (this.model[this.modelName as keyof PrismaClient] as any).delete({
+    const item = await (this.model[this.modelName as keyof PrismaClient] as any).delete({
       where: {
         id: itemId,
         user_id: authUserId,
       },
     })
+
+    console.log(item)
+
+    if (!item) throw new Error(`${this.modelName} not deleted`)
+
+    return item
   }
 
   //* Delete all items
   async destroyManyById(itemIds: number[], authUserId?: number): Promise<any> {
-    return await (this.model[this.modelName as keyof PrismaClient] as any).deleteMany({
+    const items = await (this.model[this.modelName as keyof PrismaClient] as any).deleteMany({
       where: {
-        id: { in: itemIds },
+        id: {
+          in: itemIds,
+        },
         user_id: authUserId,
       },
     })
+
+    if (!items.count) throw new Error(`${this.modelName}s not deleted`)
+
+    return items
   }
 }
 

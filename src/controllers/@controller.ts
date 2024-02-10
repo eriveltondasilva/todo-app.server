@@ -1,7 +1,7 @@
 import type { IResponse } from '@/services/response'
 
 // ====================================
-/** @class Base Controller Class */
+/** @desc Base Controller Class */
 abstract class Controller {
   protected methods = this.getMethods(this)
 

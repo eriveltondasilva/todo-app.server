@@ -2,13 +2,12 @@ import type { IModel } from '@/models/@model'
 import type { IResponse } from '@/services/response'
 import type { AuthRequest } from '@/types/authRequest'
 import type { Prisma } from '@prisma/client'
-import type { Response } from 'express'
+import type { NextFunction, Response } from 'express'
 
-import { validationResult } from 'express-validator'
 import Controller from './@controller'
 
 // ====================================
-/** @class Task Controller Class */
+/** @desc Task Controller Class */
 class TaskController extends Controller {
   constructor(
     protected response: IResponse,
@@ -20,100 +19,84 @@ class TaskController extends Controller {
   //# TO-DO CONTROLLER METHODS
   // --------------------------
   //* Retrieve all task items
-  async index(req: AuthRequest, res: Response): Promise<void> {
-    const authUserId = Number(req.user?.id || 1)
-    console.log(req.user)
+  async index(req: AuthRequest, res: Response, next: NextFunction): Promise<void> {
+    const authUserId = Number(req.user.id)
+
     try {
       const tasks = await this.model.findAll(authUserId)
-
       return this.response.ok(res, tasks)
     } catch (error) {
-      console.error(error)
+      next(error)
     }
   }
 
   //* Find a task by its ID
-  async show(req: AuthRequest, res: Response): Promise<void> {
+  async show(req: AuthRequest, res: Response, next: NextFunction): Promise<void> {
     const id = Number(req.params.id)
-    const authUserId = Number(req.user?.id || 1)
-    const message = { error: 'Task not found' }
+    const authUserId = Number(req.user.id)
 
     try {
       const task = await this.model.findById(id, authUserId)
       return this.response.ok(res, task)
     } catch (error) {
-      console.error(error)
-      return this.response.notFound(res, message)
+      next(error)
     }
   }
 
   //* Create a new task item
-  async create(req: AuthRequest, res: Response): Promise<void> {
+  async create(req: AuthRequest, res: Response, next: NextFunction): Promise<void> {
+    const body = req.body
+    const authUserId = Number(req.user.id)
+
     try {
-      const body = req.body
-      const authUserId = Number(req.user?.id || 1)
-
-      const result = validationResult(req)
-
-      if (!result.isEmpty()) {
-        return this.response.badRequest(res, { message: result.array()[0].msg })
-      }
-
       const task = await this.model.create<Prisma.TaskCreateInput>(body, authUserId)
       return this.response.created(res, task)
     } catch (error) {
-      console.error(error)
-      return this.response.badRequest(res, { message: 'Task not created' })
+      next(error)
     }
   }
 
   //* Update a task item
-  async update(req: AuthRequest, res: Response): Promise<void> {
+  async update(req: AuthRequest, res: Response, next: NextFunction): Promise<void> {
+    const id = Number(req.params.id)
+    const authUserId = Number(req.user.id)
+    const body = req.body
+
     try {
-      const id = Number(req.params.id)
-      const authUserId = Number(req.user?.id || 1)
-      const body = req.body
-      const result = validationResult(req)
-
-      if (!result.isEmpty()) {
-        return this.response.badRequest(res, { message: result.array()[0].msg })
-      }
-
       const task = await this.model.update<Prisma.TaskUpdateInput>(id, body, authUserId)
       return this.response.ok(res, task)
     } catch (error) {
-      console.error(error)
-      return this.response.badRequest(res, { message: 'Task not updated' })
+      next(error)
     }
   }
 
   //* Delete a task item.
-  async destroy(req: AuthRequest, res: Response): Promise<void> {
+  async destroy(req: AuthRequest, res: Response, next: NextFunction): Promise<void> {
     const id = Number(req.params.id)
-    const authUserId = Number(req.user?.id || 1)
-    const message = { error: 'Task not deleted' }
+    const authUserId = Number(req.user.id)
 
     try {
       await this.model.deleteById(id, authUserId)
       return this.response.noContent(res)
     } catch (error) {
-      console.error(error)
-      return this.response.badRequest(res, message)
+      next(error)
     }
   }
 
   //* Delete a task item.
-  async destroyMany(req: AuthRequest, res: Response): Promise<void> {
-    const taskIds: number[] = req.body.ids
-    const authUserId = Number(req.user?.id || 1)
-    const message = { error: 'Tasks not deleted' }
-
+  async destroyMany(req: AuthRequest, res: Response, next: NextFunction): Promise<void> {
     try {
+      const authUserId = Number(req.user.id)
+      const taskIds: number[] = req.body.ids.map((id: any) => {
+        const taskId = Number(id)
+        if (isNaN(taskId) || taskId <= 0) throw new Error('Invalid task ID')
+        return taskId
+      })
+
       await this.model.destroyManyById(taskIds, authUserId)
       return this.response.noContent(res)
     } catch (error) {
-      console.error(error)
-      return this.response.badRequest(res, message)
+      next(error)
     }
   }
 }

@@ -2,7 +2,7 @@
 import compression from 'compression'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
-import { Express, json } from 'express'
+import { json, type Express } from 'express'
 import { rateLimit } from 'express-rate-limit'
 import helmet from 'helmet'
 import morgan from 'morgan'
@@ -30,13 +30,14 @@ const rateLimitOptions = {
 const morganOptions = 'dev'
 
 // ----------------------------
-/** @class Global Middlewares */
+/** @desc Global Middlewares */
 class Middlewares {
   static use(app: Express): void {
+    //
     app.use(compression())
-    app.use(cors())
     app.use(json())
     app.use(helmet())
+    app.use(cors(corsOptions))
     app.use(cookieParser(COOKIE_PARSER_SECRET))
     app.use(morgan(morganOptions))
     app.use(rateLimit(rateLimitOptions))

@@ -1,10 +1,8 @@
 import { APP_PORT } from '@/config/constants'
 import { Express } from 'express'
 
-/** --------------------------
- * @class Server
- * @desc Represents a server that starts and listens for incoming connections.
- **/
+// ====================================
+/** @desc Represents a server that starts and listens for incoming connections */
 class Server {
   private static readonly message = '🚀 Server running... \n🚪 Port: %i'
   private static readonly port = APP_PORT

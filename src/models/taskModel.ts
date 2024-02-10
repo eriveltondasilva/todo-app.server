@@ -1,7 +1,7 @@
 import Model from './@model'
 
 // ====================================
-/** @class Todo Model Class */
+/** @desc Todo Model Class */
 class TaskModel extends Model {}
 
 // --------------------------

@@ -6,7 +6,7 @@ export interface IUserModel extends IModel {
 }
 
 // ====================================
-/** @class User Model Class */
+/** @desc User Model Class */
 class UserModel extends Model implements IUserModel {
   async findByEmail(userEmail: string): Promise<any> {
     return await this.model.user.findUnique({

@@ -12,9 +12,9 @@ function setCookie(res: Response, name: string, value: string) {
 
 // ------------------------------------
 export function setAccessTokenCookie(res: Response, token: string) {
-  return setCookie(res, 'access_token', token)
+  return setCookie(res, 'accessToken', token)
 }
 
 export function setRefreshTokenCookie(res: Response, token: string) {
-  return setCookie(res, 'refresh_token', token)
+  return setCookie(res, 'refreshToken', token)
 }

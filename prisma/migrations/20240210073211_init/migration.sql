@@ -4,7 +4,9 @@ CREATE TABLE "users" (
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "name" TEXT,
-    "is_admin" BOOLEAN NOT NULL DEFAULT false
+    "is_admin" BOOLEAN NOT NULL DEFAULT false,
+    "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" DATETIME NOT NULL
 );
 
 -- CreateTable
@@ -12,9 +14,9 @@ CREATE TABLE "tasks" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "title" TEXT NOT NULL,
     "is_completed" BOOLEAN NOT NULL DEFAULT false,
+    "user_id" INTEGER NOT NULL DEFAULT 1,
     "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" DATETIME NOT NULL,
-    "user_id" INTEGER NOT NULL DEFAULT 1,
     CONSTRAINT "tasks_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 

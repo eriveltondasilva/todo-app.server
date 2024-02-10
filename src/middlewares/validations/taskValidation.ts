@@ -1,5 +1,5 @@
 import { body, param } from 'express-validator'
-import getValidationErrors from './getValidationErrors'
+import getValidationErrors from '../getValidationErrors'
 
 // ====================================
 // prettier-ignore
