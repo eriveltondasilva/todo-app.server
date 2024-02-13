@@ -6,4 +6,4 @@ router.get('/', (_, res) => {
     res.send('Hello World!');
 });
 exports.default = router;
-//# sourceMappingURL=publicRoutes.js.map
+//# sourceMappingURL=public.routes.js.map

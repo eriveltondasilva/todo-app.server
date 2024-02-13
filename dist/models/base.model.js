@@ -9,8 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const apiError_1 = require("../app/services/apiError");
-class Model {
+const error_service_1 = require("../app/services/error.service");
+class BaseModel {
     constructor(model) {
         this.model = model;
         this.modelName = this.constructor.name.toLowerCase().replace('model', '');
@@ -33,7 +33,7 @@ class Model {
                 },
             });
             if (!item)
-                throw new apiError_1.NotFoundError(`${this.modelName} not found`);
+                throw new error_service_1.NotFoundError(`${this.modelName} not found`);
             return item;
         });
     }
@@ -91,5 +91,5 @@ class Model {
         });
     }
 }
-exports.default = Model;
-//# sourceMappingURL=@model.js.map
+exports.default = BaseModel;
+//# sourceMappingURL=base.model.js.map

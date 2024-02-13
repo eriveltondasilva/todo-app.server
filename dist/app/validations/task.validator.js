@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_validator_1 = require("express-validator");
-const getValidationErrors_1 = __importDefault(require("../getValidationErrors"));
+const getValidationErrors_1 = __importDefault(require("../../middlewares/getValidationErrors"));
 const idValidation = [
     (0, express_validator_1.param)('id')
         .exists({ checkFalsy: true, checkNull: true })
@@ -64,4 +64,4 @@ exports.default = {
     destroy: destroyValidation,
     destroyMany: destroyManyValidation,
 };
-//# sourceMappingURL=taskValidation.js.map
+//# sourceMappingURL=task.validator.js.map

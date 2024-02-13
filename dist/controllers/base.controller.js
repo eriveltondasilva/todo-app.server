@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-class Controller {
+class BaseController {
     constructor(response) {
         this.response = response;
         this.methods = this.getMethods(this);
@@ -17,5 +17,5 @@ class Controller {
         });
     }
 }
-exports.default = Controller;
-//# sourceMappingURL=@controller.js.map
+exports.default = BaseController;
+//# sourceMappingURL=base.controller.js.map

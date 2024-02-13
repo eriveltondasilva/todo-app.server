@@ -15,11 +15,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const constants_1 = require("../app/config/constants");
-const apiError_1 = require("../app/services/apiError");
+const error_service_1 = require("../app/services/error.service");
 const generateTokens_1 = require("../app/utils/generateTokens");
 const setSignedCookies_1 = require("../app/utils/setSignedCookies");
-const _controller_1 = __importDefault(require("./@controller"));
-class AuthController extends _controller_1.default {
+const base_controller_1 = __importDefault(require("./base.controller"));
+class AuthController extends base_controller_1.default {
     constructor(response, model) {
         super(response);
         this.response = response;
@@ -31,7 +31,7 @@ class AuthController extends _controller_1.default {
             try {
                 const existingUser = yield this.model.findByEmail(String(email));
                 if (existingUser) {
-                    throw new apiError_1.ConflictError('user already exists');
+                    throw new error_service_1.ConflictError('user already exists');
                 }
                 const hashedPassword = yield bcrypt_1.default.hash(String(password), 8);
                 const newUser = yield this.model.create({
@@ -53,11 +53,11 @@ class AuthController extends _controller_1.default {
             try {
                 const foundUser = yield this.model.findByEmail(String(email));
                 if (!foundUser) {
-                    throw new apiError_1.UnauthorizedError("user's email not found");
+                    throw new error_service_1.UnauthorizedError("user's email not found");
                 }
                 const isPasswordCorrect = yield bcrypt_1.default.compare(String(password), foundUser.password);
                 if (!isPasswordCorrect) {
-                    throw new apiError_1.UnauthorizedError("user's password is incorrect");
+                    throw new error_service_1.UnauthorizedError("user's password is incorrect");
                 }
                 delete foundUser.password;
                 const { accessToken, refreshToken } = (0, generateTokens_1.generateTokens)(foundUser);
@@ -80,7 +80,7 @@ class AuthController extends _controller_1.default {
             try {
                 const { accessToken } = req.signedCookies;
                 if (!accessToken) {
-                    throw new apiError_1.UnauthorizedError('access token not found');
+                    throw new error_service_1.UnauthorizedError('access token not found');
                 }
                 res.clearCookie('accessToken');
                 res.clearCookie('refreshToken');
@@ -99,7 +99,7 @@ class AuthController extends _controller_1.default {
             try {
                 const { refreshToken } = req.signedCookies;
                 if (!refreshToken) {
-                    throw new apiError_1.UnauthorizedError('refresh token not found');
+                    throw new error_service_1.UnauthorizedError('refresh token not found');
                 }
                 const decoded = jsonwebtoken_1.default.verify(refreshToken, constants_1.JWT_REFRESH_TOKEN_SECRET);
                 const accessToken = (0, generateTokens_1.generateAccessToken)(decoded.user);
@@ -117,4 +117,4 @@ class AuthController extends _controller_1.default {
     }
 }
 exports.default = AuthController;
-//# sourceMappingURL=authController.js.map
+//# sourceMappingURL=auth.controller.js.map

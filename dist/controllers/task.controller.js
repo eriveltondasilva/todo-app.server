@@ -12,8 +12,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const _controller_1 = __importDefault(require("./@controller"));
-class TaskController extends _controller_1.default {
+const base_controller_1 = __importDefault(require("./base.controller"));
+class TaskController extends base_controller_1.default {
     constructor(response, model) {
         super(response);
         this.response = response;
@@ -104,4 +104,4 @@ class TaskController extends _controller_1.default {
     }
 }
 exports.default = TaskController;
-//# sourceMappingURL=taskController.js.map
+//# sourceMappingURL=task.controller.js.map

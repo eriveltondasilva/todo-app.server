@@ -35,4 +35,4 @@ class NotFoundError extends BaseError {
     }
 }
 exports.NotFoundError = NotFoundError;
-//# sourceMappingURL=apiError.js.map
+//# sourceMappingURL=error.service.js.map
