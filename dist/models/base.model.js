@@ -49,6 +49,7 @@ class BaseModel {
     }
     update(itemId, body, authUserId) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log(body);
             const item = yield this.model[this.modelName].update({
                 where: {
                     id: itemId,

@@ -27,6 +27,7 @@ const commonValidation = [
         .optional()
         .isBoolean()
         .withMessage('is_completed must be a boolean')
+        .toBoolean()
         .escape(),
 ];
 const createValidation = [

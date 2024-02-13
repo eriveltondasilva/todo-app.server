@@ -46,8 +46,9 @@ class TaskController extends base_controller_1.default {
     }
     create(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            const body = req.body;
             const authUserId = Number(req.user.id);
+            const body = req.body;
+            body.is_completed = body.is_completed === 'true';
             try {
                 const task = yield this.model.create(body, authUserId);
                 return this.response.created(res, task);
@@ -62,6 +63,7 @@ class TaskController extends base_controller_1.default {
             const id = Number(req.params.id);
             const authUserId = Number(req.user.id);
             const body = req.body;
+            body.is_completed = body.is_completed === 'true';
             try {
                 const task = yield this.model.update(id, body, authUserId);
                 return this.response.ok(res, task);
