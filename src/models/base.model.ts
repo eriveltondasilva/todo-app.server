@@ -59,6 +59,7 @@ abstract class BaseModel implements IBaseModel {
 
   //* Update a item
   async update<T>(itemId: number, body: T, authUserId: number): Promise<any> {
+    console.log(body)
     const item = await (this.model[this.modelName as keyof PrismaClient] as any).update({
       where: {
         id: itemId,

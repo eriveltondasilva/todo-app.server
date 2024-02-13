@@ -45,8 +45,11 @@ class TaskController extends BaseController {
 
   //* Create a new task item
   async create(req: AuthRequest, res: Response, next: NextFunction): Promise<void> {
-    const body = req.body
     const authUserId = Number(req.user.id)
+    const body = req.body
+
+    // Convert boolean string to boolean
+    body.is_completed = body.is_completed === 'true'
 
     try {
       const task = await this.model.create<Prisma.TaskCreateInput>(body, authUserId)
@@ -61,6 +64,9 @@ class TaskController extends BaseController {
     const id = Number(req.params.id)
     const authUserId = Number(req.user.id)
     const body = req.body
+
+    // Convert boolean string to boolean
+    body.is_completed = body.is_completed === 'true'
 
     try {
       const task = await this.model.update<Prisma.TaskUpdateInput>(id, body, authUserId)
