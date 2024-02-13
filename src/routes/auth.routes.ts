@@ -1,10 +1,10 @@
 import { Router } from 'express'
 
 import AuthController from '@/controllers/auth.controller'
-import authValidation from '@/middlewares/validations/authValidation'
 import UserModel from '@/models/user.model'
-import ResponseService from '@/services/response'
+import ResponseService from '@/services/response.service'
 import prisma from '@/singletons/prisma'
+import authValidation from '@/validations/auth.validator'
 
 // ------------------------------------
 //# Instances

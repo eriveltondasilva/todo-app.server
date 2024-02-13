@@ -1,4 +1,4 @@
-import { Response } from 'express'
+import type { Response } from 'express'
 
 // ====================================
 function setCookie(res: Response, name: string, value: string) {

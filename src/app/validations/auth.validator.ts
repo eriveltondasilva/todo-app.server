@@ -1,5 +1,6 @@
 import { body } from 'express-validator'
-import getValidationErrors from '../getValidationErrors'
+
+import getValidationErrors from '@/middlewares/getValidationErrors'
 
 // ====================================
 const commonValidation = [

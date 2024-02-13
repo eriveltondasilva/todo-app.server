@@ -1,4 +1,4 @@
-import type { IResponse } from '@/services/response'
+import type { IResponse } from '@/services/response.service'
 
 // ====================================
 /** @desc Base Controller Class */

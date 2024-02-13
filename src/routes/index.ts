@@ -1,4 +1,4 @@
-import { Express } from 'express'
+import type { Express } from 'express'
 
 import authRoutes from './auth.routes'
 import publicRoutes from './public.routes'

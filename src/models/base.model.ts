@@ -1,4 +1,4 @@
-import { NotFoundError } from '@/services/apiError'
+import { NotFoundError } from '@/services/error.service'
 import { PrismaClient } from '@prisma/client'
 
 // interface

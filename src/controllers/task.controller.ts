@@ -1,5 +1,5 @@
 import type { IBaseModel } from '@/models/base.model'
-import type { IResponse } from '@/services/response'
+import type { IResponse } from '@/services/response.service'
 import type { AuthRequest } from '@/types/authRequest'
 import type { Prisma } from '@prisma/client'
 import type { NextFunction, Response } from 'express'

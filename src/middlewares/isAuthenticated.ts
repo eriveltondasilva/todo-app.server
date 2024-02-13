@@ -3,7 +3,7 @@ import type { NextFunction, Response } from 'express'
 import jwt, { type JwtPayload } from 'jsonwebtoken'
 
 import { JWT_ACCESS_TOKEN_SECRET } from '@/config/constants'
-import { UnauthorizedError } from '@/services/apiError'
+import { UnauthorizedError } from '@/services/error.service'
 
 // =====================================
 function isAuthenticated(req: AuthRequest, _: Response, next: NextFunction) {

@@ -1,12 +1,12 @@
 import type { IUserModel } from '@/models/user.model'
-import type { IResponse } from '@/services/response'
+import type { IResponse } from '@/services/response.service'
 import type { NextFunction, Request, Response } from 'express'
 
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 import { JWT_REFRESH_TOKEN_SECRET } from '@/config/constants'
-import { ConflictError, UnauthorizedError } from '@/services/apiError'
+import { ConflictError, UnauthorizedError } from '@/services/error.service'
 import { generateAccessToken, generateTokens } from '@/utils/generateTokens'
 import { setAccessTokenCookie, setRefreshTokenCookie } from '@/utils/setSignedCookies'
 import BaseController from './base.controller'
