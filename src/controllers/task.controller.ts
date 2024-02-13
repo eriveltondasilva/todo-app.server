@@ -1,17 +1,17 @@
-import type { IModel } from '@/models/@model'
+import type { IBaseModel } from '@/models/base.model'
 import type { IResponse } from '@/services/response'
 import type { AuthRequest } from '@/types/authRequest'
 import type { Prisma } from '@prisma/client'
 import type { NextFunction, Response } from 'express'
 
-import Controller from './@controller'
+import BaseController from './base.controller'
 
 // ====================================
 /** @desc Task Controller Class */
-class TaskController extends Controller {
+class TaskController extends BaseController {
   constructor(
     protected response: IResponse,
-    protected model: IModel,
+    protected model: IBaseModel,
   ) {
     super(response)
   }

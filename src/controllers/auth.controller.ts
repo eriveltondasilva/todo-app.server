@@ -1,4 +1,4 @@
-import type { IUserModel } from '@/models/userModel'
+import type { IUserModel } from '@/models/user.model'
 import type { IResponse } from '@/services/response'
 import type { NextFunction, Request, Response } from 'express'
 
@@ -9,11 +9,11 @@ import { JWT_REFRESH_TOKEN_SECRET } from '@/config/constants'
 import { ConflictError, UnauthorizedError } from '@/services/apiError'
 import { generateAccessToken, generateTokens } from '@/utils/generateTokens'
 import { setAccessTokenCookie, setRefreshTokenCookie } from '@/utils/setSignedCookies'
-import Controller from './@controller'
+import BaseController from './base.controller'
 
 // ====================================
 /** @desc Auth Controller Class */
-class AuthController extends Controller {
+class AuthController extends BaseController {
   constructor(
     protected response: IResponse,
     protected model: IUserModel,

@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import TaskController from '@/controllers/taskController'
+import TaskController from '@/controllers/task.controller'
 import isAuthenticated from '@/middlewares/isAuthenticated'
 import taskValidation from '@/middlewares/validations/taskValidation'
 import TaskModel from '@/models/task.model'

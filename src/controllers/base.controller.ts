@@ -2,7 +2,7 @@ import type { IResponse } from '@/services/response'
 
 // ====================================
 /** @desc Base Controller Class */
-abstract class Controller {
+abstract class BaseController {
   protected methods = this.getMethods(this)
 
   constructor(protected response: IResponse) {
@@ -31,4 +31,4 @@ abstract class Controller {
 }
 
 // --------------------------
-export default Controller
+export default BaseController
