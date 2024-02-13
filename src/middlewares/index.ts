@@ -34,7 +34,6 @@ const morganOptions = 'dev'
 /** @desc Global Middlewares */
 class Middlewares {
   static use(app: Express): void {
-    //
     app.use(compression())
     app.use(json())
     app.use(helmet())

@@ -4,7 +4,7 @@ import type { Response } from 'express'
 function setCookie(res: Response, name: string, value: string) {
   return res.cookie(name, value, {
     httpOnly: true,
-    secure: false,
+    secure: true,
     signed: true,
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 day
   })

@@ -22,12 +22,8 @@ class TaskController extends BaseController {
   async index(req: AuthRequest, res: Response, next: NextFunction): Promise<void> {
     const authUserId = Number(req.user.id)
 
-    try {
-      const tasks = await this.model.findAll(authUserId)
-      return this.response.ok(res, tasks)
-    } catch (error) {
-      next(error)
-    }
+    const tasks = await this.model.findAll(authUserId)
+    return this.response.ok(res, tasks)
   }
 
   //* Find a task by its ID
@@ -35,12 +31,8 @@ class TaskController extends BaseController {
     const id = Number(req.params.id)
     const authUserId = Number(req.user.id)
 
-    try {
-      const task = await this.model.findById(id, authUserId)
-      return this.response.ok(res, task)
-    } catch (error) {
-      next(error)
-    }
+    const task = await this.model.findById(id, authUserId)
+    return this.response.ok(res, task)
   }
 
   //* Create a new task item
@@ -51,12 +43,8 @@ class TaskController extends BaseController {
     // Convert boolean string to boolean
     body.is_completed = body.is_completed === 'true'
 
-    try {
-      const task = await this.model.create<Prisma.TaskCreateInput>(body, authUserId)
-      return this.response.created(res, task)
-    } catch (error) {
-      next(error)
-    }
+    const task = await this.model.create<Prisma.TaskCreateInput>(body, authUserId)
+    return this.response.created(res, task)
   }
 
   //* Update a task item
@@ -68,12 +56,8 @@ class TaskController extends BaseController {
     // Convert boolean string to boolean
     body.is_completed = body.is_completed === 'true'
 
-    try {
-      const task = await this.model.update<Prisma.TaskUpdateInput>(id, body, authUserId)
-      return this.response.ok(res, task)
-    } catch (error) {
-      next(error)
-    }
+    const task = await this.model.update<Prisma.TaskUpdateInput>(id, body, authUserId)
+    return this.response.ok(res, task)
   }
 
   //* Delete a task item.
@@ -81,29 +65,22 @@ class TaskController extends BaseController {
     const id = Number(req.params.id)
     const authUserId = Number(req.user.id)
 
-    try {
-      await this.model.deleteById(id, authUserId)
-      return this.response.noContent(res)
-    } catch (error) {
-      next(error)
-    }
+    await this.model.deleteById(id, authUserId)
+    return this.response.noContent(res)
   }
 
   //* Delete a task item.
   async destroyMany(req: AuthRequest, res: Response, next: NextFunction): Promise<void> {
-    try {
-      const authUserId = Number(req.user.id)
-      const taskIds: number[] = req.body.ids.map((id: any) => {
-        const taskId = Number(id)
-        if (isNaN(taskId) || taskId <= 0) throw new Error('Invalid task ID')
-        return taskId
-      })
+    const authUserId = Number(req.user.id)
 
-      await this.model.destroyManyById(taskIds, authUserId)
-      return this.response.noContent(res)
-    } catch (error) {
-      next(error)
-    }
+    const taskIds: number[] = req.body.ids.map((id: any) => {
+      const taskId = Number(id)
+      if (isNaN(taskId) || taskId <= 0) throw new Error('Invalid task ID')
+      return taskId
+    })
+
+    await this.model.destroyManyById(taskIds, authUserId)
+    return this.response.noContent(res)
   }
 }
 

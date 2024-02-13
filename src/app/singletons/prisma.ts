@@ -8,17 +8,12 @@ class PrismaSingleton {
   private constructor() {}
 
   public static getInstance(): PrismaClient {
-    try {
-      if (!PrismaSingleton.instance) {
-        PrismaSingleton.instance = new PrismaClient()
-      }
-
-      // => Prevent multiple instances
-      return PrismaSingleton.instance
-    } catch (error) {
-      console.error(error)
-      throw error
+    if (!PrismaSingleton.instance) {
+      PrismaSingleton.instance = new PrismaClient()
     }
+
+    // => Prevent multiple instances
+    return PrismaSingleton.instance
   }
 }
 

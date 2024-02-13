@@ -15,9 +15,9 @@ class ErrorHandler {
     const errorStatus = error.status || ResponseStatus.SERVER_ERROR
 
     // Log the error
-    console.log('\n=> Middleware Error Handling\n')
+    console.log('\n### ERROR HANDLING MIDDLEWARE ###')
     console.log('%s: %s \n', error.name, error.message)
-    // console.error(error.stack)
+    console.error(error.stack, '\n')
 
     // Send the error response
     return res.status(errorStatus).json({
