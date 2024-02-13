@@ -1,8 +1,8 @@
 import { Express } from 'express'
 
-import authRoutes from './authRoutes'
-import publicRoutes from './publicRoutes'
-import taskRoutes from './taskRoutes'
+import authRoutes from './auth.routes'
+import publicRoutes from './public.routes'
+import taskRoutes from './task.routes'
 
 // ====================================
 /** @desc Routes class handles the configuration of routes for the Express app */
