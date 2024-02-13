@@ -9,7 +9,7 @@ import taskRoutes from './task.routes'
 class Routes {
   /** @desc Configures the routes for the Express app */
   static use(app: Express): void {
-    app.use(publicRoutes)
+    app.use('/', publicRoutes)
     app.use('/api', authRoutes)
     app.use('/api', taskRoutes)
   }

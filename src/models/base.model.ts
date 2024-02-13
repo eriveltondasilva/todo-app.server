@@ -2,7 +2,7 @@ import { NotFoundError } from '@/services/apiError'
 import { PrismaClient } from '@prisma/client'
 
 // interface
-export interface IModel {
+export interface IBaseModel {
   findAll(authUserId: number): Promise<any[]>
   findById(itemId: number, authUserId: number): Promise<any>
   create<T>(body: T, authUserId?: number): Promise<any>
@@ -13,7 +13,7 @@ export interface IModel {
 
 // ====================================
 /** @desc Base Model class */
-abstract class Model implements IModel {
+abstract class BaseModel implements IBaseModel {
   protected modelName: string = this.constructor.name.toLowerCase().replace('model', '')
 
   constructor(protected model: PrismaClient) {}
@@ -106,4 +106,4 @@ abstract class Model implements IModel {
 }
 
 // --------------------------
-export default Model
+export default BaseModel

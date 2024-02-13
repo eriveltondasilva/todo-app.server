@@ -3,7 +3,7 @@ import { Router } from 'express'
 import TaskController from '@/controllers/taskController'
 import isAuthenticated from '@/middlewares/isAuthenticated'
 import taskValidation from '@/middlewares/validations/taskValidation'
-import TaskModel from '@/models/taskModel'
+import TaskModel from '@/models/task.model'
 import ResponseService from '@/services/response'
 import prisma from '@/singletons/prisma'
 

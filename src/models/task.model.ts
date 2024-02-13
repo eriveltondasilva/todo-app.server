@@ -1,8 +1,8 @@
-import Model from './@model'
+import BaseModel from './base.model'
 
 // ====================================
 /** @desc Todo Model Class */
-class TaskModel extends Model {}
+class TaskModel extends BaseModel {}
 
 // --------------------------
 export default TaskModel
