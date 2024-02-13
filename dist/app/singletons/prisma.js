@@ -4,16 +4,10 @@ const client_1 = require("@prisma/client");
 class PrismaSingleton {
     constructor() { }
     static getInstance() {
-        try {
-            if (!PrismaSingleton.instance) {
-                PrismaSingleton.instance = new client_1.PrismaClient();
-            }
-            return PrismaSingleton.instance;
+        if (!PrismaSingleton.instance) {
+            PrismaSingleton.instance = new client_1.PrismaClient();
         }
-        catch (error) {
-            console.error(error);
-            throw error;
-        }
+        return PrismaSingleton.instance;
     }
 }
 const prismaSingleton = PrismaSingleton.getInstance();

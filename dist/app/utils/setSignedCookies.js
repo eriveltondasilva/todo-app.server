@@ -4,7 +4,7 @@ exports.setRefreshTokenCookie = exports.setAccessTokenCookie = void 0;
 function setCookie(res, name, value) {
     return res.cookie(name, value, {
         httpOnly: true,
-        secure: false,
+        secure: true,
         signed: true,
         maxAge: 7 * 24 * 60 * 60 * 1000,
     });

@@ -11,8 +11,9 @@ class ErrorHandler {
     static handler(error, _, res, next) {
         const errorMessage = error.message || 'Internal Server Error';
         const errorStatus = error.status || responseStatus_1.default.SERVER_ERROR;
-        console.log('\n=> Middleware Error Handling\n');
+        console.log('\n### ERROR HANDLING MIDDLEWARE ###');
         console.log('%s: %s \n', error.name, error.message);
+        console.error(error.stack, '\n');
         return res.status(errorStatus).json({
             success: false,
             status: errorStatus,

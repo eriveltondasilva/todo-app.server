@@ -22,26 +22,16 @@ class TaskController extends base_controller_1.default {
     index(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             const authUserId = Number(req.user.id);
-            try {
-                const tasks = yield this.model.findAll(authUserId);
-                return this.response.ok(res, tasks);
-            }
-            catch (error) {
-                next(error);
-            }
+            const tasks = yield this.model.findAll(authUserId);
+            return this.response.ok(res, tasks);
         });
     }
     show(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             const id = Number(req.params.id);
             const authUserId = Number(req.user.id);
-            try {
-                const task = yield this.model.findById(id, authUserId);
-                return this.response.ok(res, task);
-            }
-            catch (error) {
-                next(error);
-            }
+            const task = yield this.model.findById(id, authUserId);
+            return this.response.ok(res, task);
         });
     }
     create(req, res, next) {
@@ -49,13 +39,8 @@ class TaskController extends base_controller_1.default {
             const authUserId = Number(req.user.id);
             const body = req.body;
             body.is_completed = body.is_completed === 'true';
-            try {
-                const task = yield this.model.create(body, authUserId);
-                return this.response.created(res, task);
-            }
-            catch (error) {
-                next(error);
-            }
+            const task = yield this.model.create(body, authUserId);
+            return this.response.created(res, task);
         });
     }
     update(req, res, next) {
@@ -64,44 +49,29 @@ class TaskController extends base_controller_1.default {
             const authUserId = Number(req.user.id);
             const body = req.body;
             body.is_completed = body.is_completed === 'true';
-            try {
-                const task = yield this.model.update(id, body, authUserId);
-                return this.response.ok(res, task);
-            }
-            catch (error) {
-                next(error);
-            }
+            const task = yield this.model.update(id, body, authUserId);
+            return this.response.ok(res, task);
         });
     }
     destroy(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             const id = Number(req.params.id);
             const authUserId = Number(req.user.id);
-            try {
-                yield this.model.deleteById(id, authUserId);
-                return this.response.noContent(res);
-            }
-            catch (error) {
-                next(error);
-            }
+            yield this.model.deleteById(id, authUserId);
+            return this.response.noContent(res);
         });
     }
     destroyMany(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const authUserId = Number(req.user.id);
-                const taskIds = req.body.ids.map((id) => {
-                    const taskId = Number(id);
-                    if (isNaN(taskId) || taskId <= 0)
-                        throw new Error('Invalid task ID');
-                    return taskId;
-                });
-                yield this.model.destroyManyById(taskIds, authUserId);
-                return this.response.noContent(res);
-            }
-            catch (error) {
-                next(error);
-            }
+            const authUserId = Number(req.user.id);
+            const taskIds = req.body.ids.map((id) => {
+                const taskId = Number(id);
+                if (isNaN(taskId) || taskId <= 0)
+                    throw new Error('Invalid task ID');
+                return taskId;
+            });
+            yield this.model.destroyManyById(taskIds, authUserId);
+            return this.response.noContent(res);
         });
     }
 }
