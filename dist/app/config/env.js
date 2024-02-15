@@ -7,4 +7,4 @@ exports.APP_HOST = process.env.APP_HOST || 'http://localhost:3000';
 exports.JWT_ACCESS_TOKEN_SECRET = process.env.JWT_ACCESS_TOKEN_SECRET || 'accessToken12345';
 exports.JWT_REFRESH_TOKEN_SECRET = process.env.JWT_REFRESH_TOKEN_SECRET || 'refreshToken12345';
 exports.COOKIE_PARSER_SECRET = process.env.COOKIE_PARSER_SECRET || 'cookieParser12345';
-//# sourceMappingURL=constants.js.map
+//# sourceMappingURL=env.js.map

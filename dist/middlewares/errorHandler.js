@@ -8,9 +8,10 @@ class ErrorHandler {
     static use(app) {
         app.use(ErrorHandler.handler);
     }
-    static handler(error, _, res, next) {
+    static handler(error, _, res) {
         const errorMessage = error.message || 'Internal Server Error';
         const errorStatus = error.status || responseStatus_1.default.SERVER_ERROR;
+        const validations = error.validations || null;
         console.log('\n### ERROR HANDLING MIDDLEWARE ###');
         console.log('%s: %s \n', error.name, error.message);
         console.error(error.stack, '\n');
@@ -18,6 +19,7 @@ class ErrorHandler {
             success: false,
             status: errorStatus,
             message: errorMessage,
+            validations: validations,
         });
     }
 }

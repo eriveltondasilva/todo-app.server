@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const constants_1 = require("../app/config/constants");
+const env_1 = require("../app/config/env");
 const error_service_1 = require("../app/services/error.service");
 const generateTokens_1 = require("../app/utils/generateTokens");
 const setSignedCookies_1 = require("../app/utils/setSignedCookies");
@@ -85,7 +85,7 @@ class AuthController extends base_controller_1.default {
             if (!refreshToken) {
                 throw new error_service_1.UnauthorizedError('refresh token not found');
             }
-            const decoded = jsonwebtoken_1.default.verify(refreshToken, constants_1.JWT_REFRESH_TOKEN_SECRET);
+            const decoded = jsonwebtoken_1.default.verify(refreshToken, env_1.JWT_REFRESH_TOKEN_SECRET);
             const accessToken = (0, generateTokens_1.generateAccessToken)(decoded.user);
             (0, setSignedCookies_1.setAccessTokenCookie)(res, accessToken);
             const date = new Date().toLocaleTimeString();

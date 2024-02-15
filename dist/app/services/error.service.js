@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.NotFoundError = exports.ConflictError = exports.UnauthorizedError = void 0;
+exports.ValidationError = exports.NotFoundError = exports.ConflictError = exports.UnauthorizedError = void 0;
 const responseStatus_1 = __importDefault(require("../enums/responseStatus"));
 class BaseError extends Error {
     constructor(message, status) {
@@ -35,4 +35,12 @@ class NotFoundError extends BaseError {
     }
 }
 exports.NotFoundError = NotFoundError;
+class ValidationError extends BaseError {
+    constructor(message = 'Validation Error', validations) {
+        super(message, responseStatus_1.default.UNPROCESSABLE_ENTITY);
+        this.message = message;
+        this.validations = validations;
+    }
+}
+exports.ValidationError = ValidationError;
 //# sourceMappingURL=error.service.js.map
