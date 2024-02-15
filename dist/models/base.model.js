@@ -49,7 +49,7 @@ class BaseModel {
     }
     update(itemId, body, authUserId) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log(body);
+            yield this.findById(itemId, authUserId);
             const item = yield this.model[this.modelName].update({
                 where: {
                     id: itemId,
@@ -64,6 +64,7 @@ class BaseModel {
     }
     deleteById(itemId, authUserId) {
         return __awaiter(this, void 0, void 0, function* () {
+            yield this.findById(itemId, authUserId);
             const item = yield this.model[this.modelName].delete({
                 where: {
                     id: itemId,
