@@ -30,3 +30,12 @@ export class NotFoundError extends BaseError {
     super(message, ResponseStatus.NOT_FOUND)
   }
 }
+
+export class ValidationError extends BaseError {
+  constructor(
+    public message: string = 'Validation Error',
+    public validations: any,
+  ) {
+    super(message, ResponseStatus.UNPROCESSABLE_ENTITY)
+  }
+}

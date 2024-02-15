@@ -1,5 +1,5 @@
 import ResponseStatus from '@/enums/responseStatus'
-import type { Express, NextFunction, Request, Response } from 'express'
+import type { Express, Request, Response } from 'express'
 
 // =====================================
 /** @desc Handles errors */
@@ -10,9 +10,10 @@ class ErrorHandler {
   }
 
   /** @desc Handles errors */
-  static handler(error: any, _: Request, res: Response, next: NextFunction) {
+  static handler(error: any, _: Request, res: Response) {
     const errorMessage = error.message || 'Internal Server Error'
     const errorStatus = error.status || ResponseStatus.SERVER_ERROR
+    const validations = error.validations || null
 
     // Log the error
     console.log('\n### ERROR HANDLING MIDDLEWARE ###')
@@ -24,6 +25,7 @@ class ErrorHandler {
       success: false,
       status: errorStatus,
       message: errorMessage,
+      validations: validations,
     })
   }
 }

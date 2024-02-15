@@ -1,20 +1,17 @@
-import ResponseStatus from '@/enums/responseStatus'
 import type { NextFunction, Request, Response } from 'express'
 import { validationResult } from 'express-validator'
 
+import { ValidationError } from '@/services/error.service'
+
 // =====================================
-function getValidationErrors(req: Request, res: Response, next: NextFunction) {
+export default function getValidationErrors(req: Request, _: Response, next: NextFunction) {
   const result = validationResult(req)
 
-  if (result.isEmpty()) {
-    return next()
+  if (!result.isEmpty()) {
+    const errors = result.formatWith((error) => error.msg).mapped()
+    // const errors = result.formatWith((error) => error.msg).array({ onlyFirstError: true })
+    throw new ValidationError('Validation Error', errors)
   }
 
-  const errors = result
-    .array({ onlyFirstError: true })
-    .map((error: any) => ({ [error.path]: error.msg }))
-  return res.status(ResponseStatus.UNPROCESSABLE_ENTITY).json({ errors })
+  return next()
 }
-
-// ------------------------------------------
-export default getValidationErrors
