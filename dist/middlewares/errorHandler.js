@@ -8,7 +8,7 @@ class ErrorHandler {
     static use(app) {
         app.use(ErrorHandler.handler);
     }
-    static handler(error, _, res) {
+    static handler(error, _, res, next) {
         const errorMessage = error.message || 'Internal Server Error';
         const errorStatus = error.status || responseStatus_1.default.SERVER_ERROR;
         const validations = error.validations || null;

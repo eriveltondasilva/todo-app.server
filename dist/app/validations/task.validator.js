@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const getValidationErrors_1 = __importDefault(require("../../middlewares/getValidationErrors"));
 const express_validator_1 = require("express-validator");
-const idValidation = [
+const idParamValidation = [
     (0, express_validator_1.param)('id')
         .exists({ checkFalsy: true, checkNull: true })
         .withMessage('id is required')
@@ -14,7 +14,32 @@ const idValidation = [
         .trim()
         .escape()
 ];
-const commonValidation = [
+const showValidation = [
+    ...idParamValidation,
+    getValidationErrors_1.default
+];
+const updateValidation = [
+    ...idParamValidation,
+    (0, express_validator_1.body)('title')
+        .optional()
+        .isString()
+        .withMessage('Title must be a string')
+        .isLength({ min: 3 })
+        .withMessage('Title must be at least 3 characters long')
+        .trim().escape(),
+    (0, express_validator_1.body)('is_completed')
+        .optional()
+        .isBoolean()
+        .withMessage('is_completed must be a boolean')
+        .toBoolean()
+        .escape(),
+    getValidationErrors_1.default
+];
+const destroyValidation = [
+    ...idParamValidation,
+    getValidationErrors_1.default
+];
+const createValidation = [
     (0, express_validator_1.body)('title')
         .exists({ checkFalsy: true, checkNull: true })
         .withMessage('Title is required')
@@ -29,22 +54,6 @@ const commonValidation = [
         .withMessage('is_completed must be a boolean')
         .toBoolean()
         .escape(),
-];
-const createValidation = [
-    ...commonValidation,
-    getValidationErrors_1.default
-];
-const showValidation = [
-    ...idValidation,
-    getValidationErrors_1.default
-];
-const updateValidation = [
-    ...idValidation,
-    ...commonValidation,
-    getValidationErrors_1.default
-];
-const destroyValidation = [
-    ...idValidation,
     getValidationErrors_1.default
 ];
 const destroyManyValidation = [
