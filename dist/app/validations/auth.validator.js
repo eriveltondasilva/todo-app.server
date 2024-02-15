@@ -40,5 +40,5 @@ const registerValidation = [
     ...commonValidation,
     getValidationErrors_1.default,
 ];
-exports.default = { login: loginValidation, register: registerValidation };
+exports.default = { loginValidation, registerValidation };
 //# sourceMappingURL=auth.validator.js.map

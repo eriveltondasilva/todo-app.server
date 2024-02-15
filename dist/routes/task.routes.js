@@ -14,16 +14,17 @@ const router = (0, express_1.Router)();
 const response = new response_service_1.default();
 const taskModel = new task_model_1.default(prisma_1.default);
 const taskController = new task_controller_1.default(response, taskModel);
+const { createValidation, showValidation, updateValidation, destroyValidation, destroyManyValidation, } = task_validator_1.default;
 router.use('*', isAuthenticated_1.default);
 router
     .route('/tasks')
     .get(taskController.index)
-    .post(task_validator_1.default.create, taskController.create)
-    .delete(task_validator_1.default.destroyMany, taskController.destroyMany);
+    .post(createValidation, taskController.create)
+    .delete(destroyManyValidation, taskController.destroyMany);
 router
     .route('/tasks/:id')
-    .get(task_validator_1.default.show, taskController.show)
-    .put(task_validator_1.default.update, taskController.update)
-    .delete(task_validator_1.default.destroy, taskController.destroy);
+    .get(showValidation, taskController.show)
+    .put(updateValidation, taskController.update)
+    .delete(destroyValidation, taskController.destroy);
 exports.default = router;
 //# sourceMappingURL=task.routes.js.map

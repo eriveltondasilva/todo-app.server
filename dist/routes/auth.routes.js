@@ -13,8 +13,9 @@ const router = (0, express_1.Router)();
 const response = new response_service_1.default();
 const userModel = new user_model_1.default(prisma_1.default);
 const authController = new auth_controller_1.default(response, userModel);
-router.post('/auth/register', auth_validator_1.default.register, authController.register);
-router.post('/auth/login', auth_validator_1.default.login, authController.login);
+const { loginValidation, registerValidation } = auth_validator_1.default;
+router.post('/auth/register', loginValidation, authController.register);
+router.post('/auth/login', registerValidation, authController.login);
 router.post('/auth/logout', authController.logout);
 router.post('/auth/refresh-token', authController.refresh);
 router.get('/auth/teste', (_, res) => {
