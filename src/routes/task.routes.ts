@@ -15,6 +15,14 @@ const response = new ResponseService()
 const taskModel = new TaskModel(prisma)
 const taskController = new TaskController(response, taskModel)
 
+const {
+  createValidation,
+  showValidation,
+  updateValidation,
+  destroyValidation,
+  destroyManyValidation,
+} = taskValidation
+
 // ------------------------------------
 //# Middlewares
 router.use('*', isAuthenticated)
@@ -25,14 +33,14 @@ router.use('*', isAuthenticated)
 router
   .route('/tasks')
   .get(taskController.index)
-  .post(taskValidation.create, taskController.create)
-  .delete(taskValidation.destroyMany, taskController.destroyMany)
+  .post(createValidation, taskController.create)
+  .delete(destroyManyValidation, taskController.destroyMany)
 
 router
   .route('/tasks/:id')
-  .get(taskValidation.show, taskController.show)
-  .put(taskValidation.update, taskController.update)
-  .delete(taskValidation.destroy, taskController.destroy)
+  .get(showValidation, taskController.show)
+  .put(updateValidation, taskController.update)
+  .delete(destroyValidation, taskController.destroy)
 
 // ------------------------------------
 export default router

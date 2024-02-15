@@ -1,6 +1,5 @@
-import { body, param } from 'express-validator'
-
 import getValidationErrors from '@/middlewares/getValidationErrors'
+import { body, param } from 'express-validator'
 
 // ====================================
 // prettier-ignore
@@ -74,9 +73,9 @@ const destroyManyValidation = [
 
 // ------------------------------------
 export default {
-  create: createValidation,
-  show: showValidation,
-  update: updateValidation,
-  destroy: destroyValidation,
-  destroyMany: destroyManyValidation,
+  createValidation,
+  showValidation,
+  updateValidation,
+  destroyValidation,
+  destroyManyValidation,
 }

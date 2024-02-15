@@ -47,4 +47,4 @@ const registerValidation = [
 ]
 
 // ------------------------------------
-export default { login: loginValidation, register: registerValidation }
+export default { loginValidation, registerValidation }

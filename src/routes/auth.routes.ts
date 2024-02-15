@@ -14,14 +14,16 @@ const response = new ResponseService()
 const userModel = new UserModel(prisma)
 const authController = new AuthController(response, userModel)
 
+const { loginValidation, registerValidation } = authValidation
+
 // ------------------------------------
 //# Middlewares
 // router.use()
 
 // ------------------------------------
 //# Auth Routes
-router.post('/auth/register', authValidation.register, authController.register)
-router.post('/auth/login', authValidation.login, authController.login)
+router.post('/auth/register', loginValidation, authController.register)
+router.post('/auth/login', registerValidation, authController.login)
 router.post('/auth/logout', authController.logout)
 router.post('/auth/refresh-token', authController.refresh)
 
