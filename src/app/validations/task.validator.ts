@@ -3,7 +3,7 @@ import { body, param } from 'express-validator'
 
 // ====================================
 // prettier-ignore
-const idValidation = [
+const idParamValidation = [
   param('id')
     .exists({ checkFalsy: true, checkNull: true })
     .withMessage('id is required')
@@ -13,8 +13,43 @@ const idValidation = [
     .escape()
 ]
 
+// ------------------------------------
 // prettier-ignore
-const commonValidation = [
+const showValidation = [
+  ...idParamValidation,
+  getValidationErrors
+]
+
+// prettier-ignore
+const updateValidation = [
+  ...idParamValidation,
+
+  body('title')
+    .optional()
+    .isString()
+    .withMessage('Title must be a string')
+    .isLength({ min: 3 })
+    .withMessage('Title must be at least 3 characters long')
+    .trim().escape(),
+
+  body('is_completed')
+    .optional()
+    .isBoolean()
+    .withMessage('is_completed must be a boolean')
+    .toBoolean()
+    .escape(),
+
+  getValidationErrors
+]
+
+// prettier-ignore
+const destroyValidation = [
+  ...idParamValidation, 
+  getValidationErrors
+]
+
+// prettier-ignore
+const createValidation = [
   body('title')
     .exists({ checkFalsy: true, checkNull: true })
     .withMessage('Title is required')
@@ -30,31 +65,7 @@ const commonValidation = [
     .withMessage('is_completed must be a boolean')
     .toBoolean()
     .escape(),
-]
 
-// ------------------------------------
-// prettier-ignore
-const createValidation = [
-  ...commonValidation,
-  getValidationErrors
-]
-
-// prettier-ignore
-const showValidation = [
-  ...idValidation,
-  getValidationErrors
-]
-
-// prettier-ignore
-const updateValidation = [
-  ...idValidation,
-  ...commonValidation,
-  getValidationErrors
-]
-
-// prettier-ignore
-const destroyValidation = [
-  ...idValidation, 
   getValidationErrors
 ]
 

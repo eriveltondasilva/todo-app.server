@@ -1,5 +1,5 @@
 import ResponseStatus from '@/enums/responseStatus'
-import type { Express, Request, Response } from 'express'
+import type { Express, NextFunction, Request, Response } from 'express'
 
 // =====================================
 /** @desc Handles errors */
@@ -10,7 +10,8 @@ class ErrorHandler {
   }
 
   /** @desc Handles errors */
-  static handler(error: any, _: Request, res: Response) {
+  static handler(error: any, _: Request, res: Response, next: NextFunction) {
+    // need 'next: NextFunction' to pass the error to the express-async-errors middleware
     const errorMessage = error.message || 'Internal Server Error'
     const errorStatus = error.status || ResponseStatus.SERVER_ERROR
     const validations = error.validations || null
