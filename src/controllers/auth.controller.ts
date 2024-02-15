@@ -5,7 +5,7 @@ import type { NextFunction, Request, Response } from 'express'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
-import { JWT_REFRESH_TOKEN_SECRET } from '@/config/constants'
+import { JWT_REFRESH_TOKEN_SECRET } from '@/config/env'
 import { ConflictError, UnauthorizedError } from '@/services/error.service'
 import { generateAccessToken, generateTokens } from '@/utils/generateTokens'
 import { setAccessTokenCookie, setRefreshTokenCookie } from '@/utils/setSignedCookies'

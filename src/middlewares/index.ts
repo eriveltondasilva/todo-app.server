@@ -8,7 +8,7 @@ import helmet from 'helmet'
 import morgan from 'morgan'
 
 //* constants
-import { APP_HOST, COOKIE_PARSER_SECRET } from '@/config/constants'
+import { APP_HOST, COOKIE_PARSER_SECRET } from '@/config/env'
 
 // ====================================
 //* CORS options
