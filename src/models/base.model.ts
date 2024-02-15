@@ -59,7 +59,9 @@ abstract class BaseModel implements IBaseModel {
 
   //* Update a item
   async update<T>(itemId: number, body: T, authUserId: number): Promise<any> {
-    console.log(body)
+    // validate item exists
+    await this.findById(itemId, authUserId)
+
     const item = await (this.model[this.modelName as keyof PrismaClient] as any).update({
       where: {
         id: itemId,
@@ -75,6 +77,9 @@ abstract class BaseModel implements IBaseModel {
 
   //* Delete a item
   async deleteById(itemId: number, authUserId: number): Promise<any> {
+    // validate item exists
+    await this.findById(itemId, authUserId)
+
     const item = await (this.model[this.modelName as keyof PrismaClient] as any).delete({
       where: {
         id: itemId,
@@ -90,7 +95,7 @@ abstract class BaseModel implements IBaseModel {
   }
 
   //* Delete all items
-  async destroyManyById(itemIds: number[], authUserId?: number): Promise<any> {
+  async destroyManyById(itemIds: number[], authUserId: number): Promise<any> {
     const items = await (this.model[this.modelName as keyof PrismaClient] as any).deleteMany({
       where: {
         id: {
