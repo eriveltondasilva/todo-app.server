@@ -1,5 +1,5 @@
-import { Prisma } from '@prisma/client'
-import Seeder from './@seeder'
+import type { Prisma } from '@prisma/client'
+import Seeder from './@base.seeder'
 
 /**************************************
  * @class User Seeder

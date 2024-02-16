@@ -30,6 +30,8 @@ router.use('*', isAuthenticated)
 // ------------------------------------
 //# Todo Routes
 
+router.param('id', taskController.params)
+
 router
   .route('/tasks')
   .get(taskController.index)

@@ -1,6 +1,5 @@
 import type { Prisma } from '@prisma/client'
-
-import Seeder from './@seeder'
+import Seeder from './@base.seeder'
 
 /**************************************
  * @class Task Seeder

@@ -4,6 +4,7 @@ import type { AuthRequest } from '@/types/auth.request.type'
 import type { Prisma } from '@prisma/client'
 import type { NextFunction, Response } from 'express'
 
+import { NotFoundError } from '@/services/error.service'
 import BaseController from './@base.controller'
 
 // ====================================
@@ -18,6 +19,20 @@ class TaskController extends BaseController {
 
   //# TO-DO CONTROLLER METHODS
   // --------------------------
+  //* Params middleware
+  async params(req: AuthRequest, _: Response, next: NextFunction): Promise<void> {
+    const id = Number(req.params.id)
+    const authUserId = Number(req.user.id)
+
+    const task = await this.model.findById(id, authUserId)
+
+    if (!task) {
+      throw new NotFoundError('task not found')
+    }
+
+    return next()
+  }
+
   //* Retrieve all task items
   async index(req: AuthRequest, res: Response, next: NextFunction): Promise<void> {
     const authUserId = Number(req.user.id)

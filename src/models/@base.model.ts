@@ -1,4 +1,3 @@
-import { NotFoundError } from '@/services/error.service'
 import { PrismaClient } from '@prisma/client'
 
 // interface
@@ -31,16 +30,12 @@ abstract class BaseModel implements IBaseModel {
 
   //* Find a item by its ID
   async findById(itemId: number, authUserId: number): Promise<any> {
-    const item = await (this.model[this.modelName as keyof PrismaClient] as any).findUnique({
+    return await (this.model[this.modelName as keyof PrismaClient] as any).findUnique({
       where: {
         id: itemId,
         user_id: authUserId,
       },
     })
-
-    if (!item) throw new NotFoundError(`${this.modelName} not found`)
-
-    return item
   }
 
   //* Create a new item
@@ -59,9 +54,6 @@ abstract class BaseModel implements IBaseModel {
 
   //* Update a item
   async update<T>(itemId: number, body: T, authUserId: number): Promise<any> {
-    // validate item exists
-    await this.findById(itemId, authUserId)
-
     const item = await (this.model[this.modelName as keyof PrismaClient] as any).update({
       where: {
         id: itemId,
@@ -77,17 +69,12 @@ abstract class BaseModel implements IBaseModel {
 
   //* Delete a item
   async deleteById(itemId: number, authUserId: number): Promise<any> {
-    // validate item exists
-    await this.findById(itemId, authUserId)
-
     const item = await (this.model[this.modelName as keyof PrismaClient] as any).delete({
       where: {
         id: itemId,
         user_id: authUserId,
       },
     })
-
-    console.log(item)
 
     if (!item) throw new Error(`${this.modelName} not deleted`)
 

@@ -30,7 +30,7 @@
     "prisma:seed": "npx prisma db seed"
   },
   "prisma": {
-    "seed": "node prisma/seed"
+    "seed": "node prisma/seed/index.js"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
