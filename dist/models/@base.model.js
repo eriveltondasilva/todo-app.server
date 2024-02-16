@@ -9,7 +9,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const error_service_1 = require("../app/services/error.service");
 class BaseModel {
     constructor(model) {
         this.model = model;
@@ -26,15 +25,12 @@ class BaseModel {
     }
     findById(itemId, authUserId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const item = yield this.model[this.modelName].findUnique({
+            return yield this.model[this.modelName].findUnique({
                 where: {
                     id: itemId,
                     user_id: authUserId,
                 },
             });
-            if (!item)
-                throw new error_service_1.NotFoundError(`${this.modelName} not found`);
-            return item;
         });
     }
     create(body, authUserId) {
@@ -49,7 +45,6 @@ class BaseModel {
     }
     update(itemId, body, authUserId) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.findById(itemId, authUserId);
             const item = yield this.model[this.modelName].update({
                 where: {
                     id: itemId,
@@ -64,14 +59,12 @@ class BaseModel {
     }
     deleteById(itemId, authUserId) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.findById(itemId, authUserId);
             const item = yield this.model[this.modelName].delete({
                 where: {
                     id: itemId,
                     user_id: authUserId,
                 },
             });
-            console.log(item);
             if (!item)
                 throw new Error(`${this.modelName} not deleted`);
             return item;

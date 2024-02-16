@@ -12,12 +12,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const error_service_1 = require("../app/services/error.service");
 const _base_controller_1 = __importDefault(require("./@base.controller"));
 class TaskController extends _base_controller_1.default {
     constructor(response, model) {
         super(response);
         this.response = response;
         this.model = model;
+    }
+    params(req, _, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const id = Number(req.params.id);
+            const authUserId = Number(req.user.id);
+            const task = yield this.model.findById(id, authUserId);
+            if (!task) {
+                throw new error_service_1.NotFoundError('task not found');
+            }
+            return next();
+        });
     }
     index(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {

@@ -16,6 +16,7 @@ const taskModel = new task_model_1.default(prisma_singleton_1.default);
 const taskController = new task_controller_1.default(response, taskModel);
 const { createValidation, showValidation, updateValidation, destroyValidation, destroyManyValidation, } = task_validator_1.default;
 router.use('*', is_authenticated_mw_1.default);
+router.param('id', taskController.params);
 router
     .route('/tasks')
     .get(taskController.index)
