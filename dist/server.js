@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const env_1 = require("./app/config/env");
+const env_config_1 = require("./app/config/env.config");
 class Server {
     static start(app) {
         try {
@@ -15,6 +15,6 @@ class Server {
     }
 }
 Server.message = '🚀 Server running... \n🚪 Port: %d';
-Server.port = env_1.APP_PORT;
+Server.port = env_config_1.APP_PORT;
 exports.default = Server;
 //# sourceMappingURL=server.js.map

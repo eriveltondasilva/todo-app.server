@@ -3,10 +3,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const responseStatus_1 = __importDefault(require("../enums/responseStatus"));
+const response_status_enum_1 = __importDefault(require("../enums/response.status.enum"));
 class ResponseService {
     constructor() {
-        this.status = responseStatus_1.default;
+        this.status = response_status_enum_1.default;
     }
     sendResponse(res, code, body) {
         return res.status(code).json(body);

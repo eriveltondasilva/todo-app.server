@@ -94,4 +94,4 @@ class BaseModel {
     }
 }
 exports.default = BaseModel;
-//# sourceMappingURL=base.model.js.map
+//# sourceMappingURL=@base.model.js.map

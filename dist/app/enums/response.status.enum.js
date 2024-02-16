@@ -14,4 +14,4 @@ var ResponseStatus;
     ResponseStatus[ResponseStatus["SERVER_ERROR"] = 500] = "SERVER_ERROR";
 })(ResponseStatus || (ResponseStatus = {}));
 exports.default = ResponseStatus;
-//# sourceMappingURL=responseStatus.js.map
+//# sourceMappingURL=response.status.enum.js.map

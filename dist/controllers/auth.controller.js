@@ -14,12 +14,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const env_1 = require("../app/config/env");
+const env_config_1 = require("../app/config/env.config");
 const error_service_1 = require("../app/services/error.service");
-const generateTokens_1 = require("../app/utils/generateTokens");
-const setSignedCookies_1 = require("../app/utils/setSignedCookies");
-const base_controller_1 = __importDefault(require("./base.controller"));
-class AuthController extends base_controller_1.default {
+const generate_tokens_util_1 = require("../app/utils/generate.tokens.util");
+const set_signed_cookies_util_1 = require("../app/utils/set.signed.cookies.util");
+const _base_controller_1 = __importDefault(require("./@base.controller"));
+class AuthController extends _base_controller_1.default {
     constructor(response, model) {
         super(response);
         this.response = response;
@@ -54,9 +54,9 @@ class AuthController extends base_controller_1.default {
                 throw new error_service_1.UnauthorizedError("user's password is incorrect");
             }
             delete foundUser.password;
-            const { accessToken, refreshToken } = (0, generateTokens_1.generateTokens)(foundUser);
-            (0, setSignedCookies_1.setAccessTokenCookie)(res, accessToken);
-            (0, setSignedCookies_1.setRefreshTokenCookie)(res, refreshToken);
+            const { accessToken, refreshToken } = (0, generate_tokens_util_1.generateTokens)(foundUser);
+            (0, set_signed_cookies_util_1.setAccessTokenCookie)(res, accessToken);
+            (0, set_signed_cookies_util_1.setRefreshTokenCookie)(res, refreshToken);
             const date = new Date().toLocaleTimeString();
             return this.response.ok(res, {
                 message: 'logged in successfully!',
@@ -85,9 +85,9 @@ class AuthController extends base_controller_1.default {
             if (!refreshToken) {
                 throw new error_service_1.UnauthorizedError('refresh token not found');
             }
-            const decoded = jsonwebtoken_1.default.verify(refreshToken, env_1.JWT_REFRESH_TOKEN_SECRET);
-            const accessToken = (0, generateTokens_1.generateAccessToken)(decoded.user);
-            (0, setSignedCookies_1.setAccessTokenCookie)(res, accessToken);
+            const decoded = jsonwebtoken_1.default.verify(refreshToken, env_config_1.JWT_REFRESH_TOKEN_SECRET);
+            const accessToken = (0, generate_tokens_util_1.generateAccessToken)(decoded.user);
+            (0, set_signed_cookies_util_1.setAccessTokenCookie)(res, accessToken);
             const date = new Date().toLocaleTimeString();
             return this.response.ok(res, {
                 message: 'access token refreshed successfully!',

@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const getValidationErrors_1 = __importDefault(require("../../middlewares/getValidationErrors"));
+const get_validation_errors_mw_1 = __importDefault(require("../../middlewares/get.validation.errors.mw"));
 const express_validator_1 = require("express-validator");
 const commonValidation = [
     (0, express_validator_1.body)('email')
@@ -24,7 +24,7 @@ const commonValidation = [
 ];
 const loginValidation = [
     ...commonValidation,
-    getValidationErrors_1.default
+    get_validation_errors_mw_1.default
 ];
 const registerValidation = [
     (0, express_validator_1.body)('name')
@@ -38,7 +38,7 @@ const registerValidation = [
         .trim()
         .escape(),
     ...commonValidation,
-    getValidationErrors_1.default,
+    get_validation_errors_mw_1.default,
 ];
 exports.default = { loginValidation, registerValidation };
 //# sourceMappingURL=auth.validator.js.map

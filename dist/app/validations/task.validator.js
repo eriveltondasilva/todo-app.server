@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const getValidationErrors_1 = __importDefault(require("../../middlewares/getValidationErrors"));
+const get_validation_errors_mw_1 = __importDefault(require("../../middlewares/get.validation.errors.mw"));
 const express_validator_1 = require("express-validator");
 const idParamValidation = [
     (0, express_validator_1.param)('id')
@@ -16,7 +16,7 @@ const idParamValidation = [
 ];
 const showValidation = [
     ...idParamValidation,
-    getValidationErrors_1.default
+    get_validation_errors_mw_1.default
 ];
 const updateValidation = [
     ...idParamValidation,
@@ -33,11 +33,11 @@ const updateValidation = [
         .withMessage('is_completed must be a boolean')
         .toBoolean()
         .escape(),
-    getValidationErrors_1.default
+    get_validation_errors_mw_1.default
 ];
 const destroyValidation = [
     ...idParamValidation,
-    getValidationErrors_1.default
+    get_validation_errors_mw_1.default
 ];
 const createValidation = [
     (0, express_validator_1.body)('title')
@@ -54,7 +54,7 @@ const createValidation = [
         .withMessage('is_completed must be a boolean')
         .toBoolean()
         .escape(),
-    getValidationErrors_1.default
+    get_validation_errors_mw_1.default
 ];
 const destroyManyValidation = [
     (0, express_validator_1.body)('ids')
@@ -65,7 +65,7 @@ const destroyManyValidation = [
         .isInt({ min: 1 })
         .withMessage('ids must be an array of integers')
         .escape(),
-    getValidationErrors_1.default,
+    get_validation_errors_mw_1.default,
 ];
 exports.default = {
     createValidation,

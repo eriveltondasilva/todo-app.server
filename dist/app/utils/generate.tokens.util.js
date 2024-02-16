@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.generateRefreshToken = exports.generateAccessToken = exports.generateTokens = void 0;
-const env_1 = require("../config/env");
+const env_config_1 = require("../config/env.config");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 function generateTokens(user) {
     const accessToken = generateAccessToken(user);
@@ -13,11 +13,11 @@ function generateTokens(user) {
 }
 exports.generateTokens = generateTokens;
 function generateAccessToken(user) {
-    return jsonwebtoken_1.default.sign({ user }, env_1.JWT_ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
+    return jsonwebtoken_1.default.sign({ user }, env_config_1.JWT_ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
 }
 exports.generateAccessToken = generateAccessToken;
 function generateRefreshToken(user) {
-    return jsonwebtoken_1.default.sign({ user }, env_1.JWT_REFRESH_TOKEN_SECRET, { expiresIn: '7d' });
+    return jsonwebtoken_1.default.sign({ user }, env_config_1.JWT_REFRESH_TOKEN_SECRET, { expiresIn: '7d' });
 }
 exports.generateRefreshToken = generateRefreshToken;
-//# sourceMappingURL=generateTokens.js.map
+//# sourceMappingURL=generate.tokens.util.js.map

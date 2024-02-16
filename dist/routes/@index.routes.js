@@ -14,4 +14,4 @@ class Routes {
     }
 }
 exports.default = Routes;
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=@index.routes.js.map

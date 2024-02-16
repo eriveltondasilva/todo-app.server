@@ -5,13 +5,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 require("express-async-errors");
-const errorHandler_1 = __importDefault(require("./middlewares/errorHandler"));
-const index_1 = __importDefault(require("./middlewares/index"));
-const routes_1 = __importDefault(require("./routes"));
+const _index_mw_1 = __importDefault(require("./middlewares/@index.mw"));
+const error_handler_mw_1 = __importDefault(require("./middlewares/error.handler.mw"));
+const _index_routes_1 = __importDefault(require("./routes/@index.routes"));
 const server_1 = __importDefault(require("./server"));
 const app = (0, express_1.default)();
-index_1.default.use(app);
-routes_1.default.use(app);
-errorHandler_1.default.use(app);
+_index_mw_1.default.use(app);
+_index_routes_1.default.use(app);
+error_handler_mw_1.default.use(app);
 server_1.default.start(app);
 //# sourceMappingURL=index.js.map

@@ -17,4 +17,4 @@ function setRefreshTokenCookie(res, token) {
     return setCookie(res, 'refreshToken', token);
 }
 exports.setRefreshTokenCookie = setRefreshTokenCookie;
-//# sourceMappingURL=setSignedCookies.js.map
+//# sourceMappingURL=set.signed.cookies.util.js.map
