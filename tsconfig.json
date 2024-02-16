@@ -12,8 +12,26 @@
     "rootDir": "./src",
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/app/*"
+      "@/config/*": [
+        "./src/app/config/*"
+      ],
+      "@/enums/*": [
+        "./src/app/enums/*"
+      ],
+      "@/services/*": [
+        "./src/app/services/*"
+      ],
+      "@/singletons/*": [
+        "./src/app/singletons/*"
+      ],
+      "@/types/*": [
+        "./src/app/types/*"
+      ],
+      "@/utils/*": [
+        "./src/app/utils/*"
+      ],
+      "@/validations/*": [
+        "./src/app/validations/*"
       ],
       "@/controllers/*": [
         "./src/controllers/*"

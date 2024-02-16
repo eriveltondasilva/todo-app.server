@@ -3,7 +3,7 @@ import { Router } from 'express'
 import AuthController from '@/controllers/auth.controller'
 import UserModel from '@/models/user.model'
 import ResponseService from '@/services/response.service'
-import prisma from '@/singletons/prisma'
+import prisma from '@/singletons/prisma.singleton'
 import authValidation from '@/validations/auth.validator'
 
 // ------------------------------------

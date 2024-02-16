@@ -1,4 +1,4 @@
-import getValidationErrors from '@/middlewares/getValidationErrors'
+import getValidationErrors from '@/middlewares/get.validation.errors.mw'
 import { body, param } from 'express-validator'
 
 // ====================================

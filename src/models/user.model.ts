@@ -1,4 +1,4 @@
-import BaseModel, { IBaseModel } from './base.model'
+import BaseModel, { IBaseModel } from './@base.model'
 
 // interface
 export interface IUserModel extends IBaseModel {

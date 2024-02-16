@@ -1,4 +1,4 @@
-import ResponseStatus from '@/enums/responseStatus'
+import ResponseStatus from '@/enums/response.status.enum'
 
 // ====================================
 abstract class BaseError extends Error {

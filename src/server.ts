@@ -1,4 +1,4 @@
-import { APP_PORT } from '@/config/env'
+import { APP_PORT } from '@/config/env.config'
 import { Express } from 'express'
 
 // ====================================

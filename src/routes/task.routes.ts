@@ -1,10 +1,10 @@
 import { Router } from 'express'
 
 import TaskController from '@/controllers/task.controller'
-import isAuthenticated from '@/middlewares/isAuthenticated'
+import isAuthenticated from '@/middlewares/is.authenticated.mw'
 import TaskModel from '@/models/task.model'
 import ResponseService from '@/services/response.service'
-import prisma from '@/singletons/prisma'
+import prisma from '@/singletons/prisma.singleton'
 import taskValidation from '@/validations/task.validator'
 
 // ------------------------------------

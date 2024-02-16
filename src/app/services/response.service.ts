@@ -1,4 +1,4 @@
-import ResponseStatus from '@/enums/responseStatus'
+import ResponseStatus from '@/enums/response.status.enum'
 import type { Response } from 'express'
 
 // interface

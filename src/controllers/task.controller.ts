@@ -1,10 +1,10 @@
-import type { IBaseModel } from '@/models/base.model'
+import type { IBaseModel } from '@/models/@base.model'
 import type { IResponse } from '@/services/response.service'
-import type { AuthRequest } from '@/types/authRequest'
+import type { AuthRequest } from '@/types/auth.request.type'
 import type { Prisma } from '@prisma/client'
 import type { NextFunction, Response } from 'express'
 
-import BaseController from './base.controller'
+import BaseController from './@base.controller'
 
 // ====================================
 /** @desc Task Controller Class */

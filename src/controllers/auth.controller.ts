@@ -5,11 +5,11 @@ import type { NextFunction, Request, Response } from 'express'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
-import { JWT_REFRESH_TOKEN_SECRET } from '@/config/env'
+import { JWT_REFRESH_TOKEN_SECRET } from '@/config/env.config'
 import { ConflictError, UnauthorizedError } from '@/services/error.service'
-import { generateAccessToken, generateTokens } from '@/utils/generateTokens'
-import { setAccessTokenCookie, setRefreshTokenCookie } from '@/utils/setSignedCookies'
-import BaseController from './base.controller'
+import { generateAccessToken, generateTokens } from '@/utils/generate.tokens.util'
+import { setAccessTokenCookie, setRefreshTokenCookie } from '@/utils/set.signed.cookies.util'
+import BaseController from './@base.controller'
 
 // ====================================
 /** @desc Auth Controller Class */

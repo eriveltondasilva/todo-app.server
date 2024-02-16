@@ -1,8 +1,8 @@
-import type { AuthRequest } from '@/types/authRequest'
+import type { AuthRequest } from '@/types/auth.request.type'
 import type { NextFunction, Response } from 'express'
 import jwt, { type JwtPayload } from 'jsonwebtoken'
 
-import { JWT_ACCESS_TOKEN_SECRET } from '@/config/env'
+import { JWT_ACCESS_TOKEN_SECRET } from '@/config/env.config'
 import { UnauthorizedError } from '@/services/error.service'
 
 // =====================================
