@@ -1,0 +1,28 @@
+@host = http://localhost:3000/api/auth
+
+POST {{host}}/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "erivelton@prisma.io",
+    "password": 12345678
+}
+
+####
+
+POST {{host}}/logout HTTP/1.1
+
+#####
+
+POST {{host}}/refresh-token HTTP/1.1
+
+####
+
+POST {{host}}/register HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "teste",
+    "email": "teste@prisma.io",
+    "password": 12345678
+}

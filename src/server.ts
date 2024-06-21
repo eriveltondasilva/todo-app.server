@@ -1,24 +1,15 @@
 import { APP_PORT } from '@/config/env.config'
 import { Express } from 'express'
 
-// ====================================
-/** @desc Represents a server that starts and listens for incoming connections */
-class Server {
-  private static readonly message = '🚀 Server running... \n🚪 Port: %d'
-  private static readonly port = APP_PORT
-
-  /** @desc Starts the server and listens on the specified port 3000 **/
-  static start(app: Express): void {
-    try {
-      app.listen(this.port, () => {
-        console.log(this.message, this.port)
-      })
-    } catch (error: any) {
-      console.error(error.message)
-      process.exit(1)
-    }
+async function start(app: Express) {
+  const message = '🚀 Server running... \n🚪 Port: %d'
+  try {
+    await app.listen(APP_PORT)
+    console.log(message, APP_PORT)
+  } catch (e: any) {
+    console.error(e.message)
+    process.exit(1)
   }
 }
 
-// --------------------------
-export default Server
+export default { start }

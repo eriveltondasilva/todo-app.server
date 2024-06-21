@@ -94,10 +94,6 @@ class AuthController extends BaseController {
   async logout(req: Request, res: Response, next: NextFunction): Promise<void> {
     const { accessToken } = req.signedCookies
 
-    if (!accessToken) {
-      throw new UnauthorizedError('access token not found')
-    }
-
     // Clear cookies
     res.clearCookie('accessToken')
     res.clearCookie('refreshToken')
