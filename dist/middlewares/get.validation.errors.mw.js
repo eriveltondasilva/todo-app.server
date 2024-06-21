@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = getValidationErrors;
 const express_validator_1 = require("express-validator");
 const error_service_1 = require("../app/services/error.service");
 function getValidationErrors(req, _, next) {
@@ -10,5 +11,4 @@ function getValidationErrors(req, _, next) {
     }
     return next();
 }
-exports.default = getValidationErrors;
 //# sourceMappingURL=get.validation.errors.mw.js.map

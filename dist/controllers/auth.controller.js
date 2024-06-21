@@ -68,9 +68,6 @@ class AuthController extends _base_controller_1.default {
     logout(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             const { accessToken } = req.signedCookies;
-            if (!accessToken) {
-                throw new error_service_1.UnauthorizedError('access token not found');
-            }
             res.clearCookie('accessToken');
             res.clearCookie('refreshToken');
             return this.response.ok(res, {

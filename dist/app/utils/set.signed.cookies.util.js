@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.setRefreshTokenCookie = exports.setAccessTokenCookie = void 0;
+exports.setAccessTokenCookie = setAccessTokenCookie;
+exports.setRefreshTokenCookie = setRefreshTokenCookie;
 function setCookie(res, name, value) {
     return res.cookie(name, value, {
         httpOnly: true,
@@ -12,9 +13,7 @@ function setCookie(res, name, value) {
 function setAccessTokenCookie(res, token) {
     return setCookie(res, 'accessToken', token);
 }
-exports.setAccessTokenCookie = setAccessTokenCookie;
 function setRefreshTokenCookie(res, token) {
     return setCookie(res, 'refreshToken', token);
 }
-exports.setRefreshTokenCookie = setRefreshTokenCookie;
 //# sourceMappingURL=set.signed.cookies.util.js.map
