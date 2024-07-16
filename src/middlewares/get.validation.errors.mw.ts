@@ -4,7 +4,11 @@ import { validationResult } from 'express-validator'
 import { ValidationError } from '@/services/error.service'
 
 // =====================================
-export default function getValidationErrors(req: Request, _: Response, next: NextFunction) {
+export default function getValidationErrors(
+  req: Request,
+  _: Response,
+  next: NextFunction,
+) {
   const result = validationResult(req)
 
   if (!result.isEmpty()) {

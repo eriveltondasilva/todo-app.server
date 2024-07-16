@@ -7,8 +7,14 @@ import jwt from 'jsonwebtoken'
 
 import { JWT_REFRESH_TOKEN_SECRET } from '@/config/env.config'
 import { ConflictError, UnauthorizedError } from '@/services/error.service'
-import { generateAccessToken, generateTokens } from '@/utils/generate.tokens.util'
-import { setAccessTokenCookie, setRefreshTokenCookie } from '@/utils/set.signed.cookies.util'
+import {
+  generateAccessToken,
+  generateTokens,
+} from '@/utils/generate.tokens.util'
+import {
+  setAccessTokenCookie,
+  setRefreshTokenCookie,
+} from '@/utils/set.signed.cookies.util'
 import BaseController from './@base.controller'
 
 // ====================================
@@ -24,7 +30,11 @@ class AuthController extends BaseController {
   //# Auth Methods
   // --------------------------
   //* SIGNUP USER
-  async register(req: Request, res: Response, next: NextFunction): Promise<void> {
+  async register(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
     const { name, email, password } = req.body
 
     // Check if user already exists
@@ -64,7 +74,10 @@ class AuthController extends BaseController {
 
     // -------------------------------------------------
     // Check if the password is correct
-    const isPasswordCorrect = await bcrypt.compare(String(password), foundUser.password)
+    const isPasswordCorrect = await bcrypt.compare(
+      String(password),
+      foundUser.password,
+    )
 
     if (!isPasswordCorrect) {
       throw new UnauthorizedError("user's password is incorrect")
@@ -105,7 +118,11 @@ class AuthController extends BaseController {
   }
 
   //* REFRESH TOKEN ------------------------------------------------------
-  async refresh(req: Request, res: Response, next: NextFunction): Promise<void> {
+  async refresh(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
     const { refreshToken } = req.signedCookies
 
     if (!refreshToken) {

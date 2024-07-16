@@ -19,7 +19,9 @@ abstract class BaseController {
       typeof instance[name as keyof T] === 'function' && name !== 'constructor'
 
     // =>
-    return Object.getOwnPropertyNames(prototype).filter(filteredMethods) as (keyof T)[]
+    return Object.getOwnPropertyNames(prototype).filter(
+      filteredMethods,
+    ) as (keyof T)[]
   }
 
   //* Bind methods to the current instance

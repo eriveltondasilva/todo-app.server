@@ -1,0 +1,9 @@
+// model Task {
+//     id           Int      @id @default(autoincrement())
+//     title        String
+//     is_completed Boolean  @default(false)
+//     user_id      Int      @default(1)
+//     user         User     @relation(fields: [user_id], references: [id])
+//     created_at   DateTime @default(now())
+//     updated_at   DateTime @updatedAt
+// }

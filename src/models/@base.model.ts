@@ -13,7 +13,9 @@ export interface IBaseModel {
 // ====================================
 /** @desc Base Model class */
 abstract class BaseModel implements IBaseModel {
-  protected modelName: string = this.constructor.name.toLowerCase().replace('model', '')
+  protected modelName: string = this.constructor.name
+    .toLowerCase()
+    .replace('model', '')
 
   constructor(protected model: PrismaClient) {}
 
@@ -21,7 +23,9 @@ abstract class BaseModel implements IBaseModel {
   // --------------------------
   //* Retrieves all model's items from the database.
   async findAll(authUserId: number): Promise<any[]> {
-    return await (this.model[this.modelName as keyof PrismaClient] as any).findMany({
+    return await (
+      this.model[this.modelName as keyof PrismaClient] as any
+    ).findMany({
       where: {
         user_id: authUserId,
       },
@@ -30,7 +34,9 @@ abstract class BaseModel implements IBaseModel {
 
   //* Find a item by its ID
   async findById(itemId: number, authUserId: number): Promise<any> {
-    return await (this.model[this.modelName as keyof PrismaClient] as any).findUnique({
+    return await (
+      this.model[this.modelName as keyof PrismaClient] as any
+    ).findUnique({
       where: {
         id: itemId,
         user_id: authUserId,
@@ -40,7 +46,9 @@ abstract class BaseModel implements IBaseModel {
 
   //* Create a new item
   async create<T>(body: T, authUserId?: number): Promise<any> {
-    const item = await (this.model[this.modelName as keyof PrismaClient] as any).create({
+    const item = await (
+      this.model[this.modelName as keyof PrismaClient] as any
+    ).create({
       data: {
         ...body,
         user_id: authUserId,
@@ -54,7 +62,9 @@ abstract class BaseModel implements IBaseModel {
 
   //* Update a item
   async update<T>(itemId: number, body: T, authUserId: number): Promise<any> {
-    const item = await (this.model[this.modelName as keyof PrismaClient] as any).update({
+    const item = await (
+      this.model[this.modelName as keyof PrismaClient] as any
+    ).update({
       where: {
         id: itemId,
         user_id: authUserId,
@@ -69,7 +79,9 @@ abstract class BaseModel implements IBaseModel {
 
   //* Delete a item
   async deleteById(itemId: number, authUserId: number): Promise<any> {
-    const item = await (this.model[this.modelName as keyof PrismaClient] as any).delete({
+    const item = await (
+      this.model[this.modelName as keyof PrismaClient] as any
+    ).delete({
       where: {
         id: itemId,
         user_id: authUserId,
@@ -83,7 +95,9 @@ abstract class BaseModel implements IBaseModel {
 
   //* Delete all items
   async destroyManyById(itemIds: number[], authUserId: number): Promise<any> {
-    const items = await (this.model[this.modelName as keyof PrismaClient] as any).deleteMany({
+    const items = await (
+      this.model[this.modelName as keyof PrismaClient] as any
+    ).deleteMany({
       where: {
         id: {
           in: itemIds,

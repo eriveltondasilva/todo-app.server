@@ -1,4 +1,7 @@
-import { JWT_ACCESS_TOKEN_SECRET, JWT_REFRESH_TOKEN_SECRET } from '@/config/env.config'
+import {
+  JWT_ACCESS_TOKEN_SECRET,
+  JWT_REFRESH_TOKEN_SECRET,
+} from '@/config/env.config'
 import jwt from 'jsonwebtoken'
 
 type Tokens = { accessToken: string; refreshToken: string }

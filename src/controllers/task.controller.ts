@@ -20,7 +20,11 @@ class TaskController extends BaseController {
   //# TO-DO CONTROLLER METHODS
   // --------------------------
   //* Params middleware
-  async params(req: AuthRequest, _: Response, next: NextFunction): Promise<void> {
+  async params(
+    req: AuthRequest,
+    _: Response,
+    next: NextFunction,
+  ): Promise<void> {
     const id = Number(req.params.id)
     const authUserId = Number(req.user.id)
 
@@ -34,7 +38,11 @@ class TaskController extends BaseController {
   }
 
   //* Retrieve all task items
-  async index(req: AuthRequest, res: Response, next: NextFunction): Promise<void> {
+  async index(
+    req: AuthRequest,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
     const authUserId = Number(req.user.id)
 
     const tasks = await this.model.findAll(authUserId)
@@ -42,7 +50,11 @@ class TaskController extends BaseController {
   }
 
   //* Find a task by its ID
-  async show(req: AuthRequest, res: Response, next: NextFunction): Promise<void> {
+  async show(
+    req: AuthRequest,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
     const id = Number(req.params.id)
     const authUserId = Number(req.user.id)
 
@@ -51,19 +63,30 @@ class TaskController extends BaseController {
   }
 
   //* Create a new task item
-  async create(req: AuthRequest, res: Response, next: NextFunction): Promise<void> {
+  async create(
+    req: AuthRequest,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
     const authUserId = Number(req.user.id)
     const body = req.body
 
     // Convert boolean string to boolean
     body.is_completed = body.is_completed === 'true'
 
-    const task = await this.model.create<Prisma.TaskCreateInput>(body, authUserId)
+    const task = await this.model.create<Prisma.TaskCreateInput>(
+      body,
+      authUserId,
+    )
     return this.response.created(res, task)
   }
 
   //* Update a task item
-  async update(req: AuthRequest, res: Response, next: NextFunction): Promise<void> {
+  async update(
+    req: AuthRequest,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
     const id = Number(req.params.id)
     const authUserId = Number(req.user.id)
     const body = req.body
@@ -71,12 +94,20 @@ class TaskController extends BaseController {
     // Convert boolean string to boolean
     body.is_completed = body.is_completed === 'true'
 
-    const task = await this.model.update<Prisma.TaskUpdateInput>(id, body, authUserId)
+    const task = await this.model.update<Prisma.TaskUpdateInput>(
+      id,
+      body,
+      authUserId,
+    )
     return this.response.ok(res, task)
   }
 
   //* Delete a task item.
-  async destroy(req: AuthRequest, res: Response, next: NextFunction): Promise<void> {
+  async destroy(
+    req: AuthRequest,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
     const id = Number(req.params.id)
     const authUserId = Number(req.user.id)
 
@@ -85,7 +116,11 @@ class TaskController extends BaseController {
   }
 
   //* Delete a task item.
-  async destroyMany(req: AuthRequest, res: Response, next: NextFunction): Promise<void> {
+  async destroyMany(
+    req: AuthRequest,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
     const authUserId = Number(req.user.id)
 
     const taskIds: number[] = req.body.ids.map((id: any) => {
